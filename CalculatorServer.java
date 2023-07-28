@@ -1,12 +1,17 @@
 import java.rmi.*;  
 import java.rmi.registry.*;  
+import java.rmi.server.UnicastRemoteObject;
 
-public class CalculatorServer{  
+public class CalculatorServer
+{  
 
     public static void main(String args[]){  
         try{  
-            Calculator calc = new CalculatorImplementation();  
-            Naming.rebind("rmi://localhost:5000/calculatorServer", calc);  
+            Calculator server = new CalculatorImplementation();
+
+            Registry registry = LocateRegistry.createRegistry(1099);
+
+            registry.rebind("Calc", server);
         }
         catch (Exception error) 
         {

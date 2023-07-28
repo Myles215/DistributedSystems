@@ -1,4 +1,5 @@
 import java.rmi.*;  
+import java.rmi.registry.*;  
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,7 +9,9 @@ public class CalculatorClient
     public static void main(String args[]){  
         try
         {  
-            Calculator calc = (Calculator)Naming.lookup("rmi://localhost:5000/calculatorServer");  
+
+            Registry registry = LocateRegistry.getRegistry();
+            Calculator calc = (Calculator) registry.lookup("Calc");
 
             System.out.println("Wooorking");
 
@@ -22,9 +25,8 @@ public class CalculatorClient
                 System.out.println("Input:");
                 input = reader.readLine();
 
-                if (input == "pop")
+                if (input.contains("pop"))
                 {
-                    System.out.println("Popping");
                     System.out.println(calc.pop());
                 }
                 else if (input == "isEmpty")
@@ -36,11 +38,7 @@ public class CalculatorClient
                     int i = 5;
                     String num = "";
 
-                    System.out.println(input);
-
                     while (i < input.length()) num += input.charAt(i++);
-
-                    System.out.println(num);
 
                     Integer n = Integer.parseInt(num);
 
