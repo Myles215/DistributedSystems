@@ -1,11 +1,12 @@
 import java.rmi.*;  
 import java.util.Scanner;
 
-public class MyClient{  
+public class CalculatorClient 
+{  
     public static void main(String args[]){  
         try
         {  
-            CalculatorImplementation calc = (CalculatorImplementation)Naming.lookup("rmi://localhost:5000/calculatorServer");  
+            Calculator calc = (Calculator)Naming.lookup("rmi://localhost:5000/calculatorServer");  
 
             String input = "";
             Scanner scan = new Scanner(System.in);
@@ -16,28 +17,28 @@ public class MyClient{
 
                 if (input == "pop")
                 {
-                    System.println(calc.pop());
+                    System.out.println(calc.pop());
                 }
                 else if (input == "isEmpty")
                 {
-                    System.println(calc.isEmpty());
+                    System.out.println(calc.isEmpty());
                 }
                 else if (input.contains("push"))
                 {
                     int i = 5;
-                    string num = "";
+                    String num = "";
 
-                    while (i < input.length) num += input[i++];
+                    while (i < input.length()) num += input.indexOf(i++);
 
-                    int n = integer.parseInt(num);
-                    calc.push(n);
+                    int n = Integer.parseInt(num);
+                    calc.pushValue(n);
                 }
             }
 
         }
         catch (Exception e)
         {
-            System.println(e);
+            System.out.println(e);
         }  
     }  
 

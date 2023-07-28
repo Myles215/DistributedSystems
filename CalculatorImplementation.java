@@ -1,7 +1,13 @@
 import java.util.ArrayList;
+import java.rmi.*;  
+import java.rmi.server.*;  
 
-public class CalculatorImplementation extends Calculator
+public class CalculatorImplementation implements Calculator
 {
+
+    CalculatorImplementation() throws RemoteException{  
+        super();  
+    }  
 
     public void pushValue(int val) 
     {

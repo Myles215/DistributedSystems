@@ -1,13 +1,14 @@
 
 import java.util.ArrayList;
+import java.rmi.*; 
 
-class Calculator 
+interface Calculator extends Remote
 {
     ArrayList<Integer> stack = new ArrayList<Integer>();
 
-    void pushValue(int val) {}
-    void pushOperation(String operator) {}
-    int pop() { return 0; }
-    boolean isEmpty() {return false; }
-    int delayPop(int millis) { return 0; }
+    void pushValue(int val) throws RemoteException;  
+    void pushOperation(String operator) throws RemoteException;  
+    int pop() throws RemoteException;  
+    boolean isEmpty() throws RemoteException;  
+    int delayPop(int millis) throws RemoteException;  
 }

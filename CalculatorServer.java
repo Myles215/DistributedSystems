@@ -1,14 +1,14 @@
-import java.rmi.Naming;  
+import java.rmi.*;  
 import java.rmi.registry.*;  
 
-public class calculatorServer{  
+public class CalculatorServer{  
 
     public static void main(String args[]){  
         try{  
-            CalculatorImplementation calc = new CalculatorImplementation();  
+            Calculator calc = new CalculatorImplementation();  
             Naming.rebind("rmi://localhost:5000/calculatorServer", calc);  
         }
-        catch (Exception e) 
+        catch (Exception error) 
         {
             System.out.println(error);
         }  
