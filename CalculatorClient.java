@@ -1,5 +1,7 @@
 import java.rmi.*;  
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class CalculatorClient 
 {  
@@ -8,15 +10,21 @@ public class CalculatorClient
         {  
             Calculator calc = (Calculator)Naming.lookup("rmi://localhost:5000/calculatorServer");  
 
+            System.out.println("Wooorking");
+
             String input = "";
-            Scanner scan = new Scanner(System.in);
+
+            BufferedReader reader = new BufferedReader(
+            new InputStreamReader(System.in));
 
             while (input != "end")
             {
-                input = scan.nextLine();
+                System.out.println("Input:");
+                input = reader.readLine();
 
                 if (input == "pop")
                 {
+                    System.out.println("Popping");
                     System.out.println(calc.pop());
                 }
                 else if (input == "isEmpty")
@@ -28,9 +36,16 @@ public class CalculatorClient
                     int i = 5;
                     String num = "";
 
-                    while (i < input.length()) num += input.indexOf(i++);
+                    System.out.println(input);
 
-                    int n = Integer.parseInt(num);
+                    while (i < input.length()) num += input.charAt(i++);
+
+                    System.out.println(num);
+
+                    Integer n = Integer.parseInt(num);
+
+                    System.out.println("Pushing integer: " + n);
+
                     calc.pushValue(n);
                 }
             }

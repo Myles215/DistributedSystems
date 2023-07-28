@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.rmi.*;  
 import java.rmi.server.*;  
 
-public class CalculatorImplementation implements Calculator
+public class CalculatorImplementation extends UnicastRemoteObject implements Calculator
 {
 
     CalculatorImplementation() throws RemoteException{  
@@ -27,7 +27,7 @@ public class CalculatorImplementation implements Calculator
     public int pop() 
     {
         int index = stack.size()-1;
-        int ret = stack.indexOf(index);
+        int ret = stack.get(index);
         stack.remove(index);
 
         return ret;
