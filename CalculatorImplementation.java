@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+
 import java.rmi.*;  
 import java.rmi.server.*;  
 
@@ -19,9 +21,60 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
     }
 
+
     private int gcd(ArrayList<Integer> a)
     {
-        return 0;
+        for (int i = Collections.min(a); i > 1 ; i--)
+        {
+            boolean newDenominator = true;
+
+            for (int j = 0;j<a.size();j++)
+            {
+                if (a.get(j) % i != 0)
+                {
+                    newDenominator = false;
+                    break;
+                }
+            }
+
+            if (newDenominator)
+            {
+                return i;
+            }
+        }
+
+        return 1;
+    }
+
+    private int lcm(ArrayList<Integer> a)
+    {
+
+        int lcm = -1;
+        int add;
+        int check = add = Collections.max(a);
+
+        while (lcm == -1)
+        {
+            boolean newLcm = true;
+
+            for (int j = 0;j<a.size();j++)
+            {
+                if (check % a.get(j) != 0)
+                {
+                    newLcm = false;
+                    break;
+                }
+            }
+
+            if (newLcm)
+            {
+                lcm = check;
+            }
+
+            check += add;
+        }
+
+        return lcm;
     }
 
     public int pop() 
