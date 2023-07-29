@@ -9,8 +9,8 @@ repositories {
 }
  
 
-sourceCompatibility = 9
-targetCompatibility = 9
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
  
 dependencies {
@@ -21,6 +21,15 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass = 'com.example.App'
+}
+
+sourceSets {
+
+    test {
+        java {
+            srcDirs = ["./"]
+        }
+    }
 }
  
 test {
