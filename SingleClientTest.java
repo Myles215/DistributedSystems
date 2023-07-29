@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.rmi.*;  
 import java.rmi.registry.*;  
+import java.rmi.server.UnicastRemoteObject;
 
 public class SingleClientTest {
 
@@ -29,6 +30,13 @@ public class SingleClientTest {
         Registry clientRegistry = LocateRegistry.getRegistry();
         client = (Calculator) clientRegistry.lookup("Calc");
     }
+
+        //This destroys the server
+    // @After
+    // static public void Exit()
+    // {
+    //     UnicastRemoteObject.unexportObject(server, true);
+    // }
 
     @Test
     public void pushAndPop() throws RemoteException 
@@ -74,10 +82,19 @@ public class SingleClientTest {
         assertEquals(client.isEmpty(), true);
     }
 
-    //This destroys the server
-    @AfterClass
-    static public void Exit()
+    @Test 
+    public void gcdPositives() throws RemoteException
     {
-        System.exit(0);
+
+        int curGcd = 4;
+
+        client.pushValue(2*4);
+        client.pushValue(3*4);
+        client.pushValue(6*4);
+
+        client.pushOperation("gcd");
+
+        assertEquals(client.pop(), curGcd);
+
     }
 }

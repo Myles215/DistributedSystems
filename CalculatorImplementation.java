@@ -7,7 +7,8 @@ import java.rmi.server.*;
 public class CalculatorImplementation extends UnicastRemoteObject implements Calculator
 {
 
-    CalculatorImplementation() throws RemoteException{  
+    CalculatorImplementation() throws RemoteException
+    {  
         super();  
     }  
 
@@ -18,13 +19,39 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
     public void pushOperation(String operator) 
     {
+        ArrayList<Integer> pass = stack;
+        stack.clear();
 
+        if (operator == "min")
+        {
+            pushValue(Collections.min(pass));
+        }
+        else if (operator == "max")
+        {
+            pushValue(Collections.max(pass));
+        }
+        else if (operator == "gcd")
+        {
+            pushValue(gcd(pass));
+        }
+        else if (operator == "lcm")
+        {
+            pushValue(lcm(pass));
+        }
     }
 
 
     private int gcd(ArrayList<Integer> a)
     {
-        for (int i = Collections.min(a); i > 1 ; i--)
+
+        int start = 0;
+
+        for (int i = 0;i<a.size();i++)
+        {
+            start = start == 0 ? Math.abs(a.get(i)) : Math.min(start, Math.abs(a.get(i)));
+        }
+
+        for (int i = start; i > 1 ; i--)
         {
             boolean newDenominator = true;
 
@@ -50,16 +77,23 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
     {
 
         int lcm = -1;
-        int add;
-        int check = add = Collections.max(a);
+        int start = 0;
+
+        for (int i = 0;i<a.size();i++)
+        {
+            start = start == 0 ? Math.abs(a.get(i)) : Math.max(start, Math.abs(a.get(i)));
+        }
+
+        int count = 0;
 
         while (lcm == -1)
         {
             boolean newLcm = true;
+            count++;
 
             for (int j = 0;j<a.size();j++)
             {
-                if (check % a.get(j) != 0)
+                if ((start*count) % a.get(j) != 0)
                 {
                     newLcm = false;
                     break;
@@ -68,10 +102,8 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
             if (newLcm)
             {
-                lcm = check;
+                lcm = start*count;
             }
-
-            check += add;
         }
 
         return lcm;
@@ -92,6 +124,11 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
     }
 
     public int delayPop(int millis) {
-        return 0;
+        long start = System.currentTimeMillis();
+
+        while (System.currentTimeMillis() < start + millis);
+
+        return pop();
+
     }
 }
