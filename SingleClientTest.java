@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.AfterClass;
 import org.junit.Test;
 
@@ -11,17 +12,12 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class SingleClientTest {
 
-    Calculator server;
-    Calculator client;
-    boolean setupDone = false;
+    static Calculator server;
+    static Calculator client;
 
-    @Before
-    public void setUp() throws Exception 
+    @BeforeClass
+    static public void setUp() throws Exception 
     {
-
-        if (setupDone) return;
-
-        setupDone = true;
 
         server = new CalculatorImplementation();
         Registry serverRegistry = LocateRegistry.createRegistry(1099);
@@ -31,12 +27,12 @@ public class SingleClientTest {
         client = (Calculator) clientRegistry.lookup("Calc");
     }
 
-        //This destroys the server
-    // @After
-    // static public void Exit()
-    // {
-    //     UnicastRemoteObject.unexportObject(server, true);
-    // }
+    //This destroys the server
+    @AfterClass
+    static public void Exit() throws Exception
+    {
+        //System.exit(0);
+    }
 
     @Test
     public void pushAndPop() throws RemoteException 
@@ -83,7 +79,7 @@ public class SingleClientTest {
     }
 
     @Test 
-    public void gcdPositives() throws RemoteException
+    public void gcdPositives() throws Exception
     {
 
         int curGcd = 4;

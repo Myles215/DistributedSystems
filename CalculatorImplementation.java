@@ -19,22 +19,22 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
     public void pushOperation(String operator) 
     {
-        ArrayList<Integer> pass = stack;
+        ArrayList<Integer> pass = new ArrayList<Integer>(stack);
         stack.clear();
 
-        if (operator == "min")
+        if (operator.equals("min"))
         {
             pushValue(Collections.min(pass));
         }
-        else if (operator == "max")
+        else if (operator.equals("max"))
         {
             pushValue(Collections.max(pass));
         }
-        else if (operator == "gcd")
+        else if (operator.equals("gcd"))
         {
             pushValue(gcd(pass));
         }
-        else if (operator == "lcm")
+        else if (operator.equals("lcm"))
         {
             pushValue(lcm(pass));
         }
@@ -44,11 +44,11 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
     private int gcd(ArrayList<Integer> a)
     {
 
-        int start = 0;
+        int start = Math.abs(a.get(0));
 
-        for (int i = 0;i<a.size();i++)
+        for (int i = 1;i<a.size();i++)
         {
-            start = start == 0 ? Math.abs(a.get(i)) : Math.min(start, Math.abs(a.get(i)));
+            start = Math.min(start, Math.abs(a.get(i)));
         }
 
         for (int i = start; i > 1 ; i--)
@@ -111,6 +111,9 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
     public int pop() 
     {
+
+        //if (isEmpty()) return -1;
+
         int index = stack.size()-1;
         int ret = stack.get(index);
         stack.remove(index);
