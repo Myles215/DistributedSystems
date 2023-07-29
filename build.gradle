@@ -1,0 +1,38 @@
+plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'application'
+}
+ 
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+ 
+
+sourceCompatibility = 9
+targetCompatibility = 9
+
+ 
+dependencies {
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.2'
+}
+ 
+application {
+    // Define the main class for the application.
+    mainClass = 'com.example.App'
+}
+ 
+test {
+    useJUnit {
+     
+    }
+ 
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+ 
+    systemProperties System.properties
+    reports.html.setDestination(file("$projectDir/GradleReports"))
+}
