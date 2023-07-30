@@ -27,13 +27,6 @@ public class SingleClientTest {
         client = (Calculator) clientRegistry.lookup("Calc");
     }
 
-    //This destroys the server
-    @AfterClass
-    static public void Exit() throws Exception
-    {
-        //System.exit(0);
-    }
-
     @Test
     public void pushAndPop() throws RemoteException 
     {
@@ -65,6 +58,14 @@ public class SingleClientTest {
     }
 
     @Test
+    public void pushAndPopDelay() throws Exception
+    {
+        client.pushValue(6);
+
+        assertEquals(client.pop(), 6);
+    }
+
+    @Test
     public void emptiness() throws RemoteException
     {
         assertEquals(client.isEmpty(), true);
@@ -84,13 +85,172 @@ public class SingleClientTest {
 
         int curGcd = 4;
 
-        client.pushValue(2*4);
-        client.pushValue(3*4);
-        client.pushValue(6*4);
+        client.pushValue(2*curGcd);
+        client.pushValue(3*curGcd);
+        client.pushValue(6*curGcd);
+
+        client.pushOperation("gcd");
+
+        assertEquals(client.pop(), curGcd);
+
+        curGcd = 8;
+
+        client.pushValue(3*curGcd);
+        client.pushValue(1*curGcd);
+        client.pushValue(5*curGcd);
 
         client.pushOperation("gcd");
 
         assertEquals(client.pop(), curGcd);
 
     }
+
+    @Test
+    public void gcdNegatives() throws Exception
+    {
+        int curGcd = -3;
+
+        client.pushValue(2*curGcd);
+        client.pushValue(3*curGcd);
+        client.pushValue(6*curGcd);
+
+        client.pushOperation("gcd");
+
+        assertEquals(client.pop(), Math.abs(curGcd));
+
+        curGcd = -7;
+
+        client.pushValue(3*curGcd);
+        client.pushValue(1*curGcd);
+        client.pushValue(5*curGcd);
+
+        client.pushOperation("gcd");
+
+        assertEquals(client.pop(), Math.abs(curGcd));
+    }
+
+    @Test
+    public void gcdPositivesAndNegatives() throws Exception
+    {
+        int curGcd = -6;
+
+        client.pushValue(2*curGcd);
+        client.pushValue(-3*curGcd);
+        client.pushValue(-6*curGcd);
+
+        client.pushOperation("gcd");
+
+        assertEquals(client.pop(), Math.abs(curGcd));
+
+        curGcd = 7;
+
+        client.pushValue(3*curGcd);
+        client.pushValue(-1*curGcd);
+        client.pushValue(5*curGcd);
+
+        client.pushOperation("gcd");
+
+        assertEquals(client.pop(), Math.abs(curGcd));
+    }
+
+    @Test
+    public void maxPositives() throws Exception
+    {
+        int max = 11;
+
+        client.pushValue(max - 10);
+        client.pushValue(max - 2);
+        client.pushValue(max);
+
+        client.pushOperation("max");
+
+        assertEquals(client.pop(), max);
+
+        max = 22;
+
+        client.pushValue(max - 5);
+        client.pushValue(max - 9);
+        client.pushValue(max);
+
+        client.pushOperation("max");
+
+        assertEquals(client.pop(), max);
+
+    }
+
+    @Test
+    public void maxNegatives() throws Exception
+    {
+        int max = -2;
+
+        client.pushValue(max - 5);
+        client.pushValue(max - 8);
+        client.pushValue(max);
+
+        client.pushOperation("max");
+
+        assertEquals(client.pop(), max);
+
+        max = -30;
+
+        client.pushValue(max - 1);
+        client.pushValue(max - 2);
+        client.pushValue(max);
+
+        client.pushOperation("max");
+
+        assertEquals(client.pop(), max);
+
+    }
+
+    @Test
+    public void minPositives() throws Exception
+    {
+        int min = 11;
+
+        client.pushValue(min + 10);
+        client.pushValue(min + 2);
+        client.pushValue(min);
+
+        client.pushOperation("min");
+
+        assertEquals(client.pop(), min);
+
+        min = 22;
+
+        client.pushValue(min + 5);
+        client.pushValue(min + 9);
+        client.pushValue(min);
+
+        client.pushOperation("min");
+
+        assertEquals(client.pop(), min);
+
+    }
+
+    @Test
+    public void minNegatives() throws Exception
+    {
+        int min = -2;
+
+        client.pushValue(min + 5);
+        client.pushValue(min + 8);
+        client.pushValue(min);
+
+        client.pushOperation("min");
+
+        assertEquals(client.pop(), min);
+
+        min = -30;
+
+        client.pushValue(min + 1);
+        client.pushValue(min + 2);
+        client.pushValue(min);
+
+        client.pushOperation("min");
+
+        assertEquals(client.pop(), min);
+
+    }
+
 }
