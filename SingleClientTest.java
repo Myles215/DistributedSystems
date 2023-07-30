@@ -154,6 +154,78 @@ public class SingleClientTest {
     }
 
     @Test
+    public void lcmPositives() throws Exception
+    {
+        int curLcm = 12;
+
+        client.pushValue(curLcm/2);
+        client.pushValue(curLcm/3);
+        client.pushValue(curLcm/4);
+
+        client.pushOperation("lcm");
+
+        assertEquals(client.pop(), Math.abs(curLcm));
+
+        curLcm = 18;
+
+        client.pushValue(curLcm/3);
+        client.pushValue(curLcm/2);
+        client.pushValue(curLcm/6);
+
+        client.pushOperation("lcm");
+
+        assertEquals(client.pop(), Math.abs(curLcm));
+    }
+
+    @Test
+    public void lcmNegatives() throws Exception
+    {
+        int curLcm = -20;
+
+        client.pushValue(curLcm/5);
+        client.pushValue(curLcm/4);
+        client.pushValue(curLcm/2);
+
+        client.pushOperation("lcm");
+
+        assertEquals(client.pop(), Math.abs(curLcm));
+
+        curLcm = -30;
+
+        client.pushValue(curLcm/6);
+        client.pushValue(curLcm/5);
+        client.pushValue(curLcm/3);
+
+        client.pushOperation("lcm");
+
+        assertEquals(client.pop(), Math.abs(curLcm));
+    }
+
+    @Test
+    public void lcmPositivesAndNegatives() throws Exception
+    {
+        int curLcm = 12;
+
+        client.pushValue(curLcm/-1);
+        client.pushValue(curLcm/-4);
+        client.pushValue(curLcm/2);
+
+        client.pushOperation("lcm");
+
+        assertEquals(client.pop(), Math.abs(curLcm));
+
+        curLcm = 15;
+
+        client.pushValue(curLcm/-1);
+        client.pushValue(curLcm/5);
+        client.pushValue(curLcm/3);
+
+        client.pushOperation("lcm");
+
+        assertEquals(client.pop(), Math.abs(curLcm));
+    }
+
+    @Test
     public void maxPositives() throws Exception
     {
         int max = 11;

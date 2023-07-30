@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SingleClientTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2023-07-30T19:03:22" hostname="MYLESLAPTOP" time="0.018">
+<testsuite name="SingleClientTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2023-07-30T19:27:13" hostname="MYLESLAPTOP" time="0.028">
   <properties/>
-  <testcase name="pushAndPopDelay" classname="SingleClientTest" time="0.001"/>
+  <testcase name="pushAndPopDelay" classname="SingleClientTest" time="0.002"/>
   <testcase name="emptiness" classname="SingleClientTest" time="0.001"/>
+  <testcase name="lcmPositives" classname="SingleClientTest" time="0.003"/>
   <testcase name="pushAndPop2" classname="SingleClientTest" time="0.002"/>
-  <testcase name="gcdPositives" classname="SingleClientTest" time="0.001"/>
+  <testcase name="lcmPositivesAndNegatives" classname="SingleClientTest" time="0.002"/>
+  <testcase name="lcmNegatives" classname="SingleClientTest" time="0.003"/>
+  <testcase name="gcdPositives" classname="SingleClientTest" time="0.002"/>
   <testcase name="maxPositives" classname="SingleClientTest" time="0.002"/>
-  <testcase name="minPositives" classname="SingleClientTest" time="0.001"/>
-  <testcase name="gcdNegatives" classname="SingleClientTest" time="0.003"/>
-  <testcase name="gcdPositivesAndNegatives" classname="SingleClientTest" time="0.001"/>
-  <testcase name="pushAndPop" classname="SingleClientTest" time="0.002"/>
+  <testcase name="minPositives" classname="SingleClientTest" time="0.002"/>
+  <testcase name="gcdNegatives" classname="SingleClientTest" time="0.001"/>
+  <testcase name="gcdPositivesAndNegatives" classname="SingleClientTest" time="0.002"/>
+  <testcase name="pushAndPop" classname="SingleClientTest" time="0.001"/>
   <testcase name="maxNegatives" classname="SingleClientTest" time="0.002"/>
-  <testcase name="minNegatives" classname="SingleClientTest" time="0.001"/>
+  <testcase name="minNegatives" classname="SingleClientTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
