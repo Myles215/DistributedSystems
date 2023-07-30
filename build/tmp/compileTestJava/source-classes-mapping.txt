@@ -2,9 +2,11 @@ CalculatorServer.java
  CalculatorServer
 Calculator.java
  Calculator
-CalculatorImplementation.java
- CalculatorImplementation
-CalculatorClient.java
- CalculatorClient
 SingleClientTest.java
  SingleClientTest
+CalculatorClient.java
+ CalculatorClient
+CalculatorImplementation.java
+ CalculatorImplementation
+TripleClientTest.java
+ TripleClientTest
