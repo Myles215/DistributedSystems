@@ -4,6 +4,12 @@ This is assignment 1 for distributed systems.
 
 Commands:
 
-    to make: make;
+    To make: make;
 
-    to build and test: gradle build;
+    To build and test: gradle build;
+
+    To play around:
+        in one terminal: make; java CalculatorServer
+        in another: java CalculatorClient; 
+
+        follow CalculatorClient instructions

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SingleClientTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2023-07-30T19:45:51" hostname="MYLESLAPTOP" time="0.024">
+<testsuite name="SingleClientTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2023-07-31T06:15:02" hostname="MYLESLAPTOP" time="0.032">
   <properties/>
-  <testcase name="pushAndPopDelay" classname="SingleClientTest" time="0.002"/>
-  <testcase name="emptiness" classname="SingleClientTest" time="0.002"/>
-  <testcase name="lcmPositives" classname="SingleClientTest" time="0.002"/>
-  <testcase name="pushAndPop2" classname="SingleClientTest" time="0.003"/>
-  <testcase name="lcmPositivesAndNegatives" classname="SingleClientTest" time="0.003"/>
+  <testcase name="pushAndPopDelay" classname="SingleClientTest" time="0.001"/>
+  <testcase name="emptiness" classname="SingleClientTest" time="0.001"/>
+  <testcase name="lcmPositives" classname="SingleClientTest" time="0.003"/>
+  <testcase name="pushAndPop2" classname="SingleClientTest" time="0.002"/>
+  <testcase name="lcmPositivesAndNegatives" classname="SingleClientTest" time="0.002"/>
   <testcase name="lcmNegatives" classname="SingleClientTest" time="0.003"/>
-  <testcase name="gcdPositives" classname="SingleClientTest" time="0.001"/>
+  <testcase name="gcdPositives" classname="SingleClientTest" time="0.002"/>
   <testcase name="maxPositives" classname="SingleClientTest" time="0.002"/>
-  <testcase name="minPositives" classname="SingleClientTest" time="0.001"/>
-  <testcase name="gcdNegatives" classname="SingleClientTest" time="0.001"/>
+  <testcase name="minPositives" classname="SingleClientTest" time="0.002"/>
+  <testcase name="gcdNegatives" classname="SingleClientTest" time="0.003"/>
   <testcase name="gcdPositivesAndNegatives" classname="SingleClientTest" time="0.002"/>
-  <testcase name="pushAndPop" classname="SingleClientTest" time="0.0"/>
-  <testcase name="maxNegatives" classname="SingleClientTest" time="0.0"/>
-  <testcase name="minNegatives" classname="SingleClientTest" time="0.001"/>
+  <testcase name="pushAndPop" classname="SingleClientTest" time="0.002"/>
+  <testcase name="maxNegatives" classname="SingleClientTest" time="0.002"/>
+  <testcase name="minNegatives" classname="SingleClientTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -10,14 +10,16 @@ import java.rmi.*;
 import java.rmi.registry.*;  
 import java.rmi.server.UnicastRemoteObject;
 
-public class TripleClientTest {
+public class FourClientTest {
 
     static Calculator server;
 
     static Calculator client1;
     static Calculator client2;
     static Calculator client3;
+    static Calculator client4;
 
+    //Starts all clients and server
     @BeforeClass
     static public void setUp() throws Exception 
     {
@@ -30,6 +32,7 @@ public class TripleClientTest {
         client1 = (Calculator) clientRegistry.lookup("Calc");
         client2 = (Calculator) clientRegistry.lookup("Calc");
         client3 = (Calculator) clientRegistry.lookup("Calc");
+        client4 = (Calculator) clientRegistry.lookup("Calc");
     }
 
     @Test
@@ -38,10 +41,13 @@ public class TripleClientTest {
         client1.pushValue(5);
         client2.pushValue(6);
         client3.pushValue(7);
+        client4.pushValue(9);
 
-        assertEquals(client1.pop(), 7);
-        assertEquals(client2.pop(), 6);
-        assertEquals(client3.pop(), 5);
+        assertEquals(client1.pop(), 9);
+        assertEquals(client2.pop(), 7);
+        assertEquals(client3.pop(), 6);
+        assertEquals(client4.pop(), 5);
+        
     }
 
     @Test
@@ -49,8 +55,9 @@ public class TripleClientTest {
     {
         client1.pushValue(5);
         client2.pushValue(6);
+        client4.pushValue(0);
 
-        assertEquals(client1.pop(), 6);
+        assertEquals(client1.pop(), 0);
 
         client3.pushValue(9);
         client2.pushValue(7);
@@ -61,6 +68,7 @@ public class TripleClientTest {
 
         assertEquals(client2.pop(), -7);
         assertEquals(client2.pop(), 9);
+        assertEquals(client4.pop(), 6);
         assertEquals(client3.pop(), 5);
     }
 
@@ -70,18 +78,21 @@ public class TripleClientTest {
         assertEquals(client1.isEmpty(), true);
         assertEquals(client2.isEmpty(), true);
         assertEquals(client3.isEmpty(), true);
+        assertEquals(client4.isEmpty(), true);
 
         client2.pushValue(0);
 
         assertEquals(client1.isEmpty(), false);
         assertEquals(client2.isEmpty(), false);
         assertEquals(client3.isEmpty(), false);
+        assertEquals(client4.isEmpty(), false);
 
         client3.pop();
 
         assertEquals(client1.isEmpty(), true);
         assertEquals(client2.isEmpty(), true);
         assertEquals(client3.isEmpty(), true);
+        assertEquals(client4.isEmpty(), true);
     }
 
     @Test 
@@ -93,6 +104,7 @@ public class TripleClientTest {
         client1.pushValue(2*curGcd);
         client2.pushValue(3*curGcd);
         client3.pushValue(6*curGcd);
+        client4.pushValue(5*curGcd);
 
         client2.pushOperation("gcd");
 
@@ -103,6 +115,7 @@ public class TripleClientTest {
         client1.pushValue(3*curGcd);
         client2.pushValue(1*curGcd);
         client3.pushValue(5*curGcd);
+        client4.pushValue(2*curGcd);
 
         client3.pushOperation("gcd");
 
@@ -118,18 +131,20 @@ public class TripleClientTest {
         client1.pushValue(2*curGcd);
         client2.pushValue(3*curGcd);
         client3.pushValue(6*curGcd);
+        client4.pushValue(1*curGcd);
 
         client1.pushOperation("gcd");
 
-        assertEquals(client2.pop(), Math.abs(curGcd));
+        assertEquals(client4.pop(), Math.abs(curGcd));
 
         curGcd = -7;
 
         client1.pushValue(3*curGcd);
         client2.pushValue(1*curGcd);
         client3.pushValue(5*curGcd);
+        client4.pushValue(7*curGcd);
 
-        client2.pushOperation("gcd");
+        client4.pushOperation("gcd");
 
         assertEquals(client3.pop(), Math.abs(curGcd));
     }
@@ -142,6 +157,7 @@ public class TripleClientTest {
         client1.pushValue(2*curGcd);
         client2.pushValue(-3*curGcd);
         client3.pushValue(-6*curGcd);
+        client4.pushValue(-2*curGcd);
 
         client2.pushOperation("gcd");
 
@@ -152,6 +168,7 @@ public class TripleClientTest {
         client1.pushValue(3*curGcd);
         client2.pushValue(-1*curGcd);
         client3.pushValue(5*curGcd);
+        client4.pushValue(-5*curGcd);
 
         client2.pushOperation("gcd");
 
@@ -166,6 +183,7 @@ public class TripleClientTest {
         client1.pushValue(curLcm/2);
         client2.pushValue(curLcm/3);
         client3.pushValue(curLcm/4);
+        client4.pushValue(curLcm/1);
 
         client3.pushOperation("lcm");
 
@@ -176,6 +194,7 @@ public class TripleClientTest {
         client1.pushValue(curLcm/3);
         client2.pushValue(curLcm/2);
         client3.pushValue(curLcm/6);
+        client4.pushValue(curLcm/18);
 
         client2.pushOperation("lcm");
 
@@ -190,16 +209,18 @@ public class TripleClientTest {
         client1.pushValue(curLcm/5);
         client2.pushValue(curLcm/4);
         client3.pushValue(curLcm/2);
+        client4.pushValue(curLcm/10);
 
-        client3.pushOperation("lcm");
+        client4.pushOperation("lcm");
 
-        assertEquals(client1.pop(), Math.abs(curLcm));
+        assertEquals(client3.pop(), Math.abs(curLcm));
 
         curLcm = -30;
 
         client1.pushValue(curLcm/6);
         client2.pushValue(curLcm/5);
         client3.pushValue(curLcm/3);
+        client4.pushValue(curLcm/15);
 
         client3.pushOperation("lcm");
 
@@ -214,6 +235,7 @@ public class TripleClientTest {
         client1.pushValue(curLcm/-1);
         client2.pushValue(curLcm/-4);
         client3.pushValue(curLcm/2);
+        client4.pushValue(curLcm/1);
 
         client2.pushOperation("lcm");
 
@@ -224,6 +246,7 @@ public class TripleClientTest {
         client1.pushValue(curLcm/-1);
         client2.pushValue(curLcm/5);
         client3.pushValue(curLcm/3);
+        client4.pushValue(curLcm/-5);
 
         client2.pushOperation("lcm");
 
@@ -237,7 +260,8 @@ public class TripleClientTest {
 
         client1.pushValue(max - 10);
         client2.pushValue(max - 2);
-        client3.pushValue(max);
+        client3.pushValue(max - 4);
+        client4.pushValue(max);
 
         client1.pushOperation("max");
 
@@ -248,6 +272,7 @@ public class TripleClientTest {
         client1.pushValue(max - 5);
         client2.pushValue(max - 9);
         client3.pushValue(max);
+        client4.pushValue(max - 2);
 
         client3.pushOperation("max");
 
@@ -261,8 +286,9 @@ public class TripleClientTest {
         int max = -2;
 
         client1.pushValue(max - 5);
-        client2.pushValue(max - 8);
-        client3.pushValue(max);
+        client2.pushValue(max);
+        client3.pushValue(max - 8);
+        client4.pushValue(max - 4);
 
         client2.pushOperation("max");
 
@@ -270,9 +296,10 @@ public class TripleClientTest {
 
         max = -30;
 
-        client1.pushValue(max - 1);
+        client1.pushValue(max);
         client2.pushValue(max - 2);
-        client3.pushValue(max);
+        client3.pushValue(max - 1);
+        client4.pushValue(max - 4);
 
         client1.pushOperation("max");
 
@@ -288,6 +315,7 @@ public class TripleClientTest {
         client1.pushValue(min + 10);
         client2.pushValue(min + 2);
         client3.pushValue(min);
+        client4.pushValue(min + 9);
 
         client2.pushOperation("min");
 
@@ -295,11 +323,12 @@ public class TripleClientTest {
 
         min = 22;
 
-        client1.pushValue(min + 5);
+        client1.pushValue(min);
         client2.pushValue(min + 9);
-        client3.pushValue(min);
+        client3.pushValue(min + 3);
+        client4.pushValue(min + 4);
 
-        client2.pushOperation("min");
+        client4.pushOperation("min");
 
         assertEquals(client3.pop(), min);
 
@@ -313,6 +342,7 @@ public class TripleClientTest {
         client1.pushValue(min + 5);
         client2.pushValue(min + 8);
         client3.pushValue(min);
+        client4.pushValue(min + 9);
 
         client1.pushOperation("min");
 
@@ -321,12 +351,13 @@ public class TripleClientTest {
         min = -30;
 
         client1.pushValue(min + 1);
-        client2.pushValue(min + 2);
-        client3.pushValue(min);
+        client2.pushValue(min);
+        client3.pushValue(min + 2);
+        client4.pushValue(min + 9);
 
         client3.pushOperation("min");
 
-        assertEquals(client1.pop(), min);
+        assertEquals(client4.pop(), min);
 
     }
 

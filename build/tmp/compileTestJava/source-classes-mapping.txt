@@ -8,5 +8,5 @@ CalculatorClient.java
  CalculatorClient
 CalculatorImplementation.java
  CalculatorImplementation
-TripleClientTest.java
- TripleClientTest
+FourClientTest.java
+ FourClientTest
