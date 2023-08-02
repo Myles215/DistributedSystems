@@ -6,7 +6,7 @@ Commands:
 
     To make: make;
 
-    To build and test: gradle build;
+    To test: ./gradlew test
 
     To play around:
         in one terminal: make; java CalculatorServer
