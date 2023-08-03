@@ -14,69 +14,71 @@ public class SingleClientTest {
 
     static Calculator server;
     static Calculator client;
+    static public int id;
 
     @BeforeClass
     static public void setUp() throws Exception 
     {
-
         server = new CalculatorImplementation();
         Registry serverRegistry = LocateRegistry.createRegistry(1099);
         serverRegistry.rebind("Calc", server);    
 
         Registry clientRegistry = LocateRegistry.getRegistry();
         client = (Calculator) clientRegistry.lookup("Calc");
+
+        id = client.onConnect();
     }
 
     @Test
     public void pushAndPop() throws RemoteException 
     {
-        client.pushValue(5);
-        client.pushValue(6);
-        client.pushValue(7);
+        client.pushValue(5, id);
+        client.pushValue(6, id);
+        client.pushValue(7, id);
 
-        assertEquals(client.pop(), 7);
-        assertEquals(client.pop(), 6);
-        assertEquals(client.pop(), 5);
+        assertEquals(client.pop(id), 7);
+        assertEquals(client.pop(id), 6);
+        assertEquals(client.pop(id), 5);
     }
 
     @Test
     public void pushAndPop2() throws RemoteException 
     {
-        client.pushValue(5);
-        client.pushValue(6);
+        client.pushValue(5, id);
+        client.pushValue(6, id);
 
-        assertEquals(client.pop(), 6);
+        assertEquals(client.pop(id), 6);
 
-        client.pushValue(7);
+        client.pushValue(7, id);
 
-        assertEquals(client.pop(), 7);
+        assertEquals(client.pop(id), 7);
 
-        client.pushValue(-7);
+        client.pushValue(-7, id);
 
-        assertEquals(client.pop(), -7);
-        assertEquals(client.pop(), 5);
+        assertEquals(client.pop(id), -7);
+        assertEquals(client.pop(id), 5);
     }
 
     @Test
     public void pushAndPopDelay() throws Exception
     {
-        client.pushValue(6);
+        client.pushValue(6, id);
 
-        assertEquals(client.pop(), 6);
+        assertEquals(client.pop(id), 6);
     }
 
     @Test
     public void emptiness() throws RemoteException
     {
-        assertEquals(client.isEmpty(), true);
+        assertEquals(client.isEmpty(id), true);
 
-        client.pushValue(0);
+        client.pushValue(0, id);
 
-        assertEquals(client.isEmpty(), false);
+        assertEquals(client.isEmpty(id), false);
 
-        client.pop();
+        client.pop(id);
 
-        assertEquals(client.isEmpty(), true);
+        assertEquals(client.isEmpty(id), true);
     }
 
     @Test 
@@ -85,23 +87,23 @@ public class SingleClientTest {
 
         int curGcd = 4;
 
-        client.pushValue(2*curGcd);
-        client.pushValue(3*curGcd);
-        client.pushValue(6*curGcd);
+        client.pushValue(2*curGcd, id);
+        client.pushValue(3*curGcd, id);
+        client.pushValue(6*curGcd, id);
 
-        client.pushOperation("gcd");
+        client.pushOperation("gcd", id);
 
-        assertEquals(client.pop(), curGcd);
+        assertEquals(client.pop(id), curGcd);
 
         curGcd = 8;
 
-        client.pushValue(3*curGcd);
-        client.pushValue(1*curGcd);
-        client.pushValue(5*curGcd);
+        client.pushValue(3*curGcd, id);
+        client.pushValue(1*curGcd, id);
+        client.pushValue(5*curGcd, id);
 
-        client.pushOperation("gcd");
+        client.pushOperation("gcd", id);
 
-        assertEquals(client.pop(), curGcd);
+        assertEquals(client.pop(id), curGcd);
 
     }
 
@@ -110,23 +112,23 @@ public class SingleClientTest {
     {
         int curGcd = -3;
 
-        client.pushValue(2*curGcd);
-        client.pushValue(3*curGcd);
-        client.pushValue(6*curGcd);
+        client.pushValue(2*curGcd, id);
+        client.pushValue(3*curGcd, id);
+        client.pushValue(6*curGcd, id);
 
-        client.pushOperation("gcd");
+        client.pushOperation("gcd", id);
 
-        assertEquals(client.pop(), Math.abs(curGcd));
+        assertEquals(client.pop(id), Math.abs(curGcd));
 
         curGcd = -7;
 
-        client.pushValue(3*curGcd);
-        client.pushValue(1*curGcd);
-        client.pushValue(5*curGcd);
+        client.pushValue(3*curGcd, id);
+        client.pushValue(1*curGcd, id);
+        client.pushValue(5*curGcd, id);
 
-        client.pushOperation("gcd");
+        client.pushOperation("gcd", id);
 
-        assertEquals(client.pop(), Math.abs(curGcd));
+        assertEquals(client.pop(id), Math.abs(curGcd));
     }
 
     @Test
@@ -134,23 +136,23 @@ public class SingleClientTest {
     {
         int curGcd = -6;
 
-        client.pushValue(2*curGcd);
-        client.pushValue(-3*curGcd);
-        client.pushValue(-6*curGcd);
+        client.pushValue(2*curGcd, id);
+        client.pushValue(-3*curGcd, id);
+        client.pushValue(-6*curGcd, id);
 
-        client.pushOperation("gcd");
+        client.pushOperation("gcd", id);
 
-        assertEquals(client.pop(), Math.abs(curGcd));
+        assertEquals(client.pop(id), Math.abs(curGcd));
 
         curGcd = 7;
 
-        client.pushValue(3*curGcd);
-        client.pushValue(-1*curGcd);
-        client.pushValue(5*curGcd);
+        client.pushValue(3*curGcd, id);
+        client.pushValue(-1*curGcd, id);
+        client.pushValue(5*curGcd, id);
 
-        client.pushOperation("gcd");
+        client.pushOperation("gcd", id);
 
-        assertEquals(client.pop(), Math.abs(curGcd));
+        assertEquals(client.pop(id), Math.abs(curGcd));
     }
 
     @Test
@@ -158,23 +160,23 @@ public class SingleClientTest {
     {
         int curLcm = 12;
 
-        client.pushValue(curLcm/2);
-        client.pushValue(curLcm/3);
-        client.pushValue(curLcm/4);
+        client.pushValue(curLcm/2, id);
+        client.pushValue(curLcm/3, id);
+        client.pushValue(curLcm/4, id);
 
-        client.pushOperation("lcm");
+        client.pushOperation("lcm", id);
 
-        assertEquals(client.pop(), Math.abs(curLcm));
+        assertEquals(client.pop(id), Math.abs(curLcm));
 
         curLcm = 18;
 
-        client.pushValue(curLcm/3);
-        client.pushValue(curLcm/2);
-        client.pushValue(curLcm/6);
+        client.pushValue(curLcm/3, id);
+        client.pushValue(curLcm/2, id);
+        client.pushValue(curLcm/6, id);
 
-        client.pushOperation("lcm");
+        client.pushOperation("lcm", id);
 
-        assertEquals(client.pop(), Math.abs(curLcm));
+        assertEquals(client.pop(id), Math.abs(curLcm));
     }
 
     @Test
@@ -182,23 +184,23 @@ public class SingleClientTest {
     {
         int curLcm = -20;
 
-        client.pushValue(curLcm/5);
-        client.pushValue(curLcm/4);
-        client.pushValue(curLcm/2);
+        client.pushValue(curLcm/5, id);
+        client.pushValue(curLcm/4, id);
+        client.pushValue(curLcm/2, id);
 
-        client.pushOperation("lcm");
+        client.pushOperation("lcm", id);
 
-        assertEquals(client.pop(), Math.abs(curLcm));
+        assertEquals(client.pop(id), Math.abs(curLcm));
 
         curLcm = -30;
 
-        client.pushValue(curLcm/6);
-        client.pushValue(curLcm/5);
-        client.pushValue(curLcm/3);
+        client.pushValue(curLcm/6, id);
+        client.pushValue(curLcm/5, id);
+        client.pushValue(curLcm/3, id);
 
-        client.pushOperation("lcm");
+        client.pushOperation("lcm", id);
 
-        assertEquals(client.pop(), Math.abs(curLcm));
+        assertEquals(client.pop(id), Math.abs(curLcm));
     }
 
     @Test
@@ -206,23 +208,23 @@ public class SingleClientTest {
     {
         int curLcm = 12;
 
-        client.pushValue(curLcm/-1);
-        client.pushValue(curLcm/-4);
-        client.pushValue(curLcm/2);
+        client.pushValue(curLcm/-1, id);
+        client.pushValue(curLcm/-4, id);
+        client.pushValue(curLcm/2, id);
 
-        client.pushOperation("lcm");
+        client.pushOperation("lcm", id);
 
-        assertEquals(client.pop(), Math.abs(curLcm));
+        assertEquals(client.pop(id), Math.abs(curLcm));
 
         curLcm = 15;
 
-        client.pushValue(curLcm/-1);
-        client.pushValue(curLcm/5);
-        client.pushValue(curLcm/3);
+        client.pushValue(curLcm/-1, id);
+        client.pushValue(curLcm/5, id);
+        client.pushValue(curLcm/3, id);
 
-        client.pushOperation("lcm");
+        client.pushOperation("lcm", id);
 
-        assertEquals(client.pop(), Math.abs(curLcm));
+        assertEquals(client.pop(id), Math.abs(curLcm));
     }
 
     @Test
@@ -230,23 +232,23 @@ public class SingleClientTest {
     {
         int max = 11;
 
-        client.pushValue(max - 10);
-        client.pushValue(max - 2);
-        client.pushValue(max);
+        client.pushValue(max - 10, id);
+        client.pushValue(max - 2, id);
+        client.pushValue(max, id);
 
-        client.pushOperation("max");
+        client.pushOperation("max", id);
 
-        assertEquals(client.pop(), max);
+        assertEquals(client.pop(id), max);
 
         max = 22;
 
-        client.pushValue(max - 5);
-        client.pushValue(max - 9);
-        client.pushValue(max);
+        client.pushValue(max - 5, id);
+        client.pushValue(max - 9, id);
+        client.pushValue(max, id);
 
-        client.pushOperation("max");
+        client.pushOperation("max", id);
 
-        assertEquals(client.pop(), max);
+        assertEquals(client.pop(id), max);
 
     }
 
@@ -255,23 +257,23 @@ public class SingleClientTest {
     {
         int max = -2;
 
-        client.pushValue(max - 5);
-        client.pushValue(max - 8);
-        client.pushValue(max);
+        client.pushValue(max - 5, id);
+        client.pushValue(max - 8, id);
+        client.pushValue(max, id);
 
-        client.pushOperation("max");
+        client.pushOperation("max", id);
 
-        assertEquals(client.pop(), max);
+        assertEquals(client.pop(id), max);
 
         max = -30;
 
-        client.pushValue(max - 1);
-        client.pushValue(max - 2);
-        client.pushValue(max);
+        client.pushValue(max - 1, id);
+        client.pushValue(max - 2, id);
+        client.pushValue(max, id);
 
-        client.pushOperation("max");
+        client.pushOperation("max", id);
 
-        assertEquals(client.pop(), max);
+        assertEquals(client.pop(id), max);
 
     }
 
@@ -280,23 +282,23 @@ public class SingleClientTest {
     {
         int min = 11;
 
-        client.pushValue(min + 10);
-        client.pushValue(min + 2);
-        client.pushValue(min);
+        client.pushValue(min + 10, id);
+        client.pushValue(min + 2, id);
+        client.pushValue(min, id);
 
-        client.pushOperation("min");
+        client.pushOperation("min", id);
 
-        assertEquals(client.pop(), min);
+        assertEquals(client.pop(id), min);
 
         min = 22;
 
-        client.pushValue(min + 5);
-        client.pushValue(min + 9);
-        client.pushValue(min);
+        client.pushValue(min + 5, id);
+        client.pushValue(min + 9, id);
+        client.pushValue(min, id);
 
-        client.pushOperation("min");
+        client.pushOperation("min", id);
 
-        assertEquals(client.pop(), min);
+        assertEquals(client.pop(id), min);
 
     }
 
@@ -305,23 +307,23 @@ public class SingleClientTest {
     {
         int min = -2;
 
-        client.pushValue(min + 5);
-        client.pushValue(min + 8);
-        client.pushValue(min);
+        client.pushValue(min + 5, id);
+        client.pushValue(min + 8, id);
+        client.pushValue(min, id);
 
-        client.pushOperation("min");
+        client.pushOperation("min", id);
 
-        assertEquals(client.pop(), min);
+        assertEquals(client.pop(id), min);
 
         min = -30;
 
-        client.pushValue(min + 1);
-        client.pushValue(min + 2);
-        client.pushValue(min);
+        client.pushValue(min + 1, id);
+        client.pushValue(min + 2, id);
+        client.pushValue(min, id);
 
-        client.pushOperation("min");
+        client.pushOperation("min", id);
 
-        assertEquals(client.pop(), min);
+        assertEquals(client.pop(id), min);
 
     }
 

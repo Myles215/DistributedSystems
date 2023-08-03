@@ -15,9 +15,13 @@ public class FourClientTest {
     static Calculator server;
 
     static Calculator client1;
+    static int client1id;
     static Calculator client2;
+    static int client2id;
     static Calculator client3;
+    static int client3id;
     static Calculator client4;
+    static int client4id;
 
     //Starts all clients and server
     @BeforeClass
@@ -30,64 +34,73 @@ public class FourClientTest {
 
         Registry clientRegistry = LocateRegistry.getRegistry(9055);
         client1 = (Calculator) clientRegistry.lookup("Calc");
+        client1id = client1.onConnect();
+        System.out.println(client1id);
         client2 = (Calculator) clientRegistry.lookup("Calc");
+        client2id = client2.onConnect();
+        System.out.println(client2id);
         client3 = (Calculator) clientRegistry.lookup("Calc");
+        client3id = client3.onConnect();
+        System.out.println(client3id);
         client4 = (Calculator) clientRegistry.lookup("Calc");
+        client4id = client4.onConnect();
     }
 
     @Test
     public void pushAndPop() throws RemoteException 
     {
-        client1.pushValue(5);
-        client2.pushValue(6);
-        client3.pushValue(7);
-        client4.pushValue(9);
+        client1.pushValue(5, client1id);
+        client2.pushValue(6, client2id);
+        client3.pushValue(7, client3id);
+        client4.pushValue(9, client4id);
 
-        assertEquals(client1.pop(), 9);
-        assertEquals(client2.pop(), 7);
-        assertEquals(client3.pop(), 6);
-        assertEquals(client4.pop(), 5);
+        assertEquals(client1.pop(client1id), 5);
+        assertEquals(client2.pop(client2id), 6);
+        assertEquals(client3.pop(client3id), 7);
+        assertEquals(client4.pop(client4id), 9);
         
     }
 
     @Test
     public void pushAndPop2() throws RemoteException 
     {
-        client1.pushValue(5);
-        client2.pushValue(6);
-        client4.pushValue(0);
+        client1.pushValue(5, client1id);
+        client2.pushValue(6, client2id);
+        client4.pushValue(0, client3id);
 
-        assertEquals(client1.pop(), 0);
+        assertEquals(client1.pop(client1id), 5);
 
-        client3.pushValue(9);
-        client2.pushValue(7);
+        client3.pushValue(9, client3id);
+        client2.pushValue(7, client3id);
 
-        assertEquals(client1.pop(), 7);
+        assertEquals(client2.pop(client2id), 7);
 
         client3.pushValue(-7);
 
-        assertEquals(client2.pop(), -7);
-        assertEquals(client2.pop(), 9);
-        assertEquals(client4.pop(), 6);
-        assertEquals(client3.pop(), 5);
+        assertEquals(client2.pop(client2id), 6);
+        assertEquals(client3.pop(client3id), -7);
+        assertEquals(client3.pop(client3id), 9);
+        assertEquals(client4.pop(client4id), 0);
     }
 
     @Test
     public void emptiness() throws RemoteException
     {
-        assertEquals(client1.isEmpty(), true);
-        assertEquals(client2.isEmpty(), true);
-        assertEquals(client3.isEmpty(), true);
-        assertEquals(client4.isEmpty(), true);
+        assertEquals(client1.isEmpty(client1id), true);
+        assertEquals(client2.isEmpty(client2id), true);
+        assertEquals(client3.isEmpty(client3id), true);
+        assertEquals(client4.isEmpty(client4id), true);
 
-        client2.pushValue(0);
+        client1.pushValue(0, client1id);
+        client3.pushValue(0, client3id)
 
         assertEquals(client1.isEmpty(), false);
-        assertEquals(client2.isEmpty(), false);
+        assertEquals(client2.isEmpty(), true);
         assertEquals(client3.isEmpty(), false);
-        assertEquals(client4.isEmpty(), false);
+        assertEquals(client4.isEmpty(), true);
 
-        client3.pop();
+        client1.pop(client1id)
+        client3.pop(client3id);
 
         assertEquals(client1.isEmpty(), true);
         assertEquals(client2.isEmpty(), true);
@@ -100,157 +113,231 @@ public class FourClientTest {
     {
 
         int curGcd = 4;
+        int mixGcd = 3;
 
-        client1.pushValue(2*curGcd);
-        client2.pushValue(3*curGcd);
-        client3.pushValue(6*curGcd);
-        client4.pushValue(5*curGcd);
+        client1.pushValue(2*mixGcd, client1id);
+        client2.pushValue(3*curGcd, client2id);
+        client2.pushValue(2*curGcd, client2id);
+        client3.pushValue(6*mixGcd, client3id);
+        client4.pushValue(5*mixGcd, client4id);
 
         client2.pushOperation("gcd");
 
-        assertEquals(client3.pop(), curGcd);
+        assertEquals(client2.pop(client2id), curGcd);
+
+        client1.pop(client1id);
+        client3.pop(client3id);
+        client4.pop(client4id);
+
 
         curGcd = 8;
+        mixGcd = 7;
 
-        client1.pushValue(3*curGcd);
-        client2.pushValue(1*curGcd);
-        client3.pushValue(5*curGcd);
-        client4.pushValue(2*curGcd);
+        client1.pushValue(2*mixGcd, client1id);
+        client2.pushValue(3*mixGcd, client2id);
+        client3.pushValue(2*curGcd, client3id);
+        client3.pushValue(6*curGcd, client3id);
+        client4.pushValue(5*mixGcd, client4id);
 
         client3.pushOperation("gcd");
 
-        assertEquals(client1.pop(), curGcd);
+        assertEquals(client3.pop(client3id), curGcd);
+
+        client1.pop(client1id);
+        client2.pop(client2id);
+        client4.pop(client4id);
 
     }
 
     @Test
     public void gcdNegatives() throws Exception
     {
-        int curGcd = -3;
+        int curGcd = -4;
+        int mixGcd = -3;
 
-        client1.pushValue(2*curGcd);
-        client2.pushValue(3*curGcd);
-        client3.pushValue(6*curGcd);
-        client4.pushValue(1*curGcd);
-
-        client1.pushOperation("gcd");
-
-        assertEquals(client4.pop(), Math.abs(curGcd));
-
-        curGcd = -7;
-
-        client1.pushValue(3*curGcd);
-        client2.pushValue(1*curGcd);
-        client3.pushValue(5*curGcd);
-        client4.pushValue(7*curGcd);
+        client1.pushValue(2*mixGcd, client1id);
+        client2.pushValue(3*mixGcd, client2id);
+        client3.pushValue(6*mixGcd, client3id);
+        client4.pushValue(2*curGcd, client4id);
+        client4.pushValue(5*curGcd, client4id);
 
         client4.pushOperation("gcd");
 
-        assertEquals(client3.pop(), Math.abs(curGcd));
+        assertEquals(client4.pop(client4id), curGcd);
+
+        client1.pop(client1id);
+        client2.pop(client2id);
+        client3.pop(client3id);
+
+        curGcd = -8;
+        mixGcd = -7;
+
+        client1.pushValue(2*mixGcd, client1id);
+        client2.pushValue(3*mixGcd, client2id);
+        client3.pushValue(2*curGcd, client3id);
+        client3.pushValue(6*curGcd, client3id);
+        client4.pushValue(5*mixGcd, client4id);
+
+        client3.pushOperation("gcd");
+
+        assertEquals(client3.pop(client3id), curGcd);
+
+        client1.pop(client1id);
+        client2.pop(client2id);
+        client4.pop(client4id);
     }
 
     @Test
     public void gcdPositivesAndNegatives() throws Exception
     {
-        int curGcd = -6;
+        int curGcd = 5;
+        int mixGcd = -3;
 
-        client1.pushValue(2*curGcd);
-        client2.pushValue(-3*curGcd);
-        client3.pushValue(-6*curGcd);
-        client4.pushValue(-2*curGcd);
+        client1.pushValue(2*curGcd, client1id);
+        client1.pushValue(3*curGcd, client1id);
+        client2.pushValue(-6*mixGcd, client2id);
+        client3.pushValue(2*mixGcd, client3id);
+        client4.pushValue(-5*mixGcd, client4id);
 
-        client2.pushOperation("gcd");
+        client1.pushOperation("gcd");
 
-        assertEquals(client1.pop(), Math.abs(curGcd));
+        assertEquals(client1.pop(client4id), curGcd);
 
-        curGcd = 7;
+        client2.pop(client2id);
+        client3.pop(client3id);
+        client4.pop(client4id);
 
-        client1.pushValue(3*curGcd);
-        client2.pushValue(-1*curGcd);
-        client3.pushValue(5*curGcd);
-        client4.pushValue(-5*curGcd);
 
-        client2.pushOperation("gcd");
+        curGcd = 8;
+        mixGcd = -7;
 
-        assertEquals(client1.pop(), Math.abs(curGcd));
+        client1.pushValue(2*mixGcd, client1id);
+        client2.pushValue(-3*mixGcd, client2id);
+        client3.pushValue(2*curGcd, client3id);
+        client3.pushValue(6*curGcd, client3id);
+        client4.pushValue(-5*mixGcd, client4id);
+
+        client3.pushOperation("gcd");
+
+        assertEquals(client3.pop(client3id), curGcd);
+
+        client1.pop(client1id);
+        client2.pop(client2id);
+        client4.pop(client4id);
     }
 
     @Test
     public void lcmPositives() throws Exception
     {
         int curLcm = 12;
+        int mixLcm = 16;
 
-        client1.pushValue(curLcm/2);
-        client2.pushValue(curLcm/3);
-        client3.pushValue(curLcm/4);
-        client4.pushValue(curLcm/1);
+        client1.pushValue(mixLcm/2, client1id);
+        client2.pushValue(curLcm/4, client2id);
+        client2.pushValue(curLcm/1, client2id)
+        client3.pushValue(mixLcm/4, client3id);
+        client4.pushValue(mixLcm/4, client4id);
 
-        client3.pushOperation("lcm");
+        client2.pushOperation("lcm", client2id);
 
-        assertEquals(client2.pop(), Math.abs(curLcm));
+        assertEquals(client2.pop(client2id), Math.abs(curLcm));
+
+        client1.pop(client1id);
+        client3.pop(client1id);
+        client4.pop(client1id);
 
         curLcm = 18;
+        mixLcm = 20
 
-        client1.pushValue(curLcm/3);
-        client2.pushValue(curLcm/2);
-        client3.pushValue(curLcm/6);
-        client4.pushValue(curLcm/18);
+        client1.pushValue(mixLcm/2, client1id);
+        client2.pushValue(mixLcm/4, client2id);
+        client3.pushValue(curLcm/2, client3id)
+        client3.pushValue(curLcm/4, client3id);
+        client4.pushValue(mixLcm/3, client4id);
 
-        client2.pushOperation("lcm");
+        client3.pushOperation("lcm", client3id);
 
-        assertEquals(client1.pop(), Math.abs(curLcm));
+        assertEquals(client3.pop(client3id), Math.abs(curLcm));
+
+        client1.pop(client1id);
+        client2.pop(client1id);
+        client4.pop(client1id);
     }
 
     @Test
     public void lcmNegatives() throws Exception
     {
-        int curLcm = -20;
+        int curLcm = -12;
+        int mixLcm = -16;
 
-        client1.pushValue(curLcm/5);
-        client2.pushValue(curLcm/4);
-        client3.pushValue(curLcm/2);
-        client4.pushValue(curLcm/10);
+        client1.pushValue(mixLcm/2, client1id);
+        client2.pushValue(curLcm/4, client2id);
+        client2.pushValue(curLcm/1, client2id)
+        client3.pushValue(mixLcm/4, client3id);
+        client4.pushValue(mixLcm/4, client4id);
 
-        client4.pushOperation("lcm");
+        client2.pushOperation("lcm", client2id);
 
-        assertEquals(client3.pop(), Math.abs(curLcm));
+        assertEquals(client2.pop(client2id), Math.abs(curLcm));
 
-        curLcm = -30;
+        client1.pop(client1id);
+        client3.pop(client1id);
+        client4.pop(client1id);
 
-        client1.pushValue(curLcm/6);
-        client2.pushValue(curLcm/5);
-        client3.pushValue(curLcm/3);
-        client4.pushValue(curLcm/15);
+        curLcm = -18;
+        mixLcm = -20
 
-        client3.pushOperation("lcm");
+        client1.pushValue(mixLcm/2, client1id);
+        client2.pushValue(mixLcm/4, client2id);
+        client3.pushValue(curLcm/2, client3id)
+        client3.pushValue(curLcm/4, client3id);
+        client4.pushValue(mixLcm/3, client4id);
 
-        assertEquals(client2.pop(), Math.abs(curLcm));
+        client3.pushOperation("lcm", client3id);
+
+        assertEquals(client3.pop(client3id), Math.abs(curLcm));
+
+        client1.pop(client1id);
+        client2.pop(client1id);
+        client4.pop(client1id);
     }
 
     @Test
     public void lcmPositivesAndNegatives() throws Exception
     {
         int curLcm = 12;
+        int mixLcm = -16;
 
-        client1.pushValue(curLcm/-1);
-        client2.pushValue(curLcm/-4);
-        client3.pushValue(curLcm/2);
-        client4.pushValue(curLcm/1);
+        client1.pushValue(mixLcm/2, client1id);
+        client2.pushValue(curLcm/4, client2id);
+        client2.pushValue(curLcm/-1, client2id)
+        client3.pushValue(mixLcm/4, client3id);
+        client4.pushValue(mixLcm/-4, client4id);
 
-        client2.pushOperation("lcm");
+        client2.pushOperation("lcm", client2id);
 
-        assertEquals(client1.pop(), Math.abs(curLcm));
+        assertEquals(client2.pop(client2id), Math.abs(curLcm));
 
-        curLcm = 15;
+        client1.pop(client1id);
+        client3.pop(client1id);
+        client4.pop(client1id);
 
-        client1.pushValue(curLcm/-1);
-        client2.pushValue(curLcm/5);
-        client3.pushValue(curLcm/3);
-        client4.pushValue(curLcm/-5);
+        curLcm = -18;
+        mixLcm = 20
 
-        client2.pushOperation("lcm");
+        client1.pushValue(mixLcm/2, client1id);
+        client2.pushValue(mixLcm/-4, client2id);
+        client3.pushValue(curLcm/-2, client3id)
+        client3.pushValue(curLcm/4, client3id);
+        client4.pushValue(mixLcm/3, client4id);
 
-        assertEquals(client3.pop(), Math.abs(curLcm));
+        client3.pushOperation("lcm", client3id);
+
+        assertEquals(client3.pop(client3id), Math.abs(curLcm));
+
+        client1.pop(client1id);
+        client2.pop(client1id);
+        client4.pop(client1id);
     }
 
     @Test
@@ -265,7 +352,7 @@ public class FourClientTest {
 
         client1.pushOperation("max");
 
-        assertEquals(client2.pop(), max);
+        assertEquals(client2.pop(client2id), max);
 
         max = 22;
 
@@ -276,7 +363,7 @@ public class FourClientTest {
 
         client3.pushOperation("max");
 
-        assertEquals(client2.pop(), max);
+        assertEquals(client2.pop(client2id), max);
 
     }
 
@@ -292,7 +379,7 @@ public class FourClientTest {
 
         client2.pushOperation("max");
 
-        assertEquals(client1.pop(), max);
+        assertEquals(client1.pop(client1id), max);
 
         max = -30;
 
@@ -303,7 +390,7 @@ public class FourClientTest {
 
         client1.pushOperation("max");
 
-        assertEquals(client2.pop(), max);
+        assertEquals(client2.pop(client2id), max);
 
     }
 
@@ -319,7 +406,7 @@ public class FourClientTest {
 
         client2.pushOperation("min");
 
-        assertEquals(client3.pop(), min);
+        assertEquals(client3.pop(client3id), min);
 
         min = 22;
 
@@ -330,7 +417,7 @@ public class FourClientTest {
 
         client4.pushOperation("min");
 
-        assertEquals(client3.pop(), min);
+        assertEquals(client3.pop(client3id), min);
 
     }
 
@@ -346,7 +433,7 @@ public class FourClientTest {
 
         client1.pushOperation("min");
 
-        assertEquals(client2.pop(), min);
+        assertEquals(client2.pop(client2id), min);
 
         min = -30;
 
@@ -357,7 +444,7 @@ public class FourClientTest {
 
         client3.pushOperation("min");
 
-        assertEquals(client4.pop(), min);
+        assertEquals(client4.pop(client4id), min);
 
     }
 

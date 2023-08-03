@@ -14,6 +14,8 @@ public class CalculatorClient
             Registry registry = LocateRegistry.getRegistry();
             Calculator calc = (Calculator) registry.lookup("Calc");
 
+            int id = calc.onConnect();
+
             System.out.println("Input 'end' to exit");
             System.out.println("Commands");
             System.out.println("'isEmpty' - Check if stack is empty");
@@ -35,11 +37,11 @@ public class CalculatorClient
 
                 if (input.equals("pop"))
                 {
-                    System.out.println(calc.pop());
+                    System.out.println(calc.pop(id));
                 }
                 else if (input.equals("isEmpty"))
                 {
-                    System.out.println(calc.isEmpty());
+                    System.out.println(calc.isEmpty(id));
                 }
                 else if (input.contains("pushValue"))
                 {
@@ -52,7 +54,7 @@ public class CalculatorClient
 
                     System.out.println("Pushing integer: " + n);
 
-                    calc.pushValue(n);
+                    calc.pushValue(n, id);
                 }
                 else if (input.contains("pushOperation"))
                 {
@@ -63,7 +65,7 @@ public class CalculatorClient
 
                     System.out.println("Pushing operator: " + op);
 
-                    calc.pushOperation(op);
+                    calc.pushOperation(op, id);
                 }
                 else 
                 {

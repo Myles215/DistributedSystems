@@ -7,36 +7,52 @@ import java.rmi.server.*;
 public class CalculatorImplementation extends UnicastRemoteObject implements Calculator
 {
 
+    //using volatile makes this variable threadsafe
+    static volatile int idCount = 0;
+
     CalculatorImplementation() throws RemoteException
     {  
         super();  
     }  
 
-    public void pushValue(int val) 
+    public int onConnect()
     {
-        stack.add(val);
+        stack.add(new ArrayList<Integer>());
+        return idCount++;
     }
 
-    public void pushOperation(String operator) 
+    public void pushValue(int val, int id) 
     {
-        ArrayList<Integer> pass = new ArrayList<Integer>(stack);
-        stack.clear();
+        stack.get(id).add(val);
+    }
+
+    public void pushOperation(String operator, int id) 
+    {
+        int top;
 
         if (operator.equals("min"))
         {
-            pushValue(Collections.min(pass));
+            top = Collections.min(stack.get(id));
+            stack.get(id).clear();
+            pushValue(top, id);
         }
         else if (operator.equals("max"))
         {
-            pushValue(Collections.max(pass));
+            top = Collections.max(stack.get(id));
+            stack.get(id).clear();
+            pushValue(top, id);
         }
         else if (operator.equals("gcd"))
         {
-            pushValue(gcd(pass));
+            top = gcd(stack.get(id));
+            stack.get(id).clear();
+            pushValue(top, id);
         }
         else if (operator.equals("lcm"))
         {
-            pushValue(lcm(pass));
+            top = lcm(stack.get(id));
+            stack.get(id).clear();
+            pushValue(top, id);
         }
     }
 
@@ -109,29 +125,29 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
         return lcm;
     }
 
-    public int pop() 
+    public int pop(int id) 
     {
 
         //if (isEmpty()) return -1;
 
-        int index = stack.size()-1;
-        int ret = stack.get(index);
-        stack.remove(index);
+        int index = stack.get(id).size()-1;
+        int ret = stack.get(id).get(index);
+        stack.get(id).remove(index);
 
         return ret;
     }
 
-    public boolean isEmpty() 
+    public boolean isEmpty(int id) 
     {
-        return stack.size() == 0;
+        return stack.get(id).size() == 0;
     }
 
-    public int delayPop(int millis) {
+    public int delayPop(int millis,int id) {
         long start = System.currentTimeMillis();
 
         while (System.currentTimeMillis() < start + millis);
 
-        return pop();
+        return pop(id);
 
     }
 }
