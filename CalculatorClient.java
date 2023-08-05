@@ -37,7 +37,7 @@ public class CalculatorClient
 
                 if (input.equals("pop"))
                 {
-                    System.out.println(calc.pop(id));
+                    System.out.println("Popped: " + calc.pop(id));
                 }
                 else if (input.equals("isEmpty"))
                 {
