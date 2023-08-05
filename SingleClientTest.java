@@ -95,8 +95,8 @@ public class SingleClientTest {
             assertEquals(client.isEmpty(id), false);
         }
 
-        //Wait til we're sure the wait time is finished
-        Thread.sleep(time);
+        //Wait til we're 100% sure the wait time is finished
+        Thread.sleep(time+100);
 
         //Now it should be empty
         assertEquals(client.isEmpty(id), true);
