@@ -47,12 +47,6 @@ public class FourClientTest {
         client4id = client4.onConnect();
     }
 
-    @Before
-    public void check()
-    {
-        System.out.println(c++);
-    }
-
     @Test
     public void pushAndPop() throws RemoteException 
     {

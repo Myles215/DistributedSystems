@@ -18,5 +18,5 @@ interface Calculator extends Remote
     void pushOperation(String operator, int id) throws RemoteException;  
     int pop(int id) throws RemoteException;  
     boolean isEmpty(int id) throws RemoteException;  
-    int delayPop(int millis, int id) throws RemoteException;  
+    int delayPop(int millis, int id) throws RemoteException, InterruptedException;  
 }

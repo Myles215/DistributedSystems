@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+import java.lang.Thread;
+
 import java.rmi.*;  
 import java.rmi.server.*;  
 
@@ -151,10 +153,11 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
     }
 
     //Busy wait until we can pop
-    public int delayPop(int millis,int id) {
+    public int delayPop(int millis, int id) throws InterruptedException
+    {
         long start = System.currentTimeMillis();
 
-        while (System.currentTimeMillis() < start + millis);
+        Thread.sleep(millis);
 
         return pop(id);
 

@@ -6,6 +6,8 @@ import org.junit.BeforeClass;
 import org.junit.AfterClass;
 import org.junit.Test;
 
+import java.lang.Thread;
+
 import java.rmi.*;  
 import java.rmi.registry.*;  
 import java.rmi.server.UnicastRemoteObject;
@@ -15,6 +17,21 @@ public class SingleClientTest {
     static Calculator server;
     static Calculator client;
     static public int id;
+
+    static public int time = 1000;
+
+    class DelayPopThread extends Thread {
+        public void run()
+        {
+            try {
+                client.delayPop(time, id);
+            }
+            catch (Exception e) {
+                // Throwing an exception
+                System.out.println("Caught error: " + e);
+            }
+        }
+    }
 
     @BeforeClass
     static public void setUp() throws Exception 
@@ -63,8 +80,27 @@ public class SingleClientTest {
     public void pushAndPopDelay() throws Exception
     {
         client.pushValue(6, id);
+        client.pushValue(8, id);
 
-        assertEquals(client.pop(id), 6);
+        //We run delayPop and expect that after the time chosen (give or take noise) the number will be popped
+        DelayPopThread thread = new DelayPopThread();
+
+        long start =  System.currentTimeMillis();
+        thread.start();
+        assertEquals(client.pop(id), 8);
+
+        //If the time hasn't passed, we can check if the stack isn't empty
+        if (System.currentTimeMillis() < start + time-100)
+        {
+            assertEquals(client.isEmpty(id), false);
+        }
+
+        //Wait til we're sure the wait time is finished
+        Thread.sleep(time);
+
+        //Now it should be empty
+        assertEquals(client.isEmpty(id), true);
+
     }
 
     @Test
