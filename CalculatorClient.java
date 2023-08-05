@@ -16,6 +16,8 @@ public class CalculatorClient
 
             int id = calc.onConnect();
 
+            //Input instructions
+            //Assignment delaration states we don't need to handle bad input
             System.out.println("Input 'end' to exit");
             System.out.println("Commands");
             System.out.println("'isEmpty' - Check if stack is empty");
@@ -29,7 +31,7 @@ public class CalculatorClient
             BufferedReader reader = new BufferedReader(
             new InputStreamReader(System.in));
 
-            //While the user doesn't type end keep taking input
+            //While the user doesn't type 'end' keep taking input
             while (input != "end")
             {
                 System.out.println("Input:");

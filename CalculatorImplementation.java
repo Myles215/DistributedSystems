@@ -15,17 +15,20 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
         super();  
     }  
 
+    //On connect we register a new client ID
     public int onConnect()
     {
         stack.add(new ArrayList<Integer>());
         return idCount++;
     }
 
+    //Push a vlue onto this clients stack
     public void pushValue(int val, int id) 
     {
         stack.get(id).add(val);
     }
 
+    //Push an operation onto this clients stack
     public void pushOperation(String operator, int id) 
     {
         int top;
@@ -56,17 +59,17 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
         }
     }
 
-
     private int gcd(ArrayList<Integer> a)
     {
-
         int start = Math.abs(a.get(0));
 
+        //Start with the smallest |element| as it is guaranteed GCD must be smaller than or equal to this
         for (int i = 1;i<a.size();i++)
         {
             start = Math.min(start, Math.abs(a.get(i)));
         }
 
+        //Iterator from smallest element to 1
         for (int i = start; i > 1 ; i--)
         {
             boolean newDenominator = true;
@@ -86,6 +89,7 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
             }
         }
 
+        //If we don't find a higher valid gcd, return 1
         return 1;
     }
 
@@ -95,6 +99,7 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
         int lcm = -1;
         int start = 0;
 
+        //LCM is guaranteed to be greater than or equal to the largest element
         for (int i = 0;i<a.size();i++)
         {
             start = start == 0 ? Math.abs(a.get(i)) : Math.max(start, Math.abs(a.get(i)));
@@ -102,6 +107,7 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
         int count = 0;
 
+        //Different to gcd we can't just return 1 if we fail, we must return something
         while (lcm == -1)
         {
             boolean newLcm = true;
@@ -125,6 +131,7 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
         return lcm;
     }
 
+    //Return top element then remove it
     public int pop(int id) 
     {
 
@@ -137,11 +144,13 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
         return ret;
     }
 
+    //Check if stack is empty
     public boolean isEmpty(int id) 
     {
         return stack.get(id).size() == 0;
     }
 
+    //Busy wait until we can pop
     public int delayPop(int millis,int id) {
         long start = System.currentTimeMillis();
 

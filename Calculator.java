@@ -13,6 +13,7 @@ interface Calculator extends Remote
     int onConnect() throws RemoteException;
 
     //Each of our interface methods
+    //All take ID so that each client can have a different stack
     void pushValue(int val, int id) throws RemoteException;  
     void pushOperation(String operator, int id) throws RemoteException;  
     int pop(int id) throws RemoteException;  
