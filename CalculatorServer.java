@@ -8,7 +8,7 @@ public class CalculatorServer
             //Simply define and start the server
             Calculator server = new CalculatorImplementation();
 
-            Registry registry = LocateRegistry.createRegistry(1099);
+            Registry registry = LocateRegistry.createRegistry(1121);
 
             registry.rebind("Calc", server);
         }

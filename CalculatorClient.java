@@ -11,7 +11,7 @@ public class CalculatorClient
         try
         {  
 
-            Registry registry = LocateRegistry.getRegistry();
+            Registry registry = LocateRegistry.getRegistry(1121);
             Calculator calc = (Calculator) registry.lookup("Calc");
 
             int id = calc.onConnect();
