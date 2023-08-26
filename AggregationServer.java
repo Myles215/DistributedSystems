@@ -1,0 +1,1 @@
+@ServerEndpoint(value = "/aggregateServer")
