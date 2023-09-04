@@ -12,22 +12,29 @@ public class GetClient
  
         int port = Integer.parseInt(args[0]);
  
-        try (Socket socket = new Socket(hostname, port)) {
+        try (Socket socket = new Socket(hostname, port)) 
+        {
  
+            OutputStream output = socket.getOutputStream();
+            PrintWriter writer = new PrintWriter(output, true);
+
+            writer.println("Working now");
+            writer.println("receive");
+
             InputStream input = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
  
-            String time = reader.readLine();
+            String ret = reader.readLine();
  
-            System.out.println(time);
+            System.out.println(ret);
  
- 
-        } catch (UnknownHostException ex) {
- 
+        } 
+        catch (UnknownHostException ex) 
+        {
             System.out.println("Server not found: " + ex.getMessage());
- 
-        } catch (IOException ex) {
- 
+        } 
+        catch (IOException ex) 
+        {
             System.out.println("I/O error: " + ex.getMessage());
         }
     }

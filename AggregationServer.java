@@ -18,10 +18,23 @@ public class AggregationServer
  
             System.out.println("Server is listening on port " + port);
  
-            while (true) {
+            while (true) 
+            {
                 Socket socket = serverSocket.accept();
  
                 System.out.println("New client connected");
+
+                String clientInput = "";
+
+                InputStream input = socket.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+
+                while (!clientInput.equals("receive"))
+                {
+                    clientInput = reader.readLine();
+
+                    System.out.println(clientInput);
+                }
  
                 OutputStream output = socket.getOutputStream();
                 PrintWriter writer = new PrintWriter(output, true);
