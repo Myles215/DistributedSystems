@@ -1,4 +1,7 @@
+package json;
+
 import java.util.*;
+import java.lang.*;
 
 class JsonParser
 {
@@ -9,21 +12,21 @@ class JsonParser
 
     Map<String, String> mDataTypes = new HashMap<String, String>();
 
-    public JsonParser(HashMap<String, String> dataTypes)
+    public JsonParser(Map<String, String> dataTypes)
     {
         mDataTypes = dataTypes;
     }
 
     String encodeFromMap(HashMap<String, String> data)
     {
-        
+        return "";
     }
 
-    Map<String, String> decodeFromString(String json)
+    Map<String, String> decodeFromString(String json) throws Exception
     {
         Map<String, String> ret = new HashMap<String, String>();
 
-        if (json.indexOf(0) == '{')
+        if (json.charAt(0) == '{')
         {
             index = 1;
             ret = recurGetJson(json, '}');
@@ -32,72 +35,93 @@ class JsonParser
         {
             throw new Exception("Json format incorrect, must start with {");
         }
+
+        return ret;
     }
 
     int index;
 
-    Map<String, String> recurGetJson(String rawJson, char endChar)
+    Map<String, String> recurGetJson(String rawJson, char endChar) throws Exception
     {
 
-        Map<String, String> ret = new HashMap<String, String> ret;
+        Map<String, String> ret = new HashMap<String, String>();
 
-        while (rawJson.indexOf(index) != endChar)
+        while (rawJson.charAt(index) != endChar)
         {
-            if (rawJson.indexOf(index) == '"')
+            if (rawJson.charAt(index) == '"')
             {
                 String dataName = "";
 
-                while (rawJson.indexOf(++index) != '"')
+                while (rawJson.charAt(++index) != '"')
                 {
-                    dataName += rawJson.indexOf(index);
+                    dataName += rawJson.charAt(index);
                 }
 
-                if (mDataTypes[dataName].equals("String"))
+                if (!mDataTypes.containsKey(dataName))
                 {
-                    while (rawJson.indexOf(++index) != '"');
-                    ret.put(dataName, getAsString(rawJson, ++index));
+                    throw new Exception("Data name " + dataName + " not in Json definition");
+                }
+
+                if (mDataTypes.get(dataName).equals("String"))
+                {
+                    while (rawJson.charAt(++index) != '"');
+                    index++;
+                    ret.put(dataName, getAsString(rawJson));
                 }
                 else
                 {
-                    while (rawJson.indexOf(++index) != ':');
-                    ret.put(dataName, getAsInt(rawJson, ++index));
+                    while (rawJson.charAt(++index) != ':');
+                    while (rawJson.charAt(++index) == ' ');
+                    ret.put(dataName, getAsInt(rawJson, dataName));
                 }
             }
             index++;
+            
+            if (index >= rawJson.length())
+            {
+                throw new Exception("Json doesn't end with specified char");
+            }
         }
 
         return ret;
     }
 
-    String getAsString(String rawJson, int index)
+    String getAsString(String rawJson)
     {
 
         String data = "";
 
-        while (rawJson.indexOf(index) != "")
+        while (rawJson.charAt(index) != '"')
         {
-            data += rawJson.indexOf(index++);
+            data += rawJson.charAt(index++);
         }
 
         return data;
     }
 
-    String getAsInt(String rawJson, int index)
+    String getAsInt(String rawJson, String dataName) throws Exception
     {
         String data = "";
 
-        while (rawJson.indexOf(index) != "")
+        while (rawJson.charAt(index) != ' ' && rawJson.charAt(index) != ',')
         {
-            data += rawJson.indexOf(index++);
+            data += rawJson.charAt(index++);
         }
 
-        for (int i = 0 ; i < data.size() ; i++)
+        boolean seenDec = false;
+
+        for (int i = 0 ; i < data.length() ; i++)
         {
-            if (!isDigit(data[i]))
+            if (!Character.isDigit(data.charAt(i)))
             {
-                if (i != 0 || data[i] != '-')
+                if (data.charAt(i) == '.')
                 {
-                    throw new Exception("Data type should be int");
+                    if (!seenDec) seenDec = true;
+                    else throw new Exception("Data type " + dataName + " should be int. Has multiple decimals");
+                }
+                else if (i != 0 || data.charAt(i) != '-')
+                {
+                    throw new Exception("Data type " + dataName + " should be int");
                 }
             }
         }
