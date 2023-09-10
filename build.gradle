@@ -27,7 +27,7 @@ sourceSets {
 
     test {
         java {
-            srcDirs = ["./"]
+            srcDirs = ["./test", "./"]
         }
     }
 }
