@@ -23,6 +23,8 @@ public class GetClient
 
             InputStream input = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+
+            
  
             String ret = reader.readLine();
  
