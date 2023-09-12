@@ -1,12 +1,14 @@
-AggregationServer.java
- server.AggregationServer
 ClientTest.java
  client.ClientTest
+JsonParser.java
+ json.JsonParser
+MockServer.java
+ server.MockServer
 GetClient.java
  client.GetClient
 JsonParserTest.java
  json.JsonParserTest
-JsonParser.java
- json.JsonParser
-TestServer.java
- server.TestServer
+AggregationServer.java
+ server.AggregationServer
+ServerThread.java
+ server.ServerThread

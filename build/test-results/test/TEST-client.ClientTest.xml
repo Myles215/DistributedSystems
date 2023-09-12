@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="client.ClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-12T11:14:55" hostname="MYLESLAPTOP" time="3.034">
+  <properties/>
+  <testcase name="connectAndRequest" classname="client.ClientTest" time="1.002"/>
+  <testcase name="connect" classname="client.ClientTest" time="1.514"/>
+  <testcase name="messageAndResponse" classname="client.ClientTest" time="0.516"/>
+  <system-out><![CDATA[good job sending GET request!
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

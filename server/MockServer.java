@@ -3,30 +3,31 @@ package server;
 import java.net.*;
 import java.io.*;
 
-public class TestServer
+public class MockServer extends Thread
 {
-    public void startup(int port)
+
+    private int port = 1111;
+
+    public void run()
     {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-
+        try (ServerSocket serverSocket = new ServerSocket(port)) 
+        {
             Socket socket = serverSocket.accept();
-
             clientConnected = true;
 
             InputStream input = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
-            while (!clientMessage.equals("receive"))
-            {
-                clientMessage = reader.readLine();
-            }
+            clientMessage = reader.readLine();
 
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);
 
-            writer.println("good job connecting!");
+            writer.println("good job sending GET request!");
+            writer.println("\0");
  
-        } catch (IOException ex) {
+        } catch (IOException ex) 
+        {
             System.out.println("Server exception: " + ex.getMessage());
             ex.printStackTrace();
         }

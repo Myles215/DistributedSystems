@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="json.JsonParserTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-09-10T10:24:31" hostname="MYLESLAPTOP" time="0.003">
+<testsuite name="json.JsonParserTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-09-12T11:14:58" hostname="MYLESLAPTOP" time="0.001">
   <properties/>
-  <testcase name="NameAndId" classname="json.JsonParserTest" time="0.001"/>
-  <testcase name="wholeTest" classname="json.JsonParserTest" time="0.001"/>
+  <testcase name="NameAndId" classname="json.JsonParserTest" time="0.0"/>
+  <testcase name="wholeTest" classname="json.JsonParserTest" time="0.0"/>
   <testcase name="StringAndInt" classname="json.JsonParserTest" time="0.0"/>
   <testcase name="NegativeInts" classname="json.JsonParserTest" time="0.0"/>
-  <testcase name="nameOnly" classname="json.JsonParserTest" time="0.001"/>
+  <testcase name="nameOnly" classname="json.JsonParserTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
