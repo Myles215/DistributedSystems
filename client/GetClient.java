@@ -57,9 +57,9 @@ public class GetClient
 
         // Follow the HTTP protocol of GET <path> HTTP/1.0 followed by an empty line
         out.println("GET " + path + " HTTP/1.1");
-        out.println("content-type:application/json");
-        out.println("content-length:" + content.length());
-        out.println(content);
+        // out.println("content-type:application/json");
+        // out.println("content-length:" + content.length());
+        // out.println(content);
     }
 
     public static ArrayList<String> readResponse() throws IOException

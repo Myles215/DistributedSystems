@@ -4,8 +4,8 @@ parsers/JsonParser.java
  parsers.JsonParser
 client/GetClient.java
  client.GetClient
-FileParserTest.java
- FileParserTest
+server/AggregationServer.java
+ server.AggregationServer
 server/MockServer.java
  server.MockServer
 parsers/FileParser.java
@@ -14,5 +14,5 @@ JsonParserTest.java
  json.JsonParserTest
 server/ServerThread.java
  server.ServerThread
-server/AggregationServer.java
- server.AggregationServer
+FileParserTest.java
+ FileParserTest

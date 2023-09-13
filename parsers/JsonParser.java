@@ -41,7 +41,7 @@ public class JsonParser
 
     int index;
 
-    Map<String, String> recurGetJson(String rawJson, char endChar) throws Exception
+    public Map<String, String> recurGetJson(String rawJson, char endChar) throws Exception
     {
 
         Map<String, String> ret = new HashMap<String, String>();

@@ -72,13 +72,9 @@ public class FileParser
         File oldData = new File("./allData.txt");
 
         // remove the old file
-        if (oldData.delete()) 
-        {
-            System.out.println("Good");
-        }
-        else System.out.println("Bad");
+        oldData.delete();
 
-        new File("./temp.txt").renameTo(realName); // Rename temp file
+        new File("./temp.txt").renameTo(oldData); // Rename temp file
     }
 
     public void Startup(long timestamp) throws IOException
@@ -89,8 +85,7 @@ public class FileParser
         for (File midway : midways) 
         {
             //read out data
-            FileReader reader = new FileReader(midway);
-            BufferedReader br = new BufferedReader(reader);
+            BufferedReader br = new BufferedReader(new FileReader(midway));
 
             long time = Long.parseLong(br.readLine());
 
@@ -100,6 +95,7 @@ public class FileParser
                 AddToData(s, time);
             }
 
+            br.close();
             midway.delete();
         }
     }
