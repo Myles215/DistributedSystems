@@ -1,4 +1,3 @@
-package client;
 import client.GetClient;
 import server.MockServer;
 

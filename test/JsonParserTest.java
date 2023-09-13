@@ -1,6 +1,6 @@
 package json;
 
-import json.JsonParser;
+import parsers.JsonParser;
 
 import static org.junit.Assert.assertEquals;
 

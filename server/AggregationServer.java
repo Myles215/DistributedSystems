@@ -13,8 +13,8 @@ public class AggregationServer
     {
         int port = 5649;
 
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
- 
+        try (ServerSocket serverSocket = new ServerSocket(port)) 
+        {
             System.out.println("Server is listening on port " + port);
  
             while (true) 

@@ -1,9 +1,9 @@
-package json;
+package parsers;
 
 import java.util.*;
 import java.lang.*;
 
-class JsonParser
+public class JsonParser
 {
     public static void main(String[] args)
     {
@@ -17,12 +17,12 @@ class JsonParser
         mDataTypes = dataTypes;
     }
 
-    String encodeFromMap(HashMap<String, String> data)
+    public String encodeFromMap(HashMap<String, String> data)
     {
         return "";
     }
 
-    Map<String, String> decodeFromString(String json) throws Exception
+    public Map<String, String> decodeFromString(String json) throws Exception
     {
         Map<String, String> ret = new HashMap<String, String>();
 

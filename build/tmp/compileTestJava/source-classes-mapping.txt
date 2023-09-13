@@ -1,14 +1,18 @@
 ClientTest.java
- client.ClientTest
-JsonParser.java
- json.JsonParser
-MockServer.java
- server.MockServer
-GetClient.java
+ ClientTest
+parsers/JsonParser.java
+ parsers.JsonParser
+client/GetClient.java
  client.GetClient
+FileParserTest.java
+ FileParserTest
+server/MockServer.java
+ server.MockServer
+parsers/FileParser.java
+ parsers.FileParser
 JsonParserTest.java
  json.JsonParserTest
-AggregationServer.java
- server.AggregationServer
-ServerThread.java
+server/ServerThread.java
  server.ServerThread
+server/AggregationServer.java
+ server.AggregationServer
