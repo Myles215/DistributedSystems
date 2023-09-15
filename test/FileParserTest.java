@@ -19,8 +19,11 @@ public class FileParserTest
     @Before
     public void eraseAll() throws IOException
     {
-        File data = new File("./allData.txt");
-        data.delete();
+        File oldData = new File("./allData.txt");
+        oldData.delete();
+
+        File oldTemp = new File("./temp.txt");
+        oldTemp.delete();
 
         File dir = new File("./midwayFiles");
         File[] midways = dir.listFiles();
@@ -155,4 +158,28 @@ public class FileParserTest
 
         br.close();
     }
+
+    @Test
+    public void ReadSingleStringFromFile() throws IOException, Exception
+    {
+        AddString();
+
+        ArrayList<String> check = parser.ReturnFromFile();
+
+        assertEquals(check.size(), 1);
+        assertEquals(check.get(0), "Basic file content");
+    }   
+
+    @Test
+    public void ReadMultipleStringFromFile() throws IOException, Exception
+    {
+        AddMultipleStrings();
+
+        ArrayList<String> check = parser.ReturnFromFile();
+
+        assertEquals(check.size(), 3);
+        assertEquals(check.get(0), "content 1");
+        assertEquals(check.get(1), "content 2");
+        assertEquals(check.get(2), "content 3");
+    }   
 }

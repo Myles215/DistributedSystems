@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="FileParserTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-13T06:43:39" hostname="MYLESLAPTOP" time="0.066">
+<testsuite name="FileParserTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-09-15T08:30:17" hostname="MYLESLAPTOP" time="0.208">
   <properties/>
-  <testcase name="TestRestart" classname="FileParserTest" time="0.031"/>
-  <testcase name="AddMultipleStrings" classname="FileParserTest" time="0.028"/>
-  <testcase name="AddString" classname="FileParserTest" time="0.007"/>
+  <testcase name="TestRestart" classname="FileParserTest" time="0.067"/>
+  <testcase name="ReadSingleStringFromFile" classname="FileParserTest" time="0.02"/>
+  <testcase name="ReadMultipleStringFromFile" classname="FileParserTest" time="0.048"/>
+  <testcase name="AddMultipleStrings" classname="FileParserTest" time="0.048"/>
+  <testcase name="AddString" classname="FileParserTest" time="0.023"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

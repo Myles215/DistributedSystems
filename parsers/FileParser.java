@@ -99,4 +99,31 @@ public class FileParser
             midway.delete();
         }
     }
+
+    public ArrayList<String> ReturnFromFile() throws FileNotFoundException, IOException, Exception
+    {
+        ArrayList<String> allJson = new ArrayList<String>();
+
+        //read out data
+        BufferedReader br = new BufferedReader(new FileReader("./allData.txt"));
+
+        String line;
+
+        while ((line = br.readLine()) != null && line.length() != 0)
+        {
+            if (line.contains("time"))
+            {
+                allJson.add(br.readLine());
+            }
+            else
+            {
+                throw new Exception("Incorrect file format for agg server allData.txt");
+            }
+        }
+
+        br.close();
+
+        return allJson;
+    }
+
 }

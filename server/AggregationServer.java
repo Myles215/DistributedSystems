@@ -2,16 +2,20 @@ package server;
 
 import java.io.*;
 import java.net.*;
-import java.util.Date;
+import java.util.*;
 
 import server.ServerThread;
 
 public class AggregationServer
 {
 
+    static public ArrayList<ServerThread> threads;
+
     public static void main(String[] args)
     {
-        int port = 5649;
+        if (args.length < 1) return;
+
+        int port = Integer.parseInt(args[0]);
 
         try (ServerSocket serverSocket = new ServerSocket(port)) 
         {
@@ -23,7 +27,8 @@ public class AggregationServer
 
                 System.out.println("New client connected");
 
-                new ServerThread(socket).start();
+                threads.add(new ServerThread(socket));
+                threads.get(threads.size()-1).start();
             }
  
         } catch (IOException ex) {
