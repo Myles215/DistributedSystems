@@ -45,5 +45,5 @@ test {
     }
  
     systemProperties System.properties
-    reports.html.setDestination(file("$projectDir/GradleReports"))
+    //reports.html.setDestination(file("$projectDir/GradleReports"))
 }

@@ -38,7 +38,7 @@ public class ClientTest
     }
 
     @Test
-    public void connectAndRequest() throws IOException
+    public void connectAndRequest() throws IOException, Exception
     {
         GetClient client = new GetClient();
         server.start();
@@ -56,7 +56,7 @@ public class ClientTest
     }
 
     @Test
-    public void messageAndResponse() throws IOException
+    public void messageAndResponse() throws IOException, Exception
     {
         GetClient client = new GetClient();
         server.start();
@@ -69,6 +69,6 @@ public class ClientTest
         ArrayList<String> check = client.readResponse();
 
         assertEquals(check.size(), 1);
-        assertEquals(check.get(0), "good job sending GET request!");
+        assertEquals(check.get(0), "Good job sending GET request!");
     }
 }

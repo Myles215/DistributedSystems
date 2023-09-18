@@ -23,8 +23,12 @@ public class MockServer extends Thread
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);
 
-            writer.println("good job sending GET request!");
-            writer.println("\0");
+            String re = "Good job sending GET request!";
+
+            writer.println("PUT / HTTP/1.1");
+            writer.println("contentType:application/json");
+            writer.println("contentLength:" + re.length());
+            writer.println(re);
  
         } catch (IOException ex) 
         {

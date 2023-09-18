@@ -30,7 +30,6 @@ public class ServerThread extends Thread
 
             while (line != null)
             {
-                System.out.println(line);
 
                 if (line.contains("GET"))
                 {
@@ -47,14 +46,13 @@ public class ServerThread extends Thread
                         System.out.println("Exception when reading file: " + e);
                     }
 
-                    writer.println("POST / HTTP/1.1");
+                    writer.println("PUT / HTTP/1.1");
                     writer.println("contentType:application/json");
                     writer.println("contentLength:" + len);
                     for (String s : allData) writer.println(s);
                 }
                 else
                 {
-
                     try
                     {
                         line = reader.readLine();

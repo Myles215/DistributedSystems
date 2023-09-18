@@ -1,5 +1,8 @@
 package client;
 
+import parsers.HTTPParser;
+import parsers.HTTPObject;
+
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -7,28 +10,16 @@ import java.util.*;
 public class MockClient
 {
 
-    private static String hostname = "localhost";
-    private static Socket socket = new Socket();
+    private String hostname = "localhost";
+    public Socket socket = new Socket();
+    private HTTPParser mHTTPParser = new HTTPParser();
 
-    public static void main(String[] args) 
+    public void run(int port) throws InterruptedException
     {
-        if (args.length < 1) return;
- 
-        int port = Integer.parseInt(args[0]);
- 
         connect(port);
-
-        try
-        {
-            getRequest("/path", "Hmmm", "test");
-        }
-        catch (IOException e)
-        {
-            
-        }
     }
 
-    public static void connect(int port)
+    public void connect(int port) throws InterruptedException
     {
         try
         {
@@ -49,29 +40,27 @@ public class MockClient
         socket.close();
     }
 
-    public static void getRequest(String path, String content, String req) throws IOException
+    public void sendPutRequest(String req) throws IOException, Exception
     {
-        // Create input and output streams to read from and write to the server
         PrintStream out = new PrintStream( socket.getOutputStream() );
-        BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 
         out.println(req);
     }
 
-    public static ArrayList<String> readResponse() throws IOException
+    public HTTPObject sendGetRequest(String req) throws IOException, Exception
+    {
+        // Create input and output streams to read from and write to the server
+        PrintStream out = new PrintStream( socket.getOutputStream() );
+
+        out.println(req);
+
+        return readResponse();
+    }
+
+    public HTTPObject readResponse() throws IOException, Exception
     {
         BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 
-        ArrayList<String> responseDoc = new ArrayList<String>();
-
-        String line = in.readLine();
-        while(!line.equals("\0"))
-        {
-            System.out.println(line);
-            responseDoc.add(line);
-            line = in.readLine();
-        }
-
-        return responseDoc;
+        return mHTTPParser.parse(in);
     }
 }

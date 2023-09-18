@@ -48,10 +48,10 @@ public class FileParser
         //Now writing to main data file
         PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("./temp.txt")));
 
-        while ((line = br.readLine()) != null && !line.isEmpty()) {
-            if (line.contains("time")) {
-                int i = line.indexOf("-");
-
+        while ((line = br.readLine()) != null && !line.isEmpty()) 
+        {
+            if (line.contains("time")) 
+            {
                 long time = Long.parseLong(line.substring(line.indexOf("-") + 1));
 
                 if (time > timestamp - timeAllowed)
@@ -59,6 +59,10 @@ public class FileParser
                     writer.println(line);
                     line = br.readLine();
                     writer.println(line);
+                }
+                else
+                {
+                    br.readLine();
                 }
             }
         }

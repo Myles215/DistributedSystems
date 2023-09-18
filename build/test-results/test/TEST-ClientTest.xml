@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-15T08:30:17" hostname="MYLESLAPTOP" time="3.044">
+<testsuite name="ClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-18T09:33:20" hostname="MYLESLAPTOP" time="3.069">
   <properties/>
-  <testcase name="connectAndRequest" classname="ClientTest" time="1.033"/>
-  <testcase name="connect" classname="ClientTest" time="1.504"/>
-  <testcase name="messageAndResponse" classname="ClientTest" time="0.506"/>
-  <system-out><![CDATA[good job sending GET request!
+  <testcase name="connectAndRequest" classname="ClientTest" time="1.02"/>
+  <testcase name="connect" classname="ClientTest" time="1.533"/>
+  <testcase name="messageAndResponse" classname="ClientTest" time="0.516"/>
+  <system-out><![CDATA[length is; 29
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

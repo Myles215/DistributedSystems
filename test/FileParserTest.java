@@ -53,9 +53,6 @@ public class FileParserTest
             midway.delete();
         }
 
-        File newData = new File("./allData.txt");
-        newData.createNewFile();
-
         parser = new FileParser();
     }
 
@@ -88,12 +85,12 @@ public class FileParserTest
         parser.PlaceInFile(content1, time1);
 
         String content2 = "content 2";
-        long time2 = System.currentTimeMillis();
+        long time2 = System.currentTimeMillis() + 1;
 
         parser.PlaceInFile(content2, time2);
 
         String content3 = "content 3";
-        long time3 = System.currentTimeMillis();
+        long time3 = System.currentTimeMillis() + 2;
 
         parser.PlaceInFile(content3, time3);
 
@@ -118,7 +115,7 @@ public class FileParserTest
     @Test
     public void TestRestart() throws IOException
     {
-        String content1 = "Old Contents";
+        String content1 = "Old Contents 1";
         long time1 = System.currentTimeMillis();
 
         //Now writing to backup
@@ -131,7 +128,7 @@ public class FileParserTest
         writer.close();
 
         String content2 = "Old Contents 2";
-        long time2 = System.currentTimeMillis();
+        long time2 = System.currentTimeMillis() + 1;
 
         //Now writing to backup
         create = new File("./midwayFiles/" + Long.toString(time2) + ".txt");
@@ -142,10 +139,12 @@ public class FileParserTest
         writer.println(content2);
         writer.close();
 
+        File other = new File("allData.txt");
+        assertEquals(other.delete(), true);
+
         FileParser tester = new FileParser();
 
         File checkFile = new File("allData.txt");
-
         assertEquals(checkFile.createNewFile(), false);
 
         BufferedReader br = new BufferedReader(new FileReader("allData.txt"));

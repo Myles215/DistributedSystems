@@ -1,0 +1,8 @@
+This is bad
+
+PUT / HTTP/1.1
+this is also bad
+
+PUT / HTTP/1.1
+contentType:application/json
+this is super bad;

@@ -1,5 +1,7 @@
-import server.AggregationServer;
+import server.ThreadAggregationServer;
+import server.ServerThread;
 import client.MockClient;
+import parsers.HTTPObject;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,22 +18,117 @@ import java.io.*;
 
 public class AggregationServerTest
 {
-    AggregationServer aggServer = new AggregationServer();
-    int port = 1254;
-    String[] args = {Integer.toString(port)};
 
-    @Test
-    public void clientConnect()
+    @Before
+    public void resetFiles() throws InterruptedException
     {
-        aggServer.main(args);
-        assertEquals(aggServer.threads.size(), 0);
+        File oldData = new File("./allData.txt");
+        oldData.delete();
+    }
+    
+    int port = 1254;
+    
+    @Test
+    public void clientConnect() throws InterruptedException, IOException, Exception
+    {
+        String[] args = {Integer.toString(port)};
+        ThreadAggregationServer aggServer = new ThreadAggregationServer(args);
+        aggServer.start();
 
         MockClient client = new MockClient();
+        client.run(port);
 
-        client.connect(port);
+        HTTPObject checkReply = client.sendGetRequest("GET / HTTP/1.1");
 
-        System.out.println("Hmm");
+        //We have no data in aggregation server yet
+        assertEquals(checkReply.data.size(), 0);
 
-        assertEquals(aggServer.threads.size(), 1);
+        client.disconnect();
+        aggServer.exit = true;
+    }
+
+    @Test
+    public void GetClientAndContentServerConnect() throws InterruptedException, IOException, Exception
+    {
+        //Need to set new port to avoid exceptions
+        String[] args = {Integer.toString(port + 1)};
+        ThreadAggregationServer aggServer = new ThreadAggregationServer(args);
+        aggServer.start();
+
+        MockClient getClient = new MockClient();
+        getClient.run(port + 1);
+
+        MockClient contentServer = new MockClient();
+        contentServer.run(port + 1);
+
+        //Add content to server
+        String content = "test content";
+        contentServer.sendPutRequest("PUT / HTTP/1.1");
+        contentServer.sendPutRequest("contentType:application/json");
+        contentServer.sendPutRequest("contentLength:" + content.length());
+        contentServer.sendPutRequest(content);
+
+        //Give time to update
+        Thread.sleep(500);
+
+        HTTPObject checkReply = getClient.sendGetRequest("GET / HTTP/1.1");
+
+        //We should have our placed data
+        assertEquals(checkReply.data.size(), 1);
+        assertEquals(checkReply.data.get(0), content);
+
+        getClient.disconnect();
+        contentServer.disconnect();
+        aggServer.exit = true;
+    }
+
+    @Test
+    public void ServerRestartRetainsData() throws InterruptedException, IOException, Exception
+    {
+        //Need to set new port to avoid exceptions
+        String[] args = {Integer.toString(port + 2)};
+        ThreadAggregationServer aggServer = new ThreadAggregationServer(args);
+        aggServer.start();
+
+        MockClient getClient = new MockClient();
+        getClient.run(port + 2);
+
+        MockClient contentServer = new MockClient();
+        contentServer.run(port + 2);
+
+        //Add content to server
+        String content = "test content";
+        contentServer.sendPutRequest("PUT / HTTP/1.1");
+        contentServer.sendPutRequest("contentType:application/json");
+        contentServer.sendPutRequest("contentLength:" + content.length());
+        contentServer.sendPutRequest(content);
+
+        //Give time to update
+        Thread.sleep(500);
+
+        HTTPObject checkReply = getClient.sendGetRequest("GET / HTTP/1.1");
+
+        //We should have our placed data
+        assertEquals(checkReply.data.size(), 1);
+        assertEquals(checkReply.data.get(0), content);
+
+        getClient.disconnect();
+        contentServer.disconnect();
+        aggServer.exit = true;
+
+        String[] args2 = {Integer.toString(port + 3)};
+        ThreadAggregationServer aggServer2 = new ThreadAggregationServer(args2);
+        aggServer2.start();
+
+        getClient = new MockClient();
+        getClient.run(port + 3);
+
+        checkReply = getClient.sendGetRequest("GET / HTTP/1.1");
+
+        //We should have our placed data
+        assertEquals(checkReply.data.size(), 1);
+        assertEquals(checkReply.data.get(0), content);
+
+        getClient.disconnect();
     }
 }
