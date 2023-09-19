@@ -15,13 +15,10 @@ public class FileParser
         File dir = new File("./midwayFiles");
         dir.mkdir();
 
-        File data = new File("./allData.txt");
-        data.createNewFile();
-
         Startup(System.currentTimeMillis());
     }
 
-    public void PlaceInFile(String s, long timestamp) throws IOException
+    public Boolean PlaceInFile(String s, long timestamp) throws IOException
     {
         String timeStampS = Long.toString(timestamp);
 
@@ -32,15 +29,21 @@ public class FileParser
 
         writer.close();
 
-        AddToData(s, timestamp);
+        Boolean ret = AddToData(s, timestamp);
 
         //Delete midway file too
         File midway = new File("./midwayFiles/" + timeStampS + ".txt");
         midway.delete();
+
+        return ret;
     }
 
-    public void AddToData(String s, long timestamp) throws IOException
+    public Boolean AddToData(String s, long timestamp) throws IOException
     {
+        //Check if the data is being created for the first time
+        File oldData = new File("./allData.txt");
+        Boolean ret = oldData.createNewFile();
+
         //Check if any data is old
         BufferedReader br = new BufferedReader(new FileReader("./allData.txt"));
         String line;
@@ -73,12 +76,11 @@ public class FileParser
         br.close();
         writer.close();
 
-        File oldData = new File("./allData.txt");
-
         // remove the old file
         oldData.delete();
 
         new File("./temp.txt").renameTo(oldData); // Rename temp file
+        return ret;
     }
 
     public void Startup(long timestamp) throws IOException
@@ -109,7 +111,16 @@ public class FileParser
         ArrayList<String> allJson = new ArrayList<String>();
 
         //read out data
-        BufferedReader br = new BufferedReader(new FileReader("./allData.txt"));
+        BufferedReader br;
+
+        try
+        {
+            br = new BufferedReader(new FileReader("./allData.txt"));
+        }
+        catch (FileNotFoundException e)
+        {
+            return allJson;
+        }
 
         String line;
 

@@ -1,6 +1,8 @@
 package client;
 
 import parsers.JsonParser;
+import parsers.HTTPParser;
+import parsers.HTTPObject;
 
 import java.net.*;
 import java.io.*;
@@ -8,11 +10,11 @@ import java.util.*;
 
 public class GetClient
 {
-
     private static String hostname = "localhost";
     private static Socket socket = new Socket();
 
     JsonParser mJsonParser;
+    static HTTPParser mHTTPParser;
 
     public GetClient()
     {
@@ -38,6 +40,7 @@ public class GetClient
         data.put("wind_spd_kt", "int");
 
         mJsonParser = new JsonParser(data);
+        mHTTPParser = new HTTPParser();
     }
 
     public static void main(String[] args)  throws Exception
@@ -91,40 +94,10 @@ public class GetClient
 
     public static ArrayList<String> readResponse() throws IOException, Exception
     {
-        BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+        BufferedReader reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 
-        ArrayList<String> responseDoc = new ArrayList<String>();
+        HTTPObject http = mHTTPParser.parse(reader);
 
-        String line = in.readLine();
-
-        if (!line.contains("PUT")) throw new Exception("Unexpected response");
-
-        line = in.readLine();
-        if (!line.contains("contentType"))
-        {
-            throw new Exception("Incorrect PUT request format, needs content type");
-        }
-        line = in.readLine();
-        if (!line.contains("contentLength"))
-        {
-            throw new Exception("Incorrect PUT request format, needs content length");
-        }
-
-        int len = Integer.parseInt(line.substring(line.indexOf(":") + 1));
-
-        String JSON = "";
-        int totalLen = 0;
-
-        System.out.println("length is; " + len);
-
-        while (len - totalLen != 0)
-        {
-            JSON = in.readLine();
-            totalLen += JSON.length();
-            responseDoc.add(JSON);
-            if (totalLen > len) throw new Exception("Unexpected package length");
-        }
-
-        return responseDoc;
+        return http.data;
     }
 }

@@ -23,21 +23,35 @@ public class HTTPParserTest
     {
         HTTPObject check = parser.parse(reader);
 
-        assertEquals(check.error, 400);
+        assertEquals(check.responseCode, 400);
     }
 
     public void NoContentType(BufferedReader reader) throws IOException, Exception
     {
         HTTPObject check = parser.parse(reader);
 
-        assertEquals(check.error, 500);
+        assertEquals(check.responseCode, 500);
     }
 
     public void NoContentLength(BufferedReader reader) throws IOException, Exception
     {
         HTTPObject check = parser.parse(reader);
 
-        assertEquals(check.error, 500);
+        assertEquals(check.responseCode, 500);
+    }
+
+    public void PutNoData(BufferedReader reader) throws IOException, Exception
+    {
+        HTTPObject check = parser.parse(reader);
+
+        assertEquals(check.code, 200);
+    }
+
+    public void PutData(BufferedReader reader) throws IOException, Exception
+    {
+        HTTPObject check = parser.parse(reader);
+
+        assertEquals(check.code, 200);
     }
 
     @Test
@@ -53,5 +67,11 @@ public class HTTPParserTest
         reader.readLine();
 
         NoContentLength(reader);
+        reader.readLine();
+
+        PutNoData(reader);
+        reader.readLine();
+
+        PutData(reader);
     }
 }

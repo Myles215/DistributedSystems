@@ -38,7 +38,11 @@ public class AggregationServerTest
         MockClient client = new MockClient();
         client.run(port);
 
-        HTTPObject checkReply = client.sendGetRequest("GET / HTTP/1.1");
+        client.sendGetRequest("GET / HTTP/1.1");
+        client.sendGetRequest("contentType:application/json");
+        client.sendGetRequest("contentLength:0");
+
+        HTTPObject checkReply = client.readResponse();
 
         //We have no data in aggregation server yet
         assertEquals(checkReply.data.size(), 0);
@@ -71,7 +75,11 @@ public class AggregationServerTest
         //Give time to update
         Thread.sleep(500);
 
-        HTTPObject checkReply = getClient.sendGetRequest("GET / HTTP/1.1");
+        getClient.sendGetRequest("GET / HTTP/1.1");
+        getClient.sendGetRequest("contentType:application/json");
+        getClient.sendGetRequest("contentLength:0");
+
+        HTTPObject checkReply = getClient.readResponse();
 
         //We should have our placed data
         assertEquals(checkReply.data.size(), 1);
@@ -106,9 +114,14 @@ public class AggregationServerTest
         //Give time to update
         Thread.sleep(500);
 
-        HTTPObject checkReply = getClient.sendGetRequest("GET / HTTP/1.1");
+        getClient.sendGetRequest("GET / HTTP/1.1");
+        getClient.sendGetRequest("contentType:application/json");
+        getClient.sendGetRequest("contentLength:0");
+
+        HTTPObject checkReply = getClient.readResponse();
 
         //We should have our placed data
+        System.out.println(checkReply.code);
         assertEquals(checkReply.data.size(), 1);
         assertEquals(checkReply.data.get(0), content);
 
@@ -123,7 +136,11 @@ public class AggregationServerTest
         getClient = new MockClient();
         getClient.run(port + 3);
 
-        checkReply = getClient.sendGetRequest("GET / HTTP/1.1");
+        getClient.sendGetRequest("GET / HTTP/1.1");
+        getClient.sendGetRequest("contentType:application/json");
+        getClient.sendGetRequest("contentLength:0");
+
+        checkReply = getClient.readResponse();
 
         //We should have our placed data
         assertEquals(checkReply.data.size(), 1);

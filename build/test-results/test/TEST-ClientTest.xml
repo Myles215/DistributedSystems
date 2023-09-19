@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-18T09:33:20" hostname="MYLESLAPTOP" time="3.069">
+<testsuite name="ClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-18T23:46:13" hostname="MYLESLAPTOP" time="3.036">
   <properties/>
-  <testcase name="connectAndRequest" classname="ClientTest" time="1.02"/>
-  <testcase name="connect" classname="ClientTest" time="1.533"/>
-  <testcase name="messageAndResponse" classname="ClientTest" time="0.516"/>
-  <system-out><![CDATA[length is; 29
-]]></system-out>
+  <testcase name="connectAndRequest" classname="ClientTest" time="1.51"/>
+  <testcase name="connect" classname="ClientTest" time="1.522"/>
+  <testcase name="messageAndResponse" classname="ClientTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

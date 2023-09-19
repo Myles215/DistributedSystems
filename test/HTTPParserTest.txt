@@ -5,4 +5,13 @@ this is also bad
 
 PUT / HTTP/1.1
 contentType:application/json
-this is super bad;
+this is super bad
+
+PUT / HTTP/1.1
+contentType:application/json
+contentLength:0
+
+PUT / HTTP/1.1
+contentType:application/json
+contentLength:27
+This is the correct message

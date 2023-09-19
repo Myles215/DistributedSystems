@@ -47,14 +47,12 @@ public class MockClient
         out.println(req);
     }
 
-    public HTTPObject sendGetRequest(String req) throws IOException, Exception
+    public void sendGetRequest(String req) throws IOException, Exception
     {
         // Create input and output streams to read from and write to the server
         PrintStream out = new PrintStream( socket.getOutputStream() );
 
         out.println(req);
-
-        return readResponse();
     }
 
     public HTTPObject readResponse() throws IOException, Exception

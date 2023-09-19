@@ -10,7 +10,7 @@ server/ServerThread.java
  server.ServerThread
 parsers/HTTPObject.java
  parsers.HTTPObject
- parsers.RequestType
+ parsers.HTTPObject$RequestType
 ClientTest.java
  ClientTest
 client/GetClient.java
@@ -19,13 +19,13 @@ FileParserTest.java
  FileParserTest
 parsers/FileParser.java
  parsers.FileParser
-HTTPParserTest.java
- HTTPParserTest
+server/AggregationServer.java
+ server.AggregationServer
 server/ThreadAggregationServer.java
  server.ThreadAggregationServer
 parsers/HTTPParser.java
  parsers.HTTPParser
 AggregationServerTest.java
  AggregationServerTest
-server/AggregationServer.java
- server.AggregationServer
+HTTPParserTest.java
+ HTTPParserTest

@@ -1,6 +1,8 @@
 package server;
 
 import parsers.FileParser;
+import parsers.HTTPParser;
+import parsers.HTTPObject;
 
 import java.io.*;
 import java.net.*;
@@ -10,11 +12,13 @@ public class ServerThread extends Thread
 {
     private Socket mSocket;
     FileParser mFileParser;
+    HTTPParser mHTTPParser;
 
     public ServerThread(Socket client) throws FileNotFoundException, IOException
     {
         mSocket = client;
         mFileParser = new FileParser();
+        mHTTPParser = new HTTPParser();
     }
 
     public void run()
@@ -26,66 +30,62 @@ public class ServerThread extends Thread
             BufferedReader reader = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
             PrintWriter writer = new PrintWriter(mSocket.getOutputStream(), true);
 
-            String line = reader.readLine();
+            String line = "";
 
             while (line != null)
             {
+                try
+                {   
+                    HTTPObject http = mHTTPParser.parse(reader);
 
-                if (line.contains("GET"))
-                {
-                    ArrayList<String> allData = new ArrayList<String>();
-                    int len = 0;
-
-                    try
+                    if (http.responseCode > 201)
                     {
-                        allData = mFileParser.ReturnFromFile();
-                        for (String s : allData) len += s.length();
+                        writer.println(http.code + " " + http.errorMessage + " HTTP/1.1");
                     }
-                    catch (Exception e)
+                    else if (http.type == HTTPObject.RequestType.PUT)
                     {
-                        System.out.println("Exception when reading file: " + e);
-                    }
-
-                    writer.println("PUT / HTTP/1.1");
-                    writer.println("contentType:application/json");
-                    writer.println("contentLength:" + len);
-                    for (String s : allData) writer.println(s);
-                }
-                else
-                {
-                    try
-                    {
-                        line = reader.readLine();
-                        if (!line.contains("contentType"))
-                        {
-                            throw new Exception("Incorrect POST request format, needs content type");
-                        }
-                        line = reader.readLine();
-                        if (!line.contains("contentLength"))
-                        {
-                            throw new Exception("Incorrect POST request format, needs content length");
-                        }
-
-                        int len = Integer.parseInt(line.substring(line.indexOf(":") + 1));
-
-                        String JSON = "";
-
-                        while (len - JSON.length() != 0)
-                        {
-                            JSON += reader.readLine();
-                            if (JSON.length() > len) throw new Exception("Unexpected package length");
-                        }
-
                         long currentTime = System.currentTimeMillis();
-                        mFileParser.PlaceInFile(JSON, currentTime);
+                        boolean created = mFileParser.PlaceInFile(http.data.get(0), currentTime);
+
+                        if (created)
+                        {
+                            writer.println("201 Created HTTP/1.1");
+                        }
+                        else
+                        {
+                            writer.println("200 OK HTTP/1.1");
+                        }
                     }
-                    catch (Exception e)
+                    else if (http.type == HTTPObject.RequestType.GET)
                     {
-                        System.out.println("Json exception: " + e);
+                        ArrayList<String> allData = new ArrayList<String>();
+                        int len = 0;
+
+                        try
+                        {
+                            allData = mFileParser.ReturnFromFile();
+                            for (String s : allData) len += s.length();
+
+                            writer.println("200 OK HTTP/1.1");
+                            writer.println("contentType:application/json");
+                            writer.println("contentLength:" + len);
+                            for (String s : allData) writer.println(s);
+                        }
+                        catch (Exception e)
+                        {
+                            System.out.println("Exception when reading file: " + e);
+                            writer.println("500 Internal server error HTTP/1.1");
+                        }
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
-
-                line = reader.readLine();
+                catch (Exception e)
+                {
+                    writer.println("500 Internal server error HTTP/1.1");
+                }
             }
 
             reader.close();

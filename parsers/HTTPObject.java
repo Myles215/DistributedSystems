@@ -3,23 +3,27 @@ package parsers;
 import java.util.*;
 import java.lang.*;
 
-enum RequestType {
-    GET,
-    PUT,
-    OTHER
-}
-
 public class HTTPObject
 {
-    public int error = 0;
+
+    public enum RequestType {
+        GET,
+        PUT,
+        RES,
+        NULL
+    }
+
+    public int code = 0;
     public String errorMessage = "";
+
+    public int responseCode = 0;
+    public String responseMessage = "";
+
     public ArrayList<String> data = new ArrayList<String>();
     public RequestType type;
 
     public HTTPObject(String t)
     {
-
-        type = type.OTHER;
 
         if (t.equals("GET"))
         {
@@ -29,14 +33,26 @@ public class HTTPObject
         {
             type = RequestType.PUT;
         }
-        
-        
+        else if (t.equals("RES"))
+        {
+            type = RequestType.RES;
+        }
+        else
+        {
+            type = RequestType.NULL;
+        }
     }
 
-    public void error(int err, String message)
+    public void status(int c, String message)
     {
-        error = err;
+        code = c;
         errorMessage = message;
+    }
+
+    public void responseStatus(int c, String message)
+    {
+        responseCode = c;
+        responseMessage = message;
     }
 
     public void addData(String s)
