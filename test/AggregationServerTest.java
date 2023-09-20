@@ -72,6 +72,10 @@ public class AggregationServerTest
         contentServer.sendPutRequest("contentLength:" + content.length());
         contentServer.sendPutRequest(content);
 
+        //Expect we get 201 as we're adding files for the first time
+        HTTPObject checkReply = contentServer.readResponse();
+        assertEquals(checkReply.code, 201);
+
         //Give time to update
         Thread.sleep(500);
 
@@ -79,7 +83,7 @@ public class AggregationServerTest
         getClient.sendGetRequest("contentType:application/json");
         getClient.sendGetRequest("contentLength:0");
 
-        HTTPObject checkReply = getClient.readResponse();
+        checkReply = getClient.readResponse();
 
         //We should have our placed data
         assertEquals(checkReply.data.size(), 1);
@@ -111,6 +115,10 @@ public class AggregationServerTest
         contentServer.sendPutRequest("contentLength:" + content.length());
         contentServer.sendPutRequest(content);
 
+        //Expect we get 200 back as we already have the file
+        HTTPObject checkReply = contentServer.readResponse();
+        assertEquals(checkReply.code, 201);
+
         //Give time to update
         Thread.sleep(500);
 
@@ -118,10 +126,10 @@ public class AggregationServerTest
         getClient.sendGetRequest("contentType:application/json");
         getClient.sendGetRequest("contentLength:0");
 
-        HTTPObject checkReply = getClient.readResponse();
+        checkReply = getClient.readResponse();
 
         //We should have our placed data
-        System.out.println(checkReply.code);
+        assertEquals(checkReply.code, 200);
         assertEquals(checkReply.data.size(), 1);
         assertEquals(checkReply.data.get(0), content);
 

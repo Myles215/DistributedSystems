@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="HTTPParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-09-18T23:46:11" hostname="MYLESLAPTOP" time="0.003">
+<testsuite name="HTTPParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-09-20T02:17:49" hostname="MYLESLAPTOP" time="0.0">
   <properties/>
-  <testcase name="runAll" classname="HTTPParserTest" time="0.003"/>
+  <testcase name="runAll" classname="HTTPParserTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

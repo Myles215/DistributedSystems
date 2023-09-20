@@ -41,11 +41,13 @@ public class ServerThread extends Thread
                     if (http.responseCode > 201)
                     {
                         writer.println(http.code + " " + http.errorMessage + " HTTP/1.1");
+                        writer.println("contentType:none");
+                        writer.println("contentLength:0");
                     }
                     else if (http.type == HTTPObject.RequestType.PUT)
                     {
                         long currentTime = System.currentTimeMillis();
-                        boolean created = mFileParser.PlaceInFile(http.data.get(0), currentTime);
+                        Boolean created = mFileParser.PlaceInFile(http.data.get(0), currentTime);
 
                         if (created)
                         {
@@ -55,6 +57,10 @@ public class ServerThread extends Thread
                         {
                             writer.println("200 OK HTTP/1.1");
                         }
+
+                        writer.println("contentType:none");
+                        writer.println("contentLength:0");
+
                     }
                     else if (http.type == HTTPObject.RequestType.GET)
                     {
@@ -75,6 +81,8 @@ public class ServerThread extends Thread
                         {
                             System.out.println("Exception when reading file: " + e);
                             writer.println("500 Internal server error HTTP/1.1");
+                            writer.println("contentType:none");
+                            writer.println("contentLength:0");
                         }
                     }
                     else
@@ -85,6 +93,8 @@ public class ServerThread extends Thread
                 catch (Exception e)
                 {
                     writer.println("500 Internal server error HTTP/1.1");
+                    writer.println("contentType:none");
+                    writer.println("contentLength:0");
                 }
             }
 

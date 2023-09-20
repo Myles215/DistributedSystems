@@ -1,10 +1,15 @@
 package server;
 
+import parsers.HTTPParser;
+import parsers.HTTPObject;
+
 import java.net.*;
 import java.io.*;
 
 public class MockServer extends Thread
 {
+
+    HTTPParser mParser = new HTTPParser();
 
     private int port = 1111;
 
@@ -18,7 +23,14 @@ public class MockServer extends Thread
             InputStream input = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
-            clientMessage = reader.readLine();
+            try
+            {   
+                clientMessage = mParser.parse(reader);
+            } 
+            catch (Exception e)
+            {
+                
+            }
 
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);
@@ -38,5 +50,5 @@ public class MockServer extends Thread
     }
 
     public boolean clientConnected = false;
-    public String clientMessage = "";
+    public HTTPObject clientMessage;
 }

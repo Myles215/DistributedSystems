@@ -2,6 +2,7 @@ import client.GetClient;
 import server.MockServer;
 
 import static org.junit.Assert.assertEquals;
+import parsers.HTTPObject;
 
 import org.junit.Test;
 import org.junit.Before;
@@ -46,11 +47,11 @@ public class ClientTest
         assertEquals(server.clientConnected, false);
 
         client.connect(1111);
-        client.getRequest("/test", "");
+        client.getRequest("/test");
 
         try { Thread.sleep(1000); } catch (InterruptedException e) { }
 
-        assertEquals(server.clientMessage, "GET /test HTTP/1.1");
+        assertEquals(server.clientMessage.type, HTTPObject.RequestType.GET);
 
         client.disconnect();
     }
@@ -64,7 +65,7 @@ public class ClientTest
         assertEquals(server.clientConnected, false);
 
         client.connect(1111);
-        client.getRequest("/test", "");
+        client.getRequest("/test");
 
         ArrayList<String> check = client.readResponse();
 

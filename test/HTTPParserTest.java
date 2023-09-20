@@ -44,14 +44,14 @@ public class HTTPParserTest
     {
         HTTPObject check = parser.parse(reader);
 
-        assertEquals(check.code, 200);
+        assertEquals(check.responseCode, 200);
     }
 
     public void PutData(BufferedReader reader) throws IOException, Exception
     {
         HTTPObject check = parser.parse(reader);
 
-        assertEquals(check.code, 200);
+        assertEquals(check.responseCode, 200);
     }
 
     @Test

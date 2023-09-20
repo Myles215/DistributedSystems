@@ -29,6 +29,18 @@ public class HTTPParser
 
     }
 
+    public String getMessage(int index, String line)
+    {
+        String ret = "";
+
+        while (line.charAt(index) != ' ')
+        {
+            ret += line.charAt(index++);
+        }
+
+        return ret;
+    }
+
     public HTTPObject parseRequest(BufferedReader reader) throws IOException, Exception
     {
         HTTPObject http;
@@ -57,18 +69,14 @@ public class HTTPParser
 
             if (code.equals("200") || code.equals("201")) 
             {
-                http.status(Integer.parseInt(code), "OK");
+                http.status(Integer.parseInt(code), getMessage(line.indexOf(' '), line));
 
             }
             else if (code.equals("400") || code.equals("500"))
             {
                 http = new HTTPObject("RES");
 
-                String message;
-                if (code == "400") message = "Bad request";
-                else message = "Internal server error";
-
-                http.status(Integer.parseInt(code), message);
+                http.status(Integer.parseInt(code), getMessage(line.indexOf(' '), line));
                 return http;
             }
             else
@@ -106,7 +114,7 @@ public class HTTPParser
             }   
         }
 
-        http.status(200, "OK");
+        http.responseStatus(200, "OK");
 
         return http;
     }   

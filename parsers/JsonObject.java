@@ -3,32 +3,23 @@ package parsers;
 import java.util.*;
 import java.lang.*;
 
-public class JsonParser
+public class JsonObject
 {
-    public static void main(String[] args)
-    {
+    public Map<String, String> mJsonMap = new HashMap<String, String>();
 
-    }
-
-    Map<String, String> mDataTypes = new HashMap<String, String>();
-
-    public JsonParser(Map<String, String> dataTypes)
-    {
-        mDataTypes = dataTypes;
-    }
-
-    public String encodeFromMap(HashMap<String, String> data)
+    public String JsonToString(HashMap<String, String> data)
     {
         return "";
     }
 
-    public Map<String, String> decodeFromString(String json) throws Exception
+    public void StringToObject(String json) throws Exception
     {
         Map<String, String> ret = new HashMap<String, String>();
 
-        if (json.charAt(0) == '{')
+        index = json.indexOf('{') + 1;
+
+        if (index != -1)
         {
-            index = 1;
             ret = recurGetJson(json, '}');
         }
         else
@@ -36,7 +27,7 @@ public class JsonParser
             throw new Exception("Json format incorrect, must start with {");
         }
 
-        return ret;
+        mJsonMap = ret;
     }
 
     int index;
@@ -48,6 +39,7 @@ public class JsonParser
 
         while (rawJson.charAt(index) != endChar)
         {
+            System.out.println(index);
             if (rawJson.charAt(index) == '"')
             {
                 String dataName = "";
@@ -57,23 +49,25 @@ public class JsonParser
                     dataName += rawJson.charAt(index);
                 }
 
-                if (!mDataTypes.containsKey(dataName))
-                {
-                    throw new Exception("Data name " + dataName + " not in Json definition");
-                }
+                System.out.println(index);
 
-                if (mDataTypes.get(dataName).equals("String"))
+                while (rawJson.charAt(++index) != ':');
+                while (rawJson.charAt(++index) == ' ');
+
+                if (rawJson.charAt(index) == '"')
                 {
-                    while (rawJson.charAt(++index) != '"');
                     index++;
                     ret.put(dataName, getAsString(rawJson));
                 }
-                else
+                else if (rawJson.charAt(index) == '-' || Character.isDigit(rawJson.charAt(index)))
                 {
-                    while (rawJson.charAt(++index) != ':');
-                    while (rawJson.charAt(++index) == ' ');
                     ret.put(dataName, getAsInt(rawJson, dataName));
                 }
+                else 
+                {
+                    throw new Exception("Data name " + dataName + " not in correct format");
+                }
+                
             }
             index++;
             
