@@ -7,9 +7,9 @@ JC = javac
 	$(JC) $(JFLAGS) $*.java
 
 CLASSES = \
+		  client/GETClient.java \
 		  server/AggregationServer.java \
-		  server/ContentServer.java \
-		  client/GETClient.java
+		  server/ContentServer.java 
 
 default: classes
 
