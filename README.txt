@@ -10,6 +10,9 @@ To play with:
     javac server/ContentServer.java
     javac client/GETClient.java
 
+    or
+    Makefile
+
     in seperate terminals:
         java server.AggregationServer port
 
