@@ -8,10 +8,15 @@ import java.io.*;
 
 public class MockServer extends Thread
 {
+    private static String HTTPParserInput = "./parsers/HTTPParser.txt";
+    HTTPParser mParser = new HTTPParser(HTTPParserInput);
 
-    HTTPParser mParser = new HTTPParser();
+    private int port;
 
-    private int port = 1111;
+    public MockServer(int p)
+    {
+        port = p;
+    }
 
     public void run()
     {
@@ -29,7 +34,7 @@ public class MockServer extends Thread
             } 
             catch (Exception e)
             {
-                
+                System.out.println(e);
             }
 
             OutputStream output = socket.getOutputStream();
@@ -37,8 +42,8 @@ public class MockServer extends Thread
 
             String re = "Good job sending GET request!";
 
-            writer.println("PUT / HTTP/1.1");
-            writer.println("contentType:application/json");
+            writer.println("HTTP/1.1 200 OK");
+            writer.println("contentType: application/json");
             writer.println("contentLength:" + re.length());
             writer.println(re);
  

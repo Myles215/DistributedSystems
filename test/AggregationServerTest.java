@@ -38,13 +38,14 @@ public class AggregationServerTest
         MockClient client = new MockClient();
         client.run(port);
 
-        client.sendGetRequest("GET / HTTP/1.1");
-        client.sendGetRequest("contentType:application/json");
+        client.sendGetRequest("GET /weather.json HTTP/1.1");
+        client.sendGetRequest("contentType: application/json");
         client.sendGetRequest("contentLength:0");
 
         HTTPObject checkReply = client.readResponse();
 
         //We have no data in aggregation server yet
+        assertEquals(checkReply.code, 200);
         assertEquals(checkReply.data.size(), 0);
 
         client.disconnect();
@@ -67,8 +68,8 @@ public class AggregationServerTest
 
         //Add content to server
         String content = "test content";
-        contentServer.sendPutRequest("PUT / HTTP/1.1");
-        contentServer.sendPutRequest("contentType:application/json");
+        contentServer.sendPutRequest("PUT /weather.json HTTP/1.1");
+        contentServer.sendPutRequest("contentType: application/json");
         contentServer.sendPutRequest("contentLength:" + content.length());
         contentServer.sendPutRequest(content);
 
@@ -79,13 +80,14 @@ public class AggregationServerTest
         //Give time to update
         Thread.sleep(500);
 
-        getClient.sendGetRequest("GET / HTTP/1.1");
-        getClient.sendGetRequest("contentType:application/json");
+        getClient.sendGetRequest("GET /weather.json HTTP/1.1");
+        getClient.sendGetRequest("contentType: application/json");
         getClient.sendGetRequest("contentLength:0");
 
         checkReply = getClient.readResponse();
 
         //We should have our placed data
+        assertEquals(checkReply.code, 200);
         assertEquals(checkReply.data.size(), 1);
         assertEquals(checkReply.data.get(0), content);
 
@@ -110,8 +112,8 @@ public class AggregationServerTest
 
         //Add content to server
         String content = "test content";
-        contentServer.sendPutRequest("PUT / HTTP/1.1");
-        contentServer.sendPutRequest("contentType:application/json");
+        contentServer.sendPutRequest("PUT /weather.json HTTP/1.1");
+        contentServer.sendPutRequest("contentType: application/json");
         contentServer.sendPutRequest("contentLength:" + content.length());
         contentServer.sendPutRequest(content);
 
@@ -122,8 +124,8 @@ public class AggregationServerTest
         //Give time to update
         Thread.sleep(500);
 
-        getClient.sendGetRequest("GET / HTTP/1.1");
-        getClient.sendGetRequest("contentType:application/json");
+        getClient.sendGetRequest("GET /weather.json HTTP/1.1");
+        getClient.sendGetRequest("contentType: application/json");
         getClient.sendGetRequest("contentLength:0");
 
         checkReply = getClient.readResponse();
@@ -144,13 +146,14 @@ public class AggregationServerTest
         getClient = new MockClient();
         getClient.run(port + 3);
 
-        getClient.sendGetRequest("GET / HTTP/1.1");
-        getClient.sendGetRequest("contentType:application/json");
+        getClient.sendGetRequest("GET /weather.json HTTP/1.1");
+        getClient.sendGetRequest("contentType: application/json");
         getClient.sendGetRequest("contentLength:0");
 
         checkReply = getClient.readResponse();
 
         //We should have our placed data
+        assertEquals(checkReply.code, 200);
         assertEquals(checkReply.data.size(), 1);
         assertEquals(checkReply.data.get(0), content);
 

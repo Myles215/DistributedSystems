@@ -8,20 +8,13 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-public class GetClient
+public class GETClient
 {
     private static String hostname = "localhost";
     private static Socket socket = new Socket();
-
-    JsonObject mJsonParser;
-    static HTTPParser mHTTPParser;
-
-    public GetClient()
-    {
-
-        mJsonParser = new JsonObject();
-        mHTTPParser = new HTTPParser();
-    }
+    private static String HTTPParserInput = "./parsers/HTTPParser.txt";
+    static HTTPParser mHTTPParser = new HTTPParser(HTTPParserInput);
+    static JsonObject mJsonParser = new JsonObject();
 
     public static void main(String[] args)  throws Exception
     {
@@ -37,7 +30,15 @@ public class GetClient
 
         try
         {
-            getRequest("/path");
+            getRequest("/weather.json");
+
+            ArrayList<String> reply = readResponse();
+
+            for (String rep : reply)
+            {
+                mJsonParser.printString(rep);
+                System.out.println(" ");
+            }
         }
         catch (IOException e)
         {
@@ -74,7 +75,7 @@ public class GetClient
 
         // Follow the HTTP protocol of GET <path> HTTP/1.0 followed by an empty line
         out.println("GET " + path + " HTTP/1.1");
-        out.println("contentType:application/json");
+        out.println("contentType: application/json");
         out.println("contentLength:0");
     }
 
@@ -82,7 +83,12 @@ public class GetClient
     {
         BufferedReader reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 
-        HTTPObject http = mHTTPParser.parse(reader);
+        HTTPObject http = new HTTPObject("NULL");
+
+        while (http.type == HTTPObject.RequestType.NULL)
+        {   
+            http = mHTTPParser.parse(reader);
+        }
 
         return http.data;
     }

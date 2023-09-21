@@ -17,7 +17,8 @@ import java.io.*;
 public class HTTPParserTest
 {
 
-    HTTPParser parser = new HTTPParser();
+    private static String HTTPParserInput = "./parsers/HTTPParser.txt";
+    HTTPParser parser = new HTTPParser(HTTPParserInput);
 
     public void badRequest(BufferedReader reader) throws IOException, Exception
     {
@@ -58,7 +59,7 @@ public class HTTPParserTest
     public void runAll() throws IOException, Exception
     {
         //Need to do in order
-        BufferedReader reader = new BufferedReader(new FileReader("./test/HTTPParserTest.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("./test/testFiles/HTTPParserTest.txt"));
 
         badRequest(reader);
         reader.readLine();

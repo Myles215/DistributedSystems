@@ -1,0 +1,8 @@
+
+weather.json
+PUT
+application/json
+
+weather.json
+GET
+application/json

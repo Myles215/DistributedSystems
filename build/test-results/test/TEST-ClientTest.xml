@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-20T02:17:46" hostname="MYLESLAPTOP" time="3.051">
+<testsuite name="ClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-21T23:28:09" hostname="MYLESLAPTOP" time="3.031">
   <properties/>
-  <testcase name="connectAndRequest" classname="ClientTest" time="1.013"/>
-  <testcase name="connect" classname="ClientTest" time="1.522"/>
-  <testcase name="messageAndResponse" classname="ClientTest" time="0.515"/>
+  <testcase name="connectAndRequest" classname="ClientTest" time="1.008"/>
+  <testcase name="connect" classname="ClientTest" time="1.517"/>
+  <testcase name="messageAndResponse" classname="ClientTest" time="0.506"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

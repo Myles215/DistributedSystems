@@ -1,4 +1,4 @@
-import client.GetClient;
+import client.GETClient;
 import server.MockServer;
 
 import static org.junit.Assert.assertEquals;
@@ -19,12 +19,12 @@ public class ClientTest
 {   
 
     private int port = 1111;
-    MockServer server = new MockServer();
+    MockServer server = new MockServer(port);
 
     @Test
     public void connect() throws IOException
     {
-        GetClient client = new GetClient();
+        GETClient client = new GETClient();
         server.start();
 
         assertEquals(server.clientConnected, false);
@@ -41,13 +41,13 @@ public class ClientTest
     @Test
     public void connectAndRequest() throws IOException, Exception
     {
-        GetClient client = new GetClient();
+        GETClient client = new GETClient();
         server.start();
 
         assertEquals(server.clientConnected, false);
 
         client.connect(1111);
-        client.getRequest("/test");
+        client.getRequest("/weather.json");
 
         try { Thread.sleep(1000); } catch (InterruptedException e) { }
 
@@ -59,13 +59,13 @@ public class ClientTest
     @Test
     public void messageAndResponse() throws IOException, Exception
     {
-        GetClient client = new GetClient();
+        GETClient client = new GETClient();
         server.start();
 
         assertEquals(server.clientConnected, false);
 
         client.connect(1111);
-        client.getRequest("/test");
+        client.getRequest("/weather.json");
 
         ArrayList<String> check = client.readResponse();
 

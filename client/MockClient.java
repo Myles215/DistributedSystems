@@ -12,8 +12,9 @@ public class MockClient
 
     private String hostname = "localhost";
     public Socket socket = new Socket();
-    private HTTPParser mHTTPParser = new HTTPParser();
-
+    private static String HTTPParserInput = "./parsers/HTTPParser.txt";
+    static HTTPParser mHTTPParser = new HTTPParser(HTTPParserInput);
+    
     public void run(int port) throws InterruptedException
     {
         connect(port);

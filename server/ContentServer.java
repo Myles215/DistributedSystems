@@ -5,34 +5,102 @@ import java.io.*;
 import java.util.*;
 
 
-class ContentServer
+public class ContentServer
 {
 
     private static String hostname = "localhost";
     private static Socket socket = new Socket();
 
-    public static void main(String args[])
+    static Map<String, String> mDataTypes = new HashMap<String, String>();
+
+    public ContentServer()
     {
-        if (args.length < 2) return;
+        setUpDataTypes();
+    }
+
+    static public void setUpDataTypes()
+    {
+        //Add all of our data types
+        mDataTypes.put("id", "String");
+        mDataTypes.put("name", "String");
+        mDataTypes.put("state", "String");
+        mDataTypes.put("time_zone", "String");
+        mDataTypes.put("lat", "int");
+        mDataTypes.put("lon", "int");
+        mDataTypes.put("local_date_time", "String");
+        mDataTypes.put("local_date_time_full", "String");
+        mDataTypes.put("air_temp", "int");
+        mDataTypes.put("apparent_t", "int");
+        mDataTypes.put("cloud", "String");
+        mDataTypes.put("dewpt", "int");
+        mDataTypes.put("press", "int");
+        mDataTypes.put("rel_hum", "int");
+        mDataTypes.put("wind_dir", "String");
+        mDataTypes.put("wind_spd_kmh", "int");
+        mDataTypes.put("wind_spd_kt", "int");
+    }
+
+    public static void main(String args[]) throws InterruptedException
+    {
+
+        setUpDataTypes();
+
+        if (args.length < 2) 
+        {
+            System.out.println("Needs port and input file as args");
+            return;
+        }
  
         int port = Integer.parseInt(args[0]);
         String file = args[1];
  
         connect(port);
+        Thread.sleep(500);
 
         try
         {
-            String json = "";
-            BufferedReader reader = new BufferedReader(new FileReader("./" + file));
+            String json = "{ ";
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
 
             while (line != null)
             {
-                json += line;
+                int index = 0;
+                while (line.charAt(index) == ' ') index++;
+
+                String dataName = "";
+
+                while (line.charAt(index) != ' ' && line.charAt(index) != ':') dataName += line.charAt(index++);
+
+                while (line.charAt(index) == ' ' || line.charAt(index) == ':') index++;
+
+                String data = "";
+
+                while (index < line.length() && line.charAt(index) != ' ') data += line.charAt(index++);
+
+                if (mDataTypes.containsKey(dataName)) 
+                {
+                    if (mDataTypes.get(dataName).equals("String"))
+                    {
+                        json += " \"" + dataName + "\" : " + "\"" + data + "\" ,";
+                    }
+                    else 
+                    {
+                        json += " \"" + dataName + "\" : " + data + " ,";
+                    }
+                }
+                else
+                {
+                    System.out.println("Unrecognized data name: " + dataName + " in file");
+                    return;
+                }
                 line = reader.readLine();
             }
 
-            putRequest("", json);
+            json = json.substring(0, json.length() - 1);
+            json += '}';
+
+            putRequest("/weather.json", json);
         }
         catch (FileNotFoundException e)
         {
@@ -69,7 +137,7 @@ class ContentServer
 
         // Follow the HTTP protocol of GET <path> HTTP/1.0 followed by an empty line
         out.println("PUT " + path + " HTTP/1.1");
-        out.println("contentType:application/json");
+        out.println("contentType: application/json");
         out.println("contentLength:" + content.length());
         out.println(content);
     }

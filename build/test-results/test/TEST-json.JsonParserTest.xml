@@ -1,101 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="json.JsonParserTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-09-20T02:17:43" hostname="MYLESLAPTOP" time="0.006">
+<testsuite name="json.JsonParserTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-09-21T23:28:18" hostname="MYLESLAPTOP" time="0.001">
   <properties/>
-  <testcase name="NameAndId" classname="json.JsonParserTest" time="0.002"/>
-  <testcase name="wholeTest" classname="json.JsonParserTest" time="0.003"/>
-  <testcase name="StringAndInt" classname="json.JsonParserTest" time="0.001"/>
+  <testcase name="NameAndId" classname="json.JsonParserTest" time="0.0"/>
+  <testcase name="wholeTest" classname="json.JsonParserTest" time="0.0"/>
+  <testcase name="StringAndInt" classname="json.JsonParserTest" time="0.0"/>
   <testcase name="NegativeInts" classname="json.JsonParserTest" time="0.0"/>
   <testcase name="nameOnly" classname="json.JsonParserTest" time="0.0"/>
-  <system-out><![CDATA[1
-2
-7
-18
-19
-20
-23
-36
-1
-4
-18
-19
-20
-25
-70
-71
-72
-78
-86
-87
-88
-98
-107
-108
-109
-113
-122
-123
-127
-136
-137
-153
-168
-169
-170
-191
-210
-211
-212
-221
-229
-230
-241
-248
-249
-255
-273
-274
-275
-281
-288
-289
-295
-305
-306
-314
-320
-321
-330
-336
-337
-338
-351
-357
-358
-370
-1
-2
-7
-18
-19
-20
-24
-31
-32
-35
-48
-49
-50
-54
-1
-2
-6
-14
-15
-19
-1
-2
-7
-18
-]]></system-out>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

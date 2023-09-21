@@ -9,11 +9,15 @@ import server.ServerThread;
 public class AggregationServer
 {
 
-    static public ArrayList<ServerThread> threads;
+    static public ArrayList<ServerThread> threads = new ArrayList<ServerThread>();
 
     public static void main(String[] args)
     {
-        if (args.length < 1) return;
+        if (args.length < 1) 
+        {
+            System.out.println("Needs port as arg");
+            return;
+        }
 
         int port = Integer.parseInt(args[0]);
 

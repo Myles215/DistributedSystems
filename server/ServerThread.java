@@ -14,11 +14,13 @@ public class ServerThread extends Thread
     FileParser mFileParser;
     HTTPParser mHTTPParser;
 
+    private static String HTTPParserInput = "./parsers/HTTPParser.txt";
+
     public ServerThread(Socket client) throws FileNotFoundException, IOException
     {
         mSocket = client;
         mFileParser = new FileParser();
-        mHTTPParser = new HTTPParser();
+        mHTTPParser = new HTTPParser(HTTPParserInput);
     }
 
     public void run()
@@ -31,17 +33,23 @@ public class ServerThread extends Thread
             PrintWriter writer = new PrintWriter(mSocket.getOutputStream(), true);
 
             String line = "";
+            long start = System.currentTimeMillis();
 
-            while (line != null)
+            while (line != null && start + 30000 > System.currentTimeMillis())
             {
                 try
                 {   
                     HTTPObject http = mHTTPParser.parse(reader);
 
+                    if (http.type != HTTPObject.RequestType.NULL)
+                    {
+                        System.out.println("New request: " + http.type);
+                    }
+
                     if (http.responseCode > 201)
                     {
-                        writer.println(http.code + " " + http.errorMessage + " HTTP/1.1");
-                        writer.println("contentType:none");
+                        writer.println("HTTP/1.1 " + http.code + " " + http.errorMessage);
+                        writer.println("contentType: weather.json");
                         writer.println("contentLength:0");
                     }
                     else if (http.type == HTTPObject.RequestType.PUT)
@@ -49,18 +57,19 @@ public class ServerThread extends Thread
                         long currentTime = System.currentTimeMillis();
                         Boolean created = mFileParser.PlaceInFile(http.data.get(0), currentTime);
 
+                        System.out.println("Added content server data to file");
+
                         if (created)
                         {
-                            writer.println("201 Created HTTP/1.1");
+                            writer.println("HTTP/1.1 201 Created");
                         }
                         else
                         {
-                            writer.println("200 OK HTTP/1.1");
+                            writer.println("HTTP/1.1 200 OK");
                         }
 
-                        writer.println("contentType:none");
+                        writer.println("contentType: text/plain");
                         writer.println("contentLength:0");
-
                     }
                     else if (http.type == HTTPObject.RequestType.GET)
                     {
@@ -72,28 +81,24 @@ public class ServerThread extends Thread
                             allData = mFileParser.ReturnFromFile();
                             for (String s : allData) len += s.length();
 
-                            writer.println("200 OK HTTP/1.1");
-                            writer.println("contentType:application/json");
+                            writer.println("HTTP/1.1 200 OK");
+                            writer.println("contentType: application/json");
                             writer.println("contentLength:" + len);
                             for (String s : allData) writer.println(s);
                         }
                         catch (Exception e)
                         {
                             System.out.println("Exception when reading file: " + e);
-                            writer.println("500 Internal server error HTTP/1.1");
-                            writer.println("contentType:none");
+                            writer.println("HTTP/1.1 500 Internal server error");
+                            writer.println("contentType: none");
                             writer.println("contentLength:0");
                         }
-                    }
-                    else
-                    {
-                        break;
                     }
                 }
                 catch (Exception e)
                 {
-                    writer.println("500 Internal server error HTTP/1.1");
-                    writer.println("contentType:none");
+                    writer.println("HTTP/1.1 500 Internal server error");
+                    writer.println("contentType: text/plain");
                     writer.println("contentLength:0");
                 }
             }

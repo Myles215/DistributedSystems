@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="HTTPParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-09-20T02:17:49" hostname="MYLESLAPTOP" time="0.0">
+<testsuite name="HTTPParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-09-21T23:28:18" hostname="MYLESLAPTOP" time="0.002">
   <properties/>
-  <testcase name="runAll" classname="HTTPParserTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="runAll" classname="HTTPParserTest" time="0.002"/>
+  <system-out><![CDATA[java.lang.Exception: HP400: Not a route
+java.lang.Exception: HP503: Incorrect request format, needs content type
+java.lang.Exception: HP504: Incorrect request format, needs content length
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
