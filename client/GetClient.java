@@ -36,6 +36,7 @@ public class GETClient
 
             for (String rep : reply)
             {
+                System.out.println(rep);
                 mJsonParser.printString(rep);
                 System.out.println(" ");
             }

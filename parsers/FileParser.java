@@ -112,6 +112,7 @@ public class FileParser
 
         //read out data
         BufferedReader br;
+        long currentTime = System.currentTimeMillis();
 
         try
         {
@@ -128,7 +129,13 @@ public class FileParser
         {
             if (line.contains("time"))
             {
-                allJson.add(br.readLine());
+                long time = Long.parseLong(line.substring(line.indexOf('-') + 1));
+                if (time > currentTime - timeAllowed) 
+                {
+                    System.out.println("Hmmmm");
+                    allJson.add(br.readLine());
+                }
+                else br.readLine();
             }
             else
             {
