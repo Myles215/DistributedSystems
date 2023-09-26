@@ -18,6 +18,7 @@ public class FileParser
         Startup(System.currentTimeMillis());
     }
 
+    //Place string in file with timestamp
     public Boolean PlaceInFile(String s, long timestamp) throws IOException
     {
         String timeStampS = Long.toString(timestamp);
@@ -38,7 +39,8 @@ public class FileParser
         return ret;
     }
 
-    public Boolean AddToData(String s, long timestamp) throws IOException
+    //Add string to data file, as we go, delete data older than 30s
+    private Boolean AddToData(String s, long timestamp) throws IOException
     {
         //Check if the data is being created for the first time
         File oldData = new File("./allData.txt");
@@ -83,6 +85,7 @@ public class FileParser
         return ret;
     }
 
+    //Check for files that may have been left on restart
     public void Startup(long timestamp) throws IOException
     {
         File dir = new File("./midwayFiles");
@@ -106,6 +109,7 @@ public class FileParser
         }
     }
 
+    //Get saved data from file, if older than 30s don't read
     public ArrayList<String> ReturnFromFile() throws FileNotFoundException, IOException, Exception
     {
         ArrayList<String> allJson = new ArrayList<String>();
@@ -132,7 +136,6 @@ public class FileParser
                 long time = Long.parseLong(line.substring(line.indexOf('-') + 1));
                 if (time > currentTime - timeAllowed) 
                 {
-                    System.out.println("Hmmmm");
                     allJson.add(br.readLine());
                 }
                 else br.readLine();

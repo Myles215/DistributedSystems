@@ -10,16 +10,18 @@ public class HTTPParser
     class PathFile
     {
 
-        public PathFile(String p, String req, String type)
+        public PathFile(String p, String req, String type, String agent)
         {
             mPath = p;
             mType = req;
             mDataType = type;
+            mAgent = agent;
         }
 
         String mPath;
         String mType;
         String mDataType;
+        String mAgent;
     }
 
     private Map<String, PathFile> mPaths = new HashMap<String, PathFile>();
@@ -36,7 +38,7 @@ public class HTTPParser
             {
                 //Need to set properly for input
                 String pathName = br.readLine();
-                mPaths.put(pathName, new PathFile(pathName, br.readLine(), br.readLine()));
+                mPaths.put(pathName, new PathFile(pathName, br.readLine(), br.readLine(), br.readLine()));
             }
 
             br.close();
@@ -93,7 +95,8 @@ public class HTTPParser
         return ret;
     }
 
-    public HTTPObject parseRequest(BufferedReader reader) throws IOException, Exception
+    //Parse whole HTTP request 
+    private HTTPObject parseRequest(BufferedReader reader) throws IOException, Exception
     {
         HTTPObject http;
 
@@ -142,13 +145,19 @@ public class HTTPParser
         }
 
         line = reader.readLine();
-        if (!line.contains("contentType") || !line.substring(line.indexOf(':') + 2).equals(mPaths.get(pathName).mDataType))
+        if (!line.contains("User-Agent") || !line.substring(line.indexOf(':') + 2).equals(mPaths.get(pathName).mAgent))
+        {
+            throw new Exception("HP503: Incorrect request format, needs user agent");
+        }
+
+        line = reader.readLine();
+        if (!line.contains("Content-Type") || !line.substring(line.indexOf(':') + 2).equals(mPaths.get(pathName).mDataType))
         {
             throw new Exception("HP503: Incorrect request format, needs content type");
         }
 
         line = reader.readLine();
-        if (!line.contains("contentLength"))
+        if (!line.contains("Content-Length"))
         {
             throw new Exception("HP504: Incorrect request format, needs content length");
         }
@@ -175,7 +184,8 @@ public class HTTPParser
         return http;
     }   
 
-    public HTTPObject parseResponse(String line, BufferedReader reader) throws IOException, Exception
+    //If we discover that the HTTP message is a response, go through a seperate response protocol
+    private HTTPObject parseResponse(String line, BufferedReader reader) throws IOException, Exception
     {
         String code = line.substring(line.indexOf(' ') + 1, line.indexOf(' ') + 4);
         
@@ -196,13 +206,19 @@ public class HTTPParser
         }
 
         line = reader.readLine();
-        if (!line.contains("contentType"))
+        if (!line.contains("User-Agent"))
+        {
+            throw new Exception("HP503: Incorrect request format, needs user agent");
+        }
+
+        line = reader.readLine();
+        if (!line.contains("Content-Type"))
         {
             throw new Exception("HP503: Incorrect request format, needs content type");
         }
 
         line = reader.readLine();
-        if (!line.contains("contentLength"))
+        if (!line.contains("Content-Length"))
         {
             throw new Exception("HP504: Incorrect request format, needs content length");
         }

@@ -12,6 +12,7 @@ public class JsonObject
         return "";
     }
 
+    //Turn JSON string to map
     public void StringToObject(String json) throws Exception
     {
         Map<String, String> ret = new HashMap<String, String>();
@@ -30,6 +31,7 @@ public class JsonObject
         mJsonMap = ret;
     }
 
+    //Print JSON string as key : value
     public void printString(String rawJson) throws Exception
     {
 
@@ -76,8 +78,9 @@ public class JsonObject
         }
     }
 
-    int index;
+    private int index;
 
+    //Recursively get json
     public Map<String, String> recurGetJson(String rawJson, char endChar) throws Exception
     {
 
@@ -123,7 +126,8 @@ public class JsonObject
         return ret;
     }
 
-    String getAsString(String rawJson)
+    //Get String variable type
+    private String getAsString(String rawJson)
     {
 
         String data = "";
@@ -136,7 +140,8 @@ public class JsonObject
         return data;
     }
 
-    String getAsInt(String rawJson, String dataName) throws Exception
+    //get int variable type
+    private String getAsInt(String rawJson, String dataName) throws Exception
     {
         String data = "";
 

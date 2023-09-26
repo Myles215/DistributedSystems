@@ -32,9 +32,9 @@ public class GETClient
         {
             getRequest("/weather.json");
 
-            ArrayList<String> reply = readResponse();
+            HTTPObject reply = readResponse();
 
-            for (String rep : reply)
+            for (String rep : reply.data)
             {
                 System.out.println(rep);
                 mJsonParser.printString(rep);
@@ -47,6 +47,7 @@ public class GETClient
         }
     }
 
+    //Connect to server socket on supplied port
     public static void connect(int port)
     {
         try
@@ -63,11 +64,13 @@ public class GETClient
         }
     }
 
+    //Disconnect when done
     public void disconnect() throws IOException
     {
         socket.close();
     }
 
+    //Format and send GET request to specified path
     public static void getRequest(String path) throws IOException, Exception
     {
         // Create input and output streams to read from and write to the server
@@ -76,11 +79,13 @@ public class GETClient
 
         // Follow the HTTP protocol of GET <path> HTTP/1.0 followed by an empty line
         out.println("GET " + path + " HTTP/1.1");
-        out.println("contentType: application/json");
-        out.println("contentLength:0");
+        out.println("User-Agent: ATOMClient/1/0");
+        out.println("Content-Type: application/json");
+        out.println("Content-Length:0");
     }
 
-    public static ArrayList<String> readResponse() throws IOException, Exception
+    //Read reponse from get request
+    public static HTTPObject readResponse() throws IOException, Exception
     {
         BufferedReader reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 
@@ -91,6 +96,6 @@ public class GETClient
             http = mHTTPParser.parse(reader);
         }
 
-        return http.data;
+        return http;
     }
 }

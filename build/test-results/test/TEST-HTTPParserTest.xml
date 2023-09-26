@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="HTTPParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-09-21T23:28:18" hostname="MYLESLAPTOP" time="0.002">
+<testsuite name="HTTPParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-09-26T23:47:47" hostname="MYLESLAPTOP" time="0.003">
   <properties/>
-  <testcase name="runAll" classname="HTTPParserTest" time="0.002"/>
+  <testcase name="runAll" classname="HTTPParserTest" time="0.003"/>
   <system-out><![CDATA[java.lang.Exception: HP400: Not a route
-java.lang.Exception: HP503: Incorrect request format, needs content type
+java.lang.Exception: HP503: Incorrect request format, needs user agent
 java.lang.Exception: HP504: Incorrect request format, needs content length
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

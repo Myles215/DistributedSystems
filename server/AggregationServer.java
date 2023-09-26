@@ -8,7 +8,6 @@ import server.ServerThread;
 
 public class AggregationServer
 {
-
     static public ArrayList<ServerThread> threads = new ArrayList<ServerThread>();
 
     public static void main(String[] args)

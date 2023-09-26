@@ -4,14 +4,17 @@ PUT /weather.json HTTP/1.1
 this is also bad
 
 PUT /weather.json HTTP/1.1
-contentType: application/json
+User-Agent: ATOMClient/1/0
+Content-Type: application/json
 this is super bad
 
 PUT /weather.json HTTP/1.1
-contentType: application/json
-contentLength:0
+User-Agent: ATOMClient/1/0
+Content-Type: application/json
+Content-Length:0
 
 PUT /weather.json HTTP/1.1
-contentType: application/json
-contentLength:27
+User-Agent: ATOMClient/1/0
+Content-Type: application/json
+Content-Length:27
 This is the correct message

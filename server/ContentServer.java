@@ -42,7 +42,6 @@ public class ContentServer
 
     public static void main(String args[]) throws InterruptedException
     {
-
         setUpDataTypes();
 
         if (args.length < 2) 
@@ -76,7 +75,7 @@ public class ContentServer
 
                 String data = "";
 
-                while (index < line.length() && line.charAt(index) != ' ') data += line.charAt(index++);
+                while (index < line.length()) data += line.charAt(index++);
 
                 if (mDataTypes.containsKey(dataName)) 
                 {
@@ -101,6 +100,7 @@ public class ContentServer
             json += '}';
 
             putRequest("/weather.json", json);
+            socket.close();
         }
         catch (FileNotFoundException e)
         {
@@ -113,7 +113,8 @@ public class ContentServer
 
     }
 
-    public static void connect(int port)
+    //Connect socket to specified port
+    private static void connect(int port)
     {
         try
         {
@@ -129,6 +130,7 @@ public class ContentServer
         }
     }
 
+    //Send put request with specified path and content
     public static void putRequest(String path, String content) throws IOException
     {
         // Create input and output streams to read from and write to the server
@@ -137,8 +139,9 @@ public class ContentServer
 
         // Follow the HTTP protocol of GET <path> HTTP/1.0 followed by an empty line
         out.println("PUT " + path + " HTTP/1.1");
-        out.println("contentType: application/json");
-        out.println("contentLength:" + content.length());
+        out.println("User-Agent: ATOMClient/1/0");
+        out.println("Content-Type: application/json");
+        out.println("Content-Length:" + content.length());
         out.println(content);
     }
 

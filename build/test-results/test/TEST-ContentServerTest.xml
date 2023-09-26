@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ContentServerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-21T23:28:12" hostname="MYLESLAPTOP" time="5.559">
+<testsuite name="ContentServerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-09-26T23:47:41" hostname="MYLESLAPTOP" time="5.698">
   <properties/>
-  <testcase name="MultipleStrings" classname="ContentServerTest" time="2.011"/>
-  <testcase name="MultipleInts" classname="ContentServerTest" time="1.527"/>
-  <testcase name="SendName" classname="ContentServerTest" time="2.021"/>
+  <testcase name="MultipleStrings" classname="ContentServerTest" time="2.037"/>
+  <testcase name="MultipleInts" classname="ContentServerTest" time="1.58"/>
+  <testcase name="SendName" classname="ContentServerTest" time="2.08"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

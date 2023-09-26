@@ -22,6 +22,7 @@ public class HTTPObject
     public ArrayList<String> data = new ArrayList<String>();
     public RequestType type;
 
+    //Make a new HTTP object
     public HTTPObject(String t)
     {
 
@@ -43,18 +44,21 @@ public class HTTPObject
         }
     }
 
+    //Set status
     public void status(int c, String message)
     {
         code = c;
         errorMessage = message;
     }
 
+    //Set response status
     public void responseStatus(int c, String message)
     {
         responseCode = c;
         responseMessage = message;
     }
 
+    //Add response data
     public void addData(String s)
     {
         data.add(s);

@@ -39,8 +39,9 @@ public class AggregationServerTest
         client.run(port);
 
         client.sendGetRequest("GET /weather.json HTTP/1.1");
-        client.sendGetRequest("contentType: application/json");
-        client.sendGetRequest("contentLength:0");
+        client.sendGetRequest("User-Agent: ATOMClient/1/0");
+        client.sendGetRequest("Content-Type: application/json");
+        client.sendGetRequest("Content-Length:0");
 
         HTTPObject checkReply = client.readResponse();
 
@@ -69,8 +70,9 @@ public class AggregationServerTest
         //Add content to server
         String content = "test content";
         contentServer.sendPutRequest("PUT /weather.json HTTP/1.1");
-        contentServer.sendPutRequest("contentType: application/json");
-        contentServer.sendPutRequest("contentLength:" + content.length());
+        contentServer.sendPutRequest("User-Agent: ATOMClient/1/0");
+        contentServer.sendPutRequest("Content-Type: application/json");
+        contentServer.sendPutRequest("Content-Length:" + content.length());
         contentServer.sendPutRequest(content);
 
         //Expect we get 201 as we're adding files for the first time
@@ -78,11 +80,12 @@ public class AggregationServerTest
         assertEquals(checkReply.code, 201);
 
         //Give time to update
-        Thread.sleep(500);
+        Thread.sleep(100);
 
         getClient.sendGetRequest("GET /weather.json HTTP/1.1");
-        getClient.sendGetRequest("contentType: application/json");
-        getClient.sendGetRequest("contentLength:0");
+        getClient.sendGetRequest("User-Agent: ATOMClient/1/0");
+        getClient.sendGetRequest("Content-Type: application/json");
+        getClient.sendGetRequest("Content-Length:0");
 
         checkReply = getClient.readResponse();
 
@@ -113,8 +116,9 @@ public class AggregationServerTest
         //Add content to server
         String content = "test content";
         contentServer.sendPutRequest("PUT /weather.json HTTP/1.1");
-        contentServer.sendPutRequest("contentType: application/json");
-        contentServer.sendPutRequest("contentLength:" + content.length());
+        contentServer.sendPutRequest("User-Agent: ATOMClient/1/0");
+        contentServer.sendPutRequest("Content-Type: application/json");
+        contentServer.sendPutRequest("Content-Length:" + content.length());
         contentServer.sendPutRequest(content);
 
         //Expect we get 200 back as we already have the file
@@ -122,11 +126,12 @@ public class AggregationServerTest
         assertEquals(checkReply.code, 201);
 
         //Give time to update
-        Thread.sleep(500);
+        Thread.sleep(100);
 
         getClient.sendGetRequest("GET /weather.json HTTP/1.1");
-        getClient.sendGetRequest("contentType: application/json");
-        getClient.sendGetRequest("contentLength:0");
+        getClient.sendGetRequest("User-Agent: ATOMClient/1/0");
+        getClient.sendGetRequest("Content-Type: application/json");
+        getClient.sendGetRequest("Content-Length:0");
 
         checkReply = getClient.readResponse();
 
@@ -147,8 +152,9 @@ public class AggregationServerTest
         getClient.run(port + 3);
 
         getClient.sendGetRequest("GET /weather.json HTTP/1.1");
-        getClient.sendGetRequest("contentType: application/json");
-        getClient.sendGetRequest("contentLength:0");
+        getClient.sendGetRequest("User-Agent: ATOMClient/1/0");
+        getClient.sendGetRequest("Content-Type: application/json");
+        getClient.sendGetRequest("Content-Length:0");
 
         checkReply = getClient.readResponse();
 

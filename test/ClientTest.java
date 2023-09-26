@@ -67,9 +67,9 @@ public class ClientTest
         client.connect(1111);
         client.getRequest("/weather.json");
 
-        ArrayList<String> check = client.readResponse();
+        HTTPObject check = client.readResponse();
 
-        assertEquals(check.size(), 1);
-        assertEquals(check.get(0), "Good job sending GET request!");
+        assertEquals(check.data.size(), 1);
+        assertEquals(check.data.get(0), "Good job sending GET request!");
     }
 }

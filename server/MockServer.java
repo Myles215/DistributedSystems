@@ -43,8 +43,9 @@ public class MockServer extends Thread
             String re = "Good job sending GET request!";
 
             writer.println("HTTP/1.1 200 OK");
-            writer.println("contentType: application/json");
-            writer.println("contentLength:" + re.length());
+            writer.println("User-Agent: ATOMClient/1/0");
+            writer.println("Content-Type: application/json");
+            writer.println("Content-Length:" + re.length());
             writer.println(re);
  
         } catch (IOException ex) 

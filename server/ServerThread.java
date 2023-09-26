@@ -11,18 +11,16 @@ import java.util.*;
 public class ServerThread extends Thread
 {
     private Socket mSocket;
-    FileParser mFileParser;
-    HTTPParser mHTTPParser;
-
+    private FileParser mFileParser = new FileParser();
     private static String HTTPParserInput = "./parsers/HTTPParser.txt";
+    private HTTPParser mHTTPParser = new HTTPParser(HTTPParserInput);
 
     public ServerThread(Socket client) throws FileNotFoundException, IOException
     {
         mSocket = client;
-        mFileParser = new FileParser();
-        mHTTPParser = new HTTPParser(HTTPParserInput);
     }
 
+    //Start a server thread that handles one socket, 
     public void run()
     {
         try 
@@ -33,9 +31,10 @@ public class ServerThread extends Thread
             PrintWriter writer = new PrintWriter(mSocket.getOutputStream(), true);
 
             String line = "";
-            long start = System.currentTimeMillis();
+            long lastMessage = System.currentTimeMillis();
+            long allowedTime = 30000;
 
-            while (line != null && start + 30000 > System.currentTimeMillis())
+            while (line != null && lastMessage + allowedTime > System.currentTimeMillis())
             {
                 try
                 {   
@@ -44,13 +43,15 @@ public class ServerThread extends Thread
                     if (http.type != HTTPObject.RequestType.NULL)
                     {
                         System.out.println("New request: " + http.type);
+                        lastMessage = System.currentTimeMillis();
                     }
 
                     if (http.responseCode > 201)
                     {
                         writer.println("HTTP/1.1 " + http.code + " " + http.errorMessage);
-                        writer.println("contentType: weather.json");
-                        writer.println("contentLength:0");
+                        writer.println("User-Agent: ATOMClient/1/0");
+                        writer.println("Content-Type: weather.json");
+                        writer.println("Content-Length:0");
                     }
                     else if (http.type == HTTPObject.RequestType.PUT)
                     {
@@ -68,8 +69,9 @@ public class ServerThread extends Thread
                             writer.println("HTTP/1.1 200 OK");
                         }
 
-                        writer.println("contentType: text/plain");
-                        writer.println("contentLength:0");
+                        writer.println("User-Agent: ATOMClient/1/0");
+                        writer.println("Content-Type: text/plain");
+                        writer.println("Content-Length:0");
                     }
                     else if (http.type == HTTPObject.RequestType.GET)
                     {
@@ -82,24 +84,27 @@ public class ServerThread extends Thread
                             for (String s : allData) len += s.length();
 
                             writer.println("HTTP/1.1 200 OK");
-                            writer.println("contentType: application/json");
-                            writer.println("contentLength:" + len);
+                            writer.println("User-Agent: ATOMClient/1/0");
+                            writer.println("Content-Type: application/json");
+                            writer.println("Content-Length:" + len);
                             for (String s : allData) writer.println(s);
                         }
                         catch (Exception e)
                         {
                             System.out.println("Exception when reading file: " + e);
                             writer.println("HTTP/1.1 500 Internal server error");
-                            writer.println("contentType: none");
-                            writer.println("contentLength:0");
+                            writer.println("User-Agent: ATOMClient/1/0");
+                            writer.println("Content-Type: none");
+                            writer.println("Content-Length:0");
                         }
                     }
                 }
                 catch (Exception e)
                 {
                     writer.println("HTTP/1.1 500 Internal server error");
-                    writer.println("contentType: text/plain");
-                    writer.println("contentLength:0");
+                    writer.println("User-Agent: ATOMClient/1/0");
+                    writer.println("Content-Type: text/plain");
+                    writer.println("Content-Length:0");
                 }
             }
 
