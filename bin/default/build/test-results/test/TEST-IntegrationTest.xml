@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="IntegrationTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-09-26T23:58:14" hostname="MYLESLAPTOP" time="2.186">
+  <properties/>
+  <testcase name="SendOneData" classname="IntegrationTest" time="0.474"/>
+  <testcase name="SendAllFields" classname="IntegrationTest" time="0.357"/>
+  <testcase name="MultipleContentMultipleClients" classname="IntegrationTest" time="0.855"/>
+  <testcase name="MultipleClients" classname="IntegrationTest" time="0.498"/>
+  <system-out><![CDATA[Server is listening on port 5001
+New client connected
+New request: PUT
+Added content server data to file
+New client connected
+New request: GET
+Server is listening on port 5002
+New client connected
+New request: PUT
+Added content server data to file
+New client connected
+New request: GET
+Server is listening on port 5004
+New client connected
+New request: PUT
+Added content server data to file
+New client connected
+New request: PUT
+Added content server data to file
+New client connected
+New request: PUT
+Added content server data to file
+New client connected
+New request: GET
+New client connected
+New request: GET
+3
+New client connected
+New request: GET
+3
+Server is listening on port 5003
+New client connected
+New request: PUT
+Added content server data to file
+New client connected
+New request: GET
+New client connected
+New request: GET
+New client connected
+New request: GET
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

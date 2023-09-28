@@ -3,12 +3,17 @@ package server;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.concurrent.*;
+import java.lang.Object;
 
 import server.ServerThread;
+import util.LamportClock;
 
 public class AggregationServer
 {
-    static public ArrayList<ServerThread> threads = new ArrayList<ServerThread>();
+    static public ArrayList<ServerThread> mThreads = new ArrayList<ServerThread>();
+
+    static LamportClock mLamportClock = new LamportClock();
 
     public static void main(String[] args)
     {
@@ -30,8 +35,8 @@ public class AggregationServer
 
                 System.out.println("New client connected");
 
-                threads.add(new ServerThread(socket));
-                threads.get(threads.size()-1).start();
+                mThreads.add(new ServerThread(socket, mLamportClock));
+                mThreads.get(mThreads.size()-1).start();
             }
  
         } catch (IOException ex) {

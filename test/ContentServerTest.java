@@ -23,7 +23,7 @@ public class ContentServerTest
     MockServer server = new MockServer(port);
 
     @Test
-    public void SendName() throws InterruptedException
+    public void SendName() throws InterruptedException, IOException, Exception
     {
         server.start();
 
@@ -37,7 +37,7 @@ public class ContentServerTest
     }
 
     @Test
-    public void MultipleStrings() throws InterruptedException
+    public void MultipleStrings() throws InterruptedException, IOException, Exception
     {
         server.start();
 
@@ -51,7 +51,7 @@ public class ContentServerTest
     }
 
     @Test
-    public void MultipleInts() throws InterruptedException
+    public void MultipleInts() throws InterruptedException, IOException, Exception
     {
         server.start();
 

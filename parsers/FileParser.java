@@ -142,6 +142,7 @@ public class FileParser
             }
             else
             {
+                br.close();
                 throw new Exception("Incorrect file format for agg server allData.txt");
             }
         }

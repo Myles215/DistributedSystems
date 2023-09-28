@@ -8,3 +8,8 @@ weather.json
 GET
 application/json
 ATOMClient/1/0
+
+lamport
+PUT
+plain/text
+ATOMClient/1/0

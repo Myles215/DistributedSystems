@@ -4,12 +4,15 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
+import parsers.HTTPParser;
+import parsers.HTTPObject;
 
 public class ContentServer
 {
-
     private static String hostname = "localhost";
     private static Socket socket = new Socket();
+    private static String HTTPParserInput = "./parsers/HTTPParser.txt";
+    private static HTTPParser mHTTPParser = new HTTPParser(HTTPParserInput);
 
     static Map<String, String> mDataTypes = new HashMap<String, String>();
 
@@ -40,7 +43,7 @@ public class ContentServer
         mDataTypes.put("wind_spd_kt", "int");
     }
 
-    public static void main(String args[]) throws InterruptedException
+    public static void main(String args[]) throws InterruptedException, IOException, Exception
     {
         setUpDataTypes();
 
@@ -52,9 +55,31 @@ public class ContentServer
  
         int port = Integer.parseInt(args[0]);
         String file = args[1];
+
+        int retryCount = 0;
+        Boolean connected = false;
  
-        connect(port);
-        Thread.sleep(500);
+        while (retryCount < 5 && !connected)
+        {
+            retryCount++;
+            connected = connect(port);
+
+            if (!connected) 
+            {
+                System.out.println("Couldn't connect, will retry");
+                Thread.sleep(100);
+            }
+        }
+
+        if (!connected) 
+        {
+            System.out.println("Connection retries exhausted");
+            return;
+        }
+
+        Thread.sleep(100);
+
+        int startTime = getStartTime();
 
         try
         {
@@ -99,7 +124,7 @@ public class ContentServer
             json = json.substring(0, json.length() - 1);
             json += '}';
 
-            putRequest("/weather.json", json);
+            putRequest("/weather.json", json, startTime);
             socket.close();
         }
         catch (FileNotFoundException e)
@@ -113,25 +138,42 @@ public class ContentServer
 
     }
 
+    private static int getStartTime() throws IOException, Exception
+    {
+        BufferedReader reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+
+        HTTPObject http = new HTTPObject("NULL");
+
+        while (http.type != HTTPObject.RequestType.PUT)
+        {
+            http = mHTTPParser.parse(reader);
+        }
+
+        return http.lamportTime;
+    }
+
     //Connect socket to specified port
-    private static void connect(int port)
+    private static Boolean connect(int port)
     {
         try
         {
             socket = new Socket(hostname, port);
+            return true;
         } 
         catch (UnknownHostException ex) 
         {
             System.out.println("Server not found: " + ex.getMessage());
+            return false;
         } 
         catch (IOException ex) 
         {
             System.out.println("I/O error: " + ex.getMessage());
+            return false;
         }
     }
 
     //Send put request with specified path and content
-    public static void putRequest(String path, String content) throws IOException
+    public static void putRequest(String path, String content, int lamportTime) throws IOException
     {
         // Create input and output streams to read from and write to the server
         PrintStream out = new PrintStream( socket.getOutputStream() );
@@ -141,6 +183,8 @@ public class ContentServer
         out.println("PUT " + path + " HTTP/1.1");
         out.println("User-Agent: ATOMClient/1/0");
         out.println("Content-Type: application/json");
+        //TODO
+        out.println("Lamport-Time: " + Integer.toString(lamportTime));
         out.println("Content-Length:" + content.length());
         out.println(content);
     }

@@ -1,0 +1,10 @@
+
+weather.json
+PUT
+application/json
+ATOMClient/1/0
+
+weather.json
+GET
+application/json
+ATOMClient/1/0

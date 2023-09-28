@@ -22,6 +22,8 @@ public class HTTPObject
     public ArrayList<String> data = new ArrayList<String>();
     public RequestType type;
 
+    public int lamportTime = -1;
+
     //Make a new HTTP object
     public HTTPObject(String t)
     {
@@ -62,5 +64,10 @@ public class HTTPObject
     public void addData(String s)
     {
         data.add(s);
+    }
+
+    public void stamp(int time)
+    {
+        lamportTime = time;
     }
 }

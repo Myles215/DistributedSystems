@@ -4,12 +4,14 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import util.LamportClock;
 import server.ServerThread;
 
 public class ThreadAggregationServer extends Thread
 {
     public ArrayList<ServerThread> threads = new ArrayList<ServerThread>();
     public Boolean exit = false;
+    static LamportClock mLamportClock = new LamportClock();
     int port = 0;
 
     public ThreadAggregationServer(String[] args)
@@ -30,7 +32,7 @@ public class ThreadAggregationServer extends Thread
 
                 System.out.println("New client connected");
 
-                threads.add(new ServerThread(socket));
+                threads.add(new ServerThread(socket, mLamportClock));
                 threads.get(threads.size()-1).start();
             }
 

@@ -47,7 +47,7 @@ public class ClientTest
         assertEquals(server.clientConnected, false);
 
         client.connect(1111);
-        client.getRequest("/weather.json");
+        client.getRequest("/weather.json", 0);
 
         try { Thread.sleep(1000); } catch (InterruptedException e) { }
 
@@ -65,7 +65,7 @@ public class ClientTest
         assertEquals(server.clientConnected, false);
 
         client.connect(1111);
-        client.getRequest("/weather.json");
+        client.getRequest("/weather.json", 0);
 
         HTTPObject check = client.readResponse();
 

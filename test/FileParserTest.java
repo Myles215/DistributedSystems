@@ -181,4 +181,16 @@ public class FileParserTest
         assertEquals(check.get(1), "content 2");
         assertEquals(check.get(2), "content 3");
     }   
+
+    //@Test
+    public void SkipsOldData() throws IOException, Exception
+    {
+        String OldContent = "Old Content - won't be in file";
+        long time = System.currentTimeMillis() - 30001;
+
+        parser.PlaceInFile(OldContent, time);
+
+        //Read multiple strings should only find the new content it adds
+        ReadMultipleStringFromFile();
+    }
 }

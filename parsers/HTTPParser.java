@@ -128,20 +128,20 @@ public class HTTPParser
 
         if (!mPaths.containsKey(pathName))
         {
-            throw new Exception("HP401: Pathname not present in possible paths");
+            throw new Exception("HP401: Pathname " + pathName + " not present in possible paths");
         }
 
-        if (line.contains("GET") && mPaths.get(pathName).mType.equals("GET"))
+        if (line.contains("GET"))
         {
             http = new HTTPObject("GET");
         }
-        else if (line.contains("PUT") && mPaths.get(pathName).mType.equals("GET"))
+        else if (line.contains("PUT"))
         {
             http = new HTTPObject("PUT");
         }
         else
         {
-            throw new Exception("HP502: unrecognized route type");
+            throw new Exception("HP502: unrecognized route type: " + line);
         }
 
         line = reader.readLine();
@@ -155,6 +155,15 @@ public class HTTPParser
         {
             throw new Exception("HP503: Incorrect request format, needs content type");
         }
+
+        //TODO
+        line = reader.readLine();
+        if (!line.contains("Lamport-Time"))
+        {
+            throw new Exception("HP503: Incorrect request format, needs lamport time");
+        }
+
+        http.stamp(Integer.parseInt(line.substring(line.indexOf(':') + 2)));
 
         line = reader.readLine();
         if (!line.contains("Content-Length"))
@@ -216,6 +225,14 @@ public class HTTPParser
         {
             throw new Exception("HP503: Incorrect request format, needs content type");
         }
+
+        line = reader.readLine();
+        if (!line.contains("Lamport-Time"))
+        {
+            throw new Exception("HP504: Incorrect request format, needs lamport time");
+        }
+
+        http.stamp(Integer.parseInt(line.substring(line.indexOf(':') + 2)));
 
         line = reader.readLine();
         if (!line.contains("Content-Length"))

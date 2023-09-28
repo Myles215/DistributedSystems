@@ -20,10 +20,16 @@ import java.io.*;
 public class IntegrationTest
 {
     @Before
-    public void resetFiles()
+    public void resetFiles() throws InterruptedException
     {
+        //Wait for all file readers to close
+        Thread.sleep(25);
+
         File oldData = new File("./allData.txt");
-        oldData.delete();
+        if (!oldData.delete())
+        {
+            System.out.println("Could not delete data, some error");
+        }
     }
 
     GETClient getClient = new GETClient();
@@ -91,7 +97,7 @@ public class IntegrationTest
         Thread.sleep(100);
         getClient.connect(startPort);
 
-        getClient.getRequest("/weather.json");
+        getClient.getRequest("/weather.json", 0);
         HTTPObject res = getClient.readResponse();
 
         JsonObject check = new JsonObject();
@@ -114,7 +120,7 @@ public class IntegrationTest
         Thread.sleep(100);
         getClient.connect(startPort + 1);
 
-        getClient.getRequest("/weather.json");
+        getClient.getRequest("/weather.json", 0);
         HTTPObject res = getClient.readResponse();
 
         JsonObject check = new JsonObject();
@@ -131,16 +137,13 @@ public class IntegrationTest
         String[] args = {Integer.toString(startPort + 2), "./test/testFiles/AllFields.txt"};
         contentServer.main(args);
 
-        //Wait for data to process
-        Thread.sleep(100);
-
         GETClient getClient1 = new GETClient();
         GETClient getClient2 = new GETClient();
         GETClient getClient3 = new GETClient();
 
         getClient1.connect(startPort + 2);
 
-        getClient1.getRequest("/weather.json");
+        getClient1.getRequest("/weather.json", 0);
         HTTPObject res = getClient1.readResponse();
         JsonObject check = new JsonObject();
         check.StringToObject(res.data.get(0));
@@ -148,14 +151,14 @@ public class IntegrationTest
         checkAllFields(check);
 
         getClient2.connect(startPort + 2);
-        getClient2.getRequest("/weather.json");
+        getClient2.getRequest("/weather.json", 0);
         res = getClient2.readResponse();
         check.StringToObject(res.data.get(0));
 
         checkAllFields(check);
 
         getClient3.connect(startPort + 2);
-        getClient3.getRequest("/weather.json");
+        getClient3.getRequest("/weather.json", 0);
         res = getClient3.readResponse();
         check.StringToObject(res.data.get(0));
 
@@ -170,18 +173,11 @@ public class IntegrationTest
         String[] args = {Integer.toString(startPort + 3), "./test/testFiles/AllFields.txt"};
         contentServer.main(args);
 
-        Thread.sleep(50);
-
         ContentServer content2 = new ContentServer();
         content2.main(args);
 
-        Thread.sleep(50);
-
         ContentServer content3 = new ContentServer();
         content3.main(args);
-
-        //Wait for data to process
-        Thread.sleep(100);
 
         GETClient getClient1 = new GETClient();
         GETClient getClient2 = new GETClient();
@@ -189,7 +185,7 @@ public class IntegrationTest
 
         getClient1.connect(startPort + 3);
 
-        getClient1.getRequest("/weather.json");
+        getClient1.getRequest("/weather.json", 15);
         HTTPObject res = getClient1.readResponse();
         assertEquals(res.data.size(), 3);
         JsonObject check = new JsonObject();
@@ -205,10 +201,9 @@ public class IntegrationTest
 
 
         getClient2.connect(startPort + 3);
-        getClient2.getRequest("/weather.json");
+        getClient2.getRequest("/weather.json", 16);
         res = getClient2.readResponse();
         assertEquals(res.data.size(), 3);
-        System.out.println(res.data.size());
         check = new JsonObject();
 
         check.StringToObject(res.data.get(0));
@@ -222,10 +217,9 @@ public class IntegrationTest
 
 
         getClient3.connect(startPort + 3);
-        getClient3.getRequest("/weather.json");
+        getClient3.getRequest("/weather.json", 17);
         res = getClient3.readResponse();
         assertEquals(res.data.size(), 3);
-        System.out.println(res.data.size());
         check = new JsonObject();
 
         check.StringToObject(res.data.get(0));
@@ -235,8 +229,6 @@ public class IntegrationTest
         checkAllFields(check);
 
         check.StringToObject(res.data.get(2));
-        checkAllFields(check);
-
         checkAllFields(check);
     }
 }

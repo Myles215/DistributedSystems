@@ -14,6 +14,7 @@ public class MockClient
     public Socket socket = new Socket();
     private static String HTTPParserInput = "./parsers/HTTPParser.txt";
     static HTTPParser mHTTPParser = new HTTPParser(HTTPParserInput);
+    public int startTime = 0;
     
     public void run(int port) throws InterruptedException
     {
@@ -34,6 +35,21 @@ public class MockClient
         {
             System.out.println("I/O error: " + ex.getMessage());
         }
+    }
+
+    //Get starting lamport clock time
+    public int getStartTime() throws IOException, Exception
+    {
+        BufferedReader reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+
+        HTTPObject http = new HTTPObject("NULL");
+
+        while (http.type != HTTPObject.RequestType.PUT)
+        {
+            http = mHTTPParser.parse(reader);
+        }
+
+        return http.lamportTime;
     }
 
     public void disconnect() throws IOException
@@ -60,6 +76,13 @@ public class MockClient
     {
         BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 
-        return mHTTPParser.parse(in);
+        HTTPObject http = new HTTPObject("NULL");
+
+        while (http.type != HTTPObject.RequestType.RES)
+        {   
+            http = mHTTPParser.parse(in);
+        }
+
+        return http;
     }
 }

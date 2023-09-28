@@ -1,0 +1,41 @@
+server/AggregationServer.java
+ server.AggregationServer
+FileParserTest.java
+ FileParserTest
+server/ThreadAggregationServer.java
+ server.ThreadAggregationServer
+parsers/FileParser.java
+ parsers.FileParser
+JsonParserTest.java
+ json.JsonParserTest
+parsers/JsonObject.java
+ parsers.JsonObject
+parsers/HTTPObject.java
+ parsers.HTTPObject
+ parsers.HTTPObject$RequestType
+server/ContentServer.java
+ server.ContentServer
+util/LamportClock.java
+ util.LamportClock
+AggregationServerTest.java
+ AggregationServerTest
+client/GETClient.java
+ client.GETClient
+ClientTest.java
+ ClientTest
+client/MockClient.java
+ client.MockClient
+ContentServerTest.java
+ ContentServerTest
+server/MockServer.java
+ server.MockServer
+HTTPParserTest.java
+ HTTPParserTest
+parsers/HTTPParser.java
+ parsers.HTTPParser
+ parsers.HTTPParser$PathFile
+server/ServerThread.java
+ server.ServerThread
+IntegrationTest.java
+ IntegrationTest
+ IntegrationTest$RunAggregationServer
