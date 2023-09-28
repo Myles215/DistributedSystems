@@ -47,7 +47,6 @@ public class MockServer extends Thread
             writer.println("HTTP/1.1 200 OK");
             writer.println("User-Agent: ATOMClient/1/0");
             writer.println("Content-Type: application/json");
-            //TODO
             writer.println("Lamport-Time: 0");
             writer.println("Content-Length:" + re.length());
             writer.println(re);

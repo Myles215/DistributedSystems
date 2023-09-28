@@ -24,12 +24,8 @@ public class IntegrationTest
     {
         //Wait for all file readers to close
         Thread.sleep(25);
-
         File oldData = new File("./allData.txt");
-        if (!oldData.delete())
-        {
-            System.out.println("Could not delete data, some error");
-        }
+        oldData.delete();
     }
 
     GETClient getClient = new GETClient();
@@ -143,7 +139,8 @@ public class IntegrationTest
 
         getClient1.connect(startPort + 2);
 
-        getClient1.getRequest("/weather.json", 0);
+        //Use a super late timestamp to avoid this being handled before above
+        getClient1.getRequest("/weather.json", 30);
         HTTPObject res = getClient1.readResponse();
         JsonObject check = new JsonObject();
         check.StringToObject(res.data.get(0));

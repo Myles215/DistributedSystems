@@ -156,7 +156,6 @@ public class HTTPParser
             throw new Exception("HP503: Incorrect request format, needs content type");
         }
 
-        //TODO
         line = reader.readLine();
         if (!line.contains("Lamport-Time"))
         {

@@ -23,12 +23,8 @@ public class AggregationServerTest
     {
         //Wait for all file readers to close
         Thread.sleep(25);
-
         File oldData = new File("./allData.txt");
-        if (!oldData.delete());
-        {
-            System.out.println("Could not delete data, some error");
-        }
+        oldData.delete();
     }
     
     int port = 1254;
@@ -46,7 +42,6 @@ public class AggregationServerTest
         client.sendGetRequest("GET /weather.json HTTP/1.1");
         client.sendGetRequest("User-Agent: ATOMClient/1/0");
         client.sendGetRequest("Content-Type: application/json");
-        //TODO
         client.sendGetRequest("Lamport-Time: 0");
         client.sendGetRequest("Content-Length:0");
 
@@ -79,7 +74,6 @@ public class AggregationServerTest
         contentServer.sendPutRequest("PUT /weather.json HTTP/1.1");
         contentServer.sendPutRequest("User-Agent: ATOMClient/1/0");
         contentServer.sendPutRequest("Content-Type: application/json");
-        //TODO
         contentServer.sendPutRequest("Lamport-Time: 0");
         contentServer.sendPutRequest("Content-Length:" + content.length());
         contentServer.sendPutRequest(content);

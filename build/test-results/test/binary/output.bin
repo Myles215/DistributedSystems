@@ -1,0 +1,69 @@
+"Server is listening on port 1256
+New client connected
+New client connected
+New request: PUT
+#Added content server data to file
+New request: GET
+"Server is listening on port 1257
+New client connected
+New request: GET
+"Server is listening on port 1255
+New client connected
+New client connected
+New request: PUT
+#Added content server data to file
+New request: GET
+"Server is listening on port 1254
+New client connected
+New request: GET
+)java.lang.Exception: HP400: Not a route
+Hjava.lang.Exception: HP503: Incorrect request format, needs user agent
+Jjava.lang.Exception: HP503: Incorrect request format, needs lamport time
+"Server is listening on port 5001
+New client connected
+New request: PUT
+#Added content server data to file
+New client connected
+New request: GET
+"Server is listening on port 5002
+New client connected
+New request: PUT
+#Added content server data to file
+New client connected
+New request: GET
+"Server is listening on port 5004
+New client connected
+New request: PUT
+New client connected
+#Added content server data to file
+New request: PUT
+New client connected
+#Added content server data to file
+New request: PUT
+New client connected
+New request: GET
+#Added content server data to file
+New client connected
+New request: GET
+New client connected
+New request: GET
+"Server is listening on port 5003
+New client connected
+New request: PUT
+New client connected
+New request: GET
+#Added content server data to file
+New client connected
+New request: GET
+New client connected
+New request: GET
+! "Server is listening on port 6001
+! New client connected
+! New client connected
+! New client connected
+!""Server is listening on port 6002
+!"New client connected
+!"New client connected
+!"New request: GET
+!"New request: PUT
+!"#Added content server data to file

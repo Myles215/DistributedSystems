@@ -183,7 +183,6 @@ public class ContentServer
         out.println("PUT " + path + " HTTP/1.1");
         out.println("User-Agent: ATOMClient/1/0");
         out.println("Content-Type: application/json");
-        //TODO
         out.println("Lamport-Time: " + Integer.toString(lamportTime));
         out.println("Content-Length:" + content.length());
         out.println(content);
