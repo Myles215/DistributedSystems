@@ -55,6 +55,20 @@ public class HTTPParserTest
         assertEquals(check.responseCode, 200);
     }
 
+    public void BadRes(BufferedReader reader) throws IOException, Exception
+    {
+        HTTPObject check = parser.parse(reader);
+
+        assertEquals(check.responseCode, 500);
+    }
+
+    public void GoodRes(BufferedReader reader) throws IOException, Exception
+    {
+        HTTPObject check = parser.parse(reader);
+
+        assertEquals(check.type, HTTPObject.RequestType.RES);
+    }
+
     @Test
     public void runAll() throws IOException, Exception
     {
@@ -74,5 +88,13 @@ public class HTTPParserTest
         reader.readLine();
 
         PutData(reader);
+        reader.readLine();
+
+        BadRes(reader);
+        reader.readLine();
+
+        GoodRes(reader);
+
+        reader.close();
     }
 }

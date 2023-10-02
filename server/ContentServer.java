@@ -47,13 +47,14 @@ public class ContentServer
     {
         setUpDataTypes();
 
-        if (args.length < 2) 
+        if (args.length < 2 || args[0].indexOf(':') == -1) 
         {
-            System.out.println("Needs port and input file as args");
+            System.out.println("GET client needs valid host and port in format 'hostname:port'");
             return;
         }
  
-        int port = Integer.parseInt(args[0]);
+        int port = Integer.parseInt(args[0].substring(args[0].indexOf(':') + 1));
+        hostname = args[0].substring(0, args[0].indexOf(':'));
         String file = args[1];
 
         int retryCount = 0;

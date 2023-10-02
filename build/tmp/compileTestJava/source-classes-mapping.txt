@@ -1,44 +1,45 @@
 server/AggregationServer.java
  server.AggregationServer
+client/MockClient.java
+ client.MockClient
 server/ThreadAggregationServer.java
  server.ThreadAggregationServer
-FileParserTest.java
- FileParserTest
-parsers/FileParser.java
- parsers.FileParser
+server/MockServer.java
+ server.MockServer
 JsonParserTest.java
  json.JsonParserTest
-parsers/JsonObject.java
- parsers.JsonObject
+server/ServerThread.java
+ server.ServerThread
 parsers/HTTPObject.java
  parsers.HTTPObject
  parsers.HTTPObject$RequestType
-AggregationServerTest.java
- AggregationServerTest
+HTTPParserTest.java
+ HTTPParserTest
 LamportClockTest.java
  json.LamportClockTest
  json.LamportClockTest$RunAggregationServer
 util/LamportClock.java
  util.LamportClock
-client/GETClient.java
- client.GETClient
-ClientTest.java
- ClientTest
-server/ContentServer.java
- server.ContentServer
-client/MockClient.java
- client.MockClient
-ContentServerTest.java
- ContentServerTest
-server/MockServer.java
- server.MockServer
-HTTPParserTest.java
- HTTPParserTest
+AggregationServerTest.java
+ AggregationServerTest
 parsers/HTTPParser.java
  parsers.HTTPParser
  parsers.HTTPParser$PathFile
-server/ServerThread.java
- server.ServerThread
+parsers/JsonObject.java
+ parsers.JsonObject
+FileParserTest.java
+ FileParserTest
+parsers/FileParser.java
+ parsers.FileParser
+client/GETClient.java
+ client.GETClient
+ContentServerTest.java
+ ContentServerTest
+server/ContentServer.java
+ server.ContentServer
+ClientTest.java
+ ClientTest
+ ClientTest$ClientThread
 IntegrationTest.java
  IntegrationTest
  IntegrationTest$RunAggregationServer

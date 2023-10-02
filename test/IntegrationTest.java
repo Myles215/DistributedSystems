@@ -86,7 +86,7 @@ public class IntegrationTest
     {
         startAll(startPort);
 
-        String[] args = {Integer.toString(startPort), "./test/testFiles/NameOnly.txt"};
+        String[] args = {"localhost:" + Integer.toString(startPort), "./test/testFiles/NameOnly.txt"};
         contentServer.main(args);
 
         //Wait for data to process
@@ -109,7 +109,7 @@ public class IntegrationTest
     {
         startAll(startPort + 1);
 
-        String[] args = {Integer.toString(startPort + 1), "./test/testFiles/AllFields.txt"};
+        String[] args = {"localhost:" + Integer.toString(startPort + 1), "./test/testFiles/AllFields.txt"};
         contentServer.main(args);
 
         //Wait for data to process
@@ -130,7 +130,7 @@ public class IntegrationTest
     {
         startAll(startPort + 2);
 
-        String[] args = {Integer.toString(startPort + 2), "./test/testFiles/AllFields.txt"};
+        String[] args = {"localhost:" + Integer.toString(startPort + 2), "./test/testFiles/AllFields.txt"};
         contentServer.main(args);
 
         GETClient getClient1 = new GETClient();
@@ -167,7 +167,7 @@ public class IntegrationTest
     {
         startAll(startPort + 3);
 
-        String[] args = {Integer.toString(startPort + 3), "./test/testFiles/AllFields.txt"};
+        String[] args = {"localhost:" + Integer.toString(startPort + 3), "./test/testFiles/AllFields.txt"};
         contentServer.main(args);
 
         ContentServer content2 = new ContentServer();

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="IntegrationTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-09-28T08:42:42" hostname="MYLESLAPTOP" time="2.266">
+<testsuite name="IntegrationTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-10-02T08:44:30" hostname="MYLESLAPTOP" time="2.621">
   <properties/>
-  <testcase name="SendOneData" classname="IntegrationTest" time="0.406"/>
-  <testcase name="SendAllFields" classname="IntegrationTest" time="0.474"/>
-  <testcase name="MultipleContentMultipleClients" classname="IntegrationTest" time="0.853"/>
-  <testcase name="MultipleClients" classname="IntegrationTest" time="0.533"/>
+  <testcase name="SendOneData" classname="IntegrationTest" time="0.531"/>
+  <testcase name="SendAllFields" classname="IntegrationTest" time="0.573"/>
+  <testcase name="MultipleContentMultipleClients" classname="IntegrationTest" time="0.887"/>
+  <testcase name="MultipleClients" classname="IntegrationTest" time="0.63"/>
   <system-out><![CDATA[Server is listening on port 5001
 New client connected
 New request: PUT

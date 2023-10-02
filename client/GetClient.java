@@ -10,21 +10,22 @@ import java.util.*;
 
 public class GETClient
 {
-    private static String hostname = "localhost";
     private static Socket socket = new Socket();
     private static String HTTPParserInput = "./parsers/HTTPParser.txt";
     static HTTPParser mHTTPParser = new HTTPParser(HTTPParserInput);
     static JsonObject mJsonParser = new JsonObject();
+    static String hostname = "";
 
     public static void main(String[] args)  throws Exception
     {
-        if (args.length < 1) 
+        if (args.length < 1 || args[0].indexOf(':') == -1) 
         {
-            System.out.println("GET client needs valid port");
+            System.out.println("GET client needs valid host and port in format 'hostname:port'");
             return;
         }
  
-        int port = Integer.parseInt(args[0]);
+        int port = Integer.parseInt(args[0].substring(args[0].indexOf(':') + 1));
+        hostname = args[0].substring(0, args[0].indexOf(':'));
  
         int retryCount = 0;
         Boolean connected = false;
@@ -57,7 +58,6 @@ public class GETClient
 
             for (String rep : reply.data)
             {
-                System.out.println(rep);
                 mJsonParser.printString(rep);
                 System.out.println(" ");
             }

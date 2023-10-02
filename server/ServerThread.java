@@ -16,6 +16,7 @@ public class ServerThread extends Thread
     private static String HTTPParserInput = "./parsers/HTTPParser.txt";
     private HTTPParser mHTTPParser = new HTTPParser(HTTPParserInput);
     private LamportClock mLamportClock;
+    public Boolean exit = false;
 
     public ServerThread(Socket client, LamportClock lamportClock) throws FileNotFoundException, IOException
     {
@@ -39,7 +40,7 @@ public class ServerThread extends Thread
             long lastMessage = System.currentTimeMillis();
             long allowedTime = 30000;
 
-            while (line != null && lastMessage + allowedTime > System.currentTimeMillis())
+            while (line != null && lastMessage + allowedTime > System.currentTimeMillis() && !exit)
             {
                 try
                 {   

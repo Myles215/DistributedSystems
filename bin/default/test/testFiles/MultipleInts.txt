@@ -1,4 +1,0 @@
-lon:50
-lat:-17
-air_temp:18
-apparent_t:22

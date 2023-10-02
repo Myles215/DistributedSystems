@@ -116,7 +116,7 @@ public class HTTPParser
             }
             catch (Exception e)
             {
-                System.out.println("Error evaluating response HTTP: " + e);
+                throw new Exception("HP500: Error evaluating response HTTP: " + e);
             }
         }
         else if (!line.contains("/"))

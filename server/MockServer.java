@@ -42,7 +42,7 @@ public class MockServer extends Thread
                 System.out.println(e);
             }
 
-            String re = "Good job sending GET request!";
+            String re = "{ Good job sending GET request! }";
 
             writer.println("HTTP/1.1 200 OK");
             writer.println("User-Agent: ATOMClient/1/0");

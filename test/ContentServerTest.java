@@ -27,7 +27,7 @@ public class ContentServerTest
     {
         server.start();
 
-        String[] args = {Integer.toString(port), "./test/testFiles/NameOnly.txt"};
+        String[] args = {"localhost:" + Integer.toString(port), "./test/testFiles/NameOnly.txt"};
         contentServer.main(args);
 
         Thread.sleep(1000);
@@ -41,7 +41,7 @@ public class ContentServerTest
     {
         server.start();
 
-        String[] args = {Integer.toString(port), "./test/testFiles/MultipleStrings.txt"};
+        String[] args = {"localhost:" + Integer.toString(port), "./test/testFiles/MultipleStrings.txt"};
         contentServer.main(args);
 
         Thread.sleep(1000);
@@ -55,7 +55,7 @@ public class ContentServerTest
     {
         server.start();
 
-        String[] args = {Integer.toString(port), "./test/testFiles/MultipleInts.txt"};
+        String[] args = {"localhost:" + Integer.toString(port), "./test/testFiles/MultipleInts.txt"};
         contentServer.main(args);
 
         Thread.sleep(1000);
