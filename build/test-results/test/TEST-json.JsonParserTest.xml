@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="json.JsonParserTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-02T08:44:33" hostname="MYLESLAPTOP" time="0.001">
+<testsuite name="json.JsonParserTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-02T09:05:36" hostname="MYLESLAPTOP" time="0.002">
   <properties/>
-  <testcase name="NameAndId" classname="json.JsonParserTest" time="0.0"/>
+  <testcase name="NameAndId" classname="json.JsonParserTest" time="0.001"/>
   <testcase name="wholeTest" classname="json.JsonParserTest" time="0.0"/>
   <testcase name="StringAndInt" classname="json.JsonParserTest" time="0.0"/>
   <testcase name="NegativeInts" classname="json.JsonParserTest" time="0.0"/>

@@ -86,7 +86,7 @@ public class IntegrationTest
     {
         startAll(startPort);
 
-        String[] args = {"localhost:" + Integer.toString(startPort), "./test/testFiles/NameOnly.txt"};
+        String[] args = {"localhost:" + Integer.toString(startPort), "./test/testFiles/IdOnly.txt"};
         contentServer.main(args);
 
         //Wait for data to process
@@ -101,7 +101,7 @@ public class IntegrationTest
 
         assertEquals(res.data.size(), 1);
         assertEquals(check.mJsonMap.size(), 1);
-        assertEquals(check.mJsonMap.get("name"), "Myles");
+        assertEquals(check.mJsonMap.get("id"), "Myles");
     }
 
     @Test

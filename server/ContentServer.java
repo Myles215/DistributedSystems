@@ -81,6 +81,7 @@ public class ContentServer
         Thread.sleep(100);
 
         int startTime = getStartTime();
+        Boolean foundID = false;
 
         try
         {
@@ -105,6 +106,8 @@ public class ContentServer
 
                 if (mDataTypes.containsKey(dataName)) 
                 {
+                    if (dataName.equals("id")) foundID = true;
+
                     if (mDataTypes.get(dataName).equals("String"))
                     {
                         json += " \"" + dataName + "\" : " + "\"" + data + "\" ,";
@@ -120,6 +123,13 @@ public class ContentServer
                     return;
                 }
                 line = reader.readLine();
+            }
+
+            if (!foundID) 
+            {
+                System.out.println("No ID in this data");
+                socket.close();
+                return;
             }
 
             json = json.substring(0, json.length() - 1);

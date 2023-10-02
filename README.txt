@@ -41,6 +41,10 @@ Lamport clock:
 Test Methodology:
     To run all automated tests do './gradlew test'
 
+    Test Harness
+    - I use a number of test harness members
+    - These include MockServers and clients that extend threads, allowing them to be run in the background while actual components are tested
+
     Aggregation server
     - Testing interaction of one or multiple clients with Aggregation server
     - on restart do temporary files get loaded to data

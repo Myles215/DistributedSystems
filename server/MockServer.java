@@ -68,5 +68,5 @@ public class MockServer extends Thread
     }
 
     public boolean clientConnected = false;
-    public HTTPObject clientMessage;
+    public HTTPObject clientMessage = new HTTPObject("NULL");
 }

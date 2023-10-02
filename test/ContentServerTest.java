@@ -23,17 +23,17 @@ public class ContentServerTest
     MockServer server = new MockServer(port);
 
     @Test
-    public void SendName() throws InterruptedException, IOException, Exception
+    public void IdOnly() throws InterruptedException, IOException, Exception
     {
         server.start();
 
-        String[] args = {"localhost:" + Integer.toString(port), "./test/testFiles/NameOnly.txt"};
+        String[] args = {"localhost:" + Integer.toString(port), "./test/testFiles/IdOnly.txt"};
         contentServer.main(args);
 
         Thread.sleep(1000);
 
         assertEquals(server.clientMessage.type, HTTPObject.RequestType.PUT);
-        assertEquals(server.clientMessage.data.get(0), "{  \"name\" : \"Myles\" }");
+        assertEquals(server.clientMessage.data.get(0), "{  \"id\" : \"Myles\" }");
     }
 
     @Test
@@ -61,7 +61,20 @@ public class ContentServerTest
         Thread.sleep(1000);
 
         assertEquals(server.clientMessage.type, HTTPObject.RequestType.PUT);
-        assertEquals(server.clientMessage.data.get(0), "{  \"lon\" : 50 , \"lat\" : -17 , \"air_temp\" : 18 , \"apparent_t\" : 22 }");
+        assertEquals(server.clientMessage.data.get(0), "{  \"lon\" : 50 , \"lat\" : -17 , \"air_temp\" : 18 , \"id\" : \"22\" }");
+    }
+
+    @Test
+    public void NoID() throws InterruptedException, IOException, Exception
+    {
+        server.start();
+
+        String[] args = {"localhost:" + Integer.toString(port), "./test/testFiles/NoID.txt"};
+        contentServer.main(args);
+
+        Thread.sleep(1000);
+
+        assertEquals(server.clientMessage.type, HTTPObject.RequestType.NULL);
     }
     
 }
