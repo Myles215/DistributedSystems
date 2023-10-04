@@ -7,6 +7,7 @@ Main Files:
         - Opens a server socket and starts to receieve connections
         - On added connection, dispatch a server thread to handle client messages
         - Maintain aggregation server lamport clock that is used by server threads
+        - Only stores newest lamport timestamp entry for each location **IN THIS CASE STATION ID IS LOCATION BUT CLIENT DOESN"T USE STATION ID"
 
     Server thread
         - Handle client messages
@@ -127,5 +128,8 @@ To play with:
         "java server.AggregationServer localhost:4567" (or your own host + port)
 
         "java server.ContentServer localhost:4567 ./test.txt" (or replace test.txt with your own input file + host + port)
+
+        Other input files are in ./test/testFiles
+        you can try with AllFieldsMelbourne or AllFieldsAdelaide or AllFields
 
         "java client.GETClient localhost:4567" (or your own host + port)
