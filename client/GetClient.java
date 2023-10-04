@@ -3,6 +3,7 @@ package client;
 import parsers.JsonObject;
 import parsers.HTTPParser;
 import parsers.HTTPObject;
+import util.LamportClock;
 
 import java.net.*;
 import java.io.*;
@@ -13,6 +14,7 @@ public class GETClient
     private static Socket socket = new Socket();
     private static String HTTPParserInput = "./parsers/HTTPParser.txt";
     static HTTPParser mHTTPParser = new HTTPParser(HTTPParserInput);
+    private static LamportClock mLamportClock = new LamportClock();
     static JsonObject mJsonParser = new JsonObject();
     static String hostname = "";
 
@@ -48,23 +50,69 @@ public class GETClient
             return;
         }
 
-        int startTime = getStartTime();
+        int startTime = -1;
+        String expected = "";
+        int unexpectedCount = 0;
+        Boolean finished = false;
+        Boolean waiting = false;
+        retryCount = 0;
 
         try
         {
-            getRequest("/weather.json", startTime);
-
-            HTTPObject reply = readResponse();
-
-            for (String rep : reply.data)
+            while (!finished && unexpectedCount < 5)
             {
-                mJsonParser.printString(rep);
-                System.out.println(" ");
+                if (!expected.isEmpty())
+                {
+                    HTTPObject reply = readServerResponse();
+                    
+                    if (reply.type == HTTPObject.RequestType.RES && expected.equals("weather"))
+                    {
+                        Boolean good = handleResponse(reply);
+                        if (!good)
+                        {
+                            retryCount++;
+                            if (retryCount >= 5)
+                            {
+                                throw new IOException("Server not ready");
+                            }
+                            waiting = false;
+                            expected = "";
+                        }
+                        else finished = true;
+                    }
+                    else if (reply.type == HTTPObject.RequestType.RES && expected.equals("lamport") && reply.code == 200)
+                    {
+                        startTime = reply.lamportTime;
+                        mLamportClock.newTime(startTime);
+                        expected = "";
+                    }
+                    else 
+                    {
+                        System.out.println("Unexpected response number: " + unexpectedCount++);
+                        expected = "";
+                    }
+
+                    waiting = false;
+                }
+                else if (startTime == -1 && !waiting)
+                {   
+                    expected = "lamport";
+                    getRequest("./lamport", mLamportClock.increment());
+                    waiting = true;
+                }
+                else if (startTime != -1 && !waiting)
+                {
+                    expected = "weather";
+                    getRequest("./weather.json", mLamportClock.increment());
+                    waiting = true;
+                }
             }
+
+            if (unexpectedCount > 5) throw new IOException("More than 5 unexpected messages");
         }
         catch (IOException e)
         {
-            
+            System.out.println("Some error with client / server communication" + e);
         }
     }
 
@@ -94,19 +142,21 @@ public class GETClient
         socket.close();
     }
 
-    //Get starting lamport clock time
-    private static int getStartTime() throws IOException, Exception
+    private static Boolean handleResponse(HTTPObject reply) throws IOException, Exception
     {
-        BufferedReader reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
-
-        HTTPObject http = new HTTPObject("NULL");
-
-        while (http.type != HTTPObject.RequestType.PUT)
+        if (reply.code != 200)
         {
-            http = mHTTPParser.parse(reader);
+            System.out.println("Server data not available");
+            return false;
         }
 
-        return http.lamportTime;
+        for (String rep : reply.data)
+        {
+            mJsonParser.printString(rep);
+            System.out.println(" ");
+        }
+
+        return true;
     }
 
     //Format and send GET request to specified path
@@ -124,13 +174,13 @@ public class GETClient
     }
 
     //Read reponse from get request
-    public static HTTPObject readResponse() throws IOException, Exception
+    public static HTTPObject readServerResponse() throws IOException, Exception
     {
         BufferedReader reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 
         HTTPObject http = new HTTPObject("NULL");
 
-        while (http.type != HTTPObject.RequestType.RES)
+        while (http.type == HTTPObject.RequestType.NULL)
         {   
             http = mHTTPParser.parse(reader);
         }

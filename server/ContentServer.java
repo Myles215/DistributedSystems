@@ -81,81 +81,127 @@ public class ContentServer
         Thread.sleep(100);
 
         int startTime = getStartTime();
-        Boolean foundID = false;
+        String json = "";
 
         try
         {
-            String json = "{ ";
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line = reader.readLine();
-
-            while (line != null)
-            {
-                int index = 0;
-                while (line.charAt(index) == ' ') index++;
-
-                String dataName = "";
-
-                while (line.charAt(index) != ' ' && line.charAt(index) != ':') dataName += line.charAt(index++);
-
-                while (line.charAt(index) == ' ' || line.charAt(index) == ':') index++;
-
-                String data = "";
-
-                while (index < line.length()) data += line.charAt(index++);
-
-                if (mDataTypes.containsKey(dataName)) 
-                {
-                    if (dataName.equals("id")) foundID = true;
-
-                    if (mDataTypes.get(dataName).equals("String"))
-                    {
-                        json += " \"" + dataName + "\" : " + "\"" + data + "\" ,";
-                    }
-                    else 
-                    {
-                        json += " \"" + dataName + "\" : " + data + " ,";
-                    }
-                }
-                else
-                {
-                    System.out.println("Unrecognized data name: " + dataName + " in file");
-                    return;
-                }
-                line = reader.readLine();
-            }
-
-            if (!foundID) 
-            {
-                System.out.println("No ID in this data");
-                socket.close();
-                return;
-            }
-
-            json = json.substring(0, json.length() - 1);
-            json += '}';
-
-            putRequest("/weather.json", json, startTime);
-            socket.close();
+            json = getJsonFromFile(file);
         }
         catch (FileNotFoundException e)
         {
             System.out.println("Invalid input file");
+            return;
         }
         catch (IOException e)
         {
             System.out.println("Could not send content to aggregation server");
         }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            System.out.println("Content server closing");
+            return;
+        }
 
+        putRequest("/weather.json", json, startTime);
+
+        HTTPObject res = new HTTPObject("NULL");
+        retryCount = 0;
+
+        while (res.type != HTTPObject.RequestType.RES && (res.code != 200 || res.code != 201) && retryCount < 5)
+        {
+            res = readServerResponse();
+            retryCount++;
+
+            if (res.code >= 500)
+            {
+                System.out.println("Some error with PUT request internally in aggregation server: " + res.errorMessage);
+            }
+            else if (res.code >= 400)
+            {
+                System.out.println("Some error with PUT request: " + res.errorMessage);
+            }
+        }
+
+        if (retryCount >= 5)
+        {
+            System.out.println("Could not send data to aggregation server");
+        }
+
+        socket.close();
+    }
+
+    private static String getJsonFromFile(String fileName) throws Exception, FileNotFoundException
+    {
+        String json = "{ ";
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        String line = reader.readLine();
+
+        Boolean foundID = false;
+
+        while (line != null)
+        {
+            int index = 0;
+            while (line.charAt(index) == ' ') index++;
+
+            String dataName = "";
+
+            while (line.charAt(index) != ' ' && line.charAt(index) != ':') dataName += line.charAt(index++);
+
+            while (line.charAt(index) == ' ' || line.charAt(index) == ':') index++;
+
+            String data = "";
+
+            while (index < line.length()) data += line.charAt(index++);
+
+            if (mDataTypes.containsKey(dataName)) 
+            {
+                if (dataName.equals("id")) foundID = true;
+
+                if (mDataTypes.get(dataName).equals("String"))
+                {
+                    json += " \"" + dataName + "\" : " + "\"" + data + "\" ,";
+                }
+                else 
+                {
+                    json += " \"" + dataName + "\" : " + data + " ,";
+                }
+            }
+            else
+            {
+                throw new Exception("Unrecognized data name: " + dataName + " in file");
+            }
+            line = reader.readLine();
+        }
+
+        if (!foundID) 
+        {
+            System.out.println("No ID in this data");
+            socket.close();
+            throw new Exception("No ID in data");
+        }
+
+        json = json.substring(0, json.length() - 1);
+        json += '}';
+        
+        return json;
     }
 
     private static int getStartTime() throws IOException, Exception
     {
         BufferedReader reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+        PrintStream out = new PrintStream( socket.getOutputStream() );
+
+        // Follow the HTTP protocol of GET lamport time 
+        out.println("GET /lamport HTTP/1.1");
+        out.println("User-Agent: ATOMClient/1/0");
+        out.println("Content-Type: application/json");
+        out.println("Lamport-Time: 0");
+        out.println("Content-Length:0");
 
         HTTPObject http = new HTTPObject("NULL");
 
-        while (http.type != HTTPObject.RequestType.PUT)
+        while (http.type != HTTPObject.RequestType.RES)
         {
             http = mHTTPParser.parse(reader);
         }
@@ -197,6 +243,21 @@ public class ContentServer
         out.println("Lamport-Time: " + Integer.toString(lamportTime));
         out.println("Content-Length:" + content.length());
         out.println(content);
+    }
+
+    //Read reponse from get request
+    private static HTTPObject readServerResponse() throws IOException, Exception
+    {
+        BufferedReader reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+
+        HTTPObject http = new HTTPObject("NULL");
+
+        while (http.type == HTTPObject.RequestType.NULL)
+        {   
+            http = mHTTPParser.parse(reader);
+        }
+
+        return http;
     }
 
 }

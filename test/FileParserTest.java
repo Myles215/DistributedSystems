@@ -15,9 +15,8 @@ import java.io.*;
 
 public class FileParserTest
 {
-
     @Before
-    public void eraseAll() throws IOException
+    public void eraseAll() throws IOException, Exception
     {
         File oldData = new File("./allData.txt");
         oldData.delete();
@@ -41,7 +40,6 @@ public class FileParserTest
 
     public FileParserTest() throws IOException
     {
-
         File data = new File("./allData.txt");
         data.delete();
 
@@ -59,10 +57,10 @@ public class FileParserTest
     @Test
     public void AddString() throws IOException
     {
-        String content = "Basic file content";
+        String content = "{ \"name\" : \"AddString\" }";
         long timeNow = System.currentTimeMillis();
 
-        parser.PlaceInFile(content, timeNow);
+        parser.PlaceInFile(content, timeNow, 1);
 
         File checkFile = new File("allData.txt");
 
@@ -71,7 +69,7 @@ public class FileParserTest
         BufferedReader br = new BufferedReader(new FileReader("allData.txt"));
 
         assertEquals(br.readLine(), "time-" + Long.toString(timeNow));
-        assertEquals(br.readLine(), content);
+        assertEquals(br.readLine(), "AddString:1 " + content);
 
         br.close();
     }
@@ -79,20 +77,20 @@ public class FileParserTest
     @Test
     public void AddMultipleStrings() throws IOException
     {
-        String content1 = "content 1";
+        String content1 = "{ \"name\" : \"Test1\" }";
         long time1 = System.currentTimeMillis();
 
-        parser.PlaceInFile(content1, time1);
+        parser.PlaceInFile(content1, time1, 1);
 
-        String content2 = "content 2";
+        String content2 = "{ \"name\" : \"Test2\" }";
         long time2 = System.currentTimeMillis() + 1;
 
-        parser.PlaceInFile(content2, time2);
+        parser.PlaceInFile(content2, time2, 2);
 
-        String content3 = "content 3";
+        String content3 = "{ \"name\" : \"Test3\" }";
         long time3 = System.currentTimeMillis() + 2;
 
-        parser.PlaceInFile(content3, time3);
+        parser.PlaceInFile(content3, time3, 3);
 
         File checkFile = new File("allData.txt");
 
@@ -101,13 +99,13 @@ public class FileParserTest
         BufferedReader br = new BufferedReader(new FileReader("allData.txt"));
 
         assertEquals(br.readLine(), "time-" + Long.toString(time1));
-        assertEquals(br.readLine(), content1);
+        assertEquals(br.readLine(), "Test1:1 " + content1);
 
         assertEquals(br.readLine(), "time-" + Long.toString(time2));
-        assertEquals(br.readLine(), content2);
+        assertEquals(br.readLine(), "Test2:2 " + content2);
 
         assertEquals(br.readLine(), "time-" + Long.toString(time3));
-        assertEquals(br.readLine(), content3);
+        assertEquals(br.readLine(), "Test3:3 " + content3);
 
         br.close();
     }
@@ -115,7 +113,7 @@ public class FileParserTest
     @Test
     public void TestRestart() throws IOException
     {
-        String content1 = "Old Contents 1";
+        String content1 = "{ \"name\" : \"Myles\" }";
         long time1 = System.currentTimeMillis();
 
         //Now writing to backup
@@ -124,10 +122,10 @@ public class FileParserTest
         PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("./midwayFiles/" + Long.toString(time1) + ".txt")));
 
         writer.println(Long.toString(time1));
-        writer.println(content1);
+        writer.println("1 " + content1);
         writer.close();
 
-        String content2 = "Old Contents 2";
+        String content2 = "{ \"name\" : \"Test\" }";
         long time2 = System.currentTimeMillis() + 1;
 
         //Now writing to backup
@@ -136,7 +134,7 @@ public class FileParserTest
         writer = new PrintWriter(new BufferedWriter(new FileWriter("./midwayFiles/" + Long.toString(time2) + ".txt")));
 
         writer.println(Long.toString(time2));
-        writer.println(content2);
+        writer.println("2 " + content2);
         writer.close();
 
         File other = new File("allData.txt");
@@ -149,11 +147,13 @@ public class FileParserTest
 
         BufferedReader br = new BufferedReader(new FileReader("allData.txt"));
 
-        assertEquals(br.readLine(), "time-" + Long.toString(time1));
-        assertEquals(br.readLine(), content1);
+        String line = br.readLine();
+        assertEquals(line, "time-" + Long.toString(time1));
+        line = br.readLine();
+        assertEquals(line, "Myles:1 " + content1);
 
         assertEquals(br.readLine(), "time-" + Long.toString(time2));
-        assertEquals(br.readLine(), content2);
+        assertEquals(br.readLine(), "Test:2 " + content2);
 
         br.close();
     }
@@ -166,7 +166,7 @@ public class FileParserTest
         ArrayList<String> check = parser.ReturnFromFile();
 
         assertEquals(check.size(), 1);
-        assertEquals(check.get(0), "Basic file content");
+        assertEquals(check.get(0), "{ \"name\" : \"AddString\" }");
     }   
 
     @Test
@@ -177,18 +177,18 @@ public class FileParserTest
         ArrayList<String> check = parser.ReturnFromFile();
 
         assertEquals(check.size(), 3);
-        assertEquals(check.get(0), "content 1");
-        assertEquals(check.get(1), "content 2");
-        assertEquals(check.get(2), "content 3");
+        assertEquals(check.get(0), "{ \"name\" : \"Test1\" }");
+        assertEquals(check.get(1), "{ \"name\" : \"Test2\" }");
+        assertEquals(check.get(2), "{ \"name\" : \"Test3\" }");
     }   
 
-    //@Test
+    @Test
     public void SkipsOldData() throws IOException, Exception
     {
         String OldContent = "Old Content - won't be in file";
         long time = System.currentTimeMillis() - 30001;
 
-        parser.PlaceInFile(OldContent, time);
+        parser.PlaceInFile(OldContent, time, 1);
 
         //Read multiple strings should only find the new content it adds
         ReadMultipleStringFromFile();

@@ -71,12 +71,33 @@ public class LamportClockTest
         MockClient client3 = new MockClient();
 
         client1.connect(startPort);
+
+        client1.sendGetRequest("GET /lamport HTTP/1.1");
+        client1.sendGetRequest("User-Agent: ATOMClient/1/0");
+        client1.sendGetRequest("Content-Type: application/json");
+        client1.sendGetRequest("Lamport-Time: 0");
+        client1.sendGetRequest("Content-Length:0");
+
         int t1 = client1.getStartTime();
 
         client2.connect(startPort);
+
+        client2.sendGetRequest("GET /lamport HTTP/1.1");
+        client2.sendGetRequest("User-Agent: ATOMClient/1/0");
+        client2.sendGetRequest("Content-Type: application/json");
+        client2.sendGetRequest("Lamport-Time: 0");
+        client2.sendGetRequest("Content-Length:0");
+
         int t2 = client2.getStartTime();
 
         client3.connect(startPort);
+
+        client3.sendGetRequest("GET /lamport HTTP/1.1");
+        client3.sendGetRequest("User-Agent: ATOMClient/1/0");
+        client3.sendGetRequest("Content-Type: application/json");
+        client3.sendGetRequest("Lamport-Time: 0");
+        client3.sendGetRequest("Content-Length:0");
+
         int t3 = client3.getStartTime();
 
         //Times should increase in connection order
@@ -103,7 +124,7 @@ public class LamportClockTest
         getClient.sendGetRequest("Content-Length:0");
 
         //Add content to server with earlier timestamp than get
-        String content = "test content";
+        String content = "{ \"name\" : \"testing\" }";
         contentServer.sendPutRequest("PUT /weather.json HTTP/1.1");
         contentServer.sendPutRequest("User-Agent: ATOMClient/1/0");
         contentServer.sendPutRequest("Content-Type: application/json");

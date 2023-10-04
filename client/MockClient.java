@@ -44,7 +44,7 @@ public class MockClient
 
         HTTPObject http = new HTTPObject("NULL");
 
-        while (http.type != HTTPObject.RequestType.PUT)
+        while (http.type != HTTPObject.RequestType.RES)
         {
             http = mHTTPParser.parse(reader);
         }

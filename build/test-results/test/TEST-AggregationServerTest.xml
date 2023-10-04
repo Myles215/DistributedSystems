@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AggregationServerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-10-02T09:05:21" hostname="MYLESLAPTOP" time="1.702">
+<testsuite name="AggregationServerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-10-04T07:23:46" hostname="MYLESLAPTOP" time="1.83">
   <properties/>
-  <testcase name="ServerRestartRetainsData" classname="AggregationServerTest" time="0.324"/>
-  <testcase name="GetClientAndContentServerConnect" classname="AggregationServerTest" time="0.782"/>
-  <testcase name="clientConnect" classname="AggregationServerTest" time="0.596"/>
+  <testcase name="ServerRestartRetainsData" classname="AggregationServerTest" time="0.919"/>
+  <testcase name="GetClientAndContentServerConnect" classname="AggregationServerTest" time="0.808"/>
+  <testcase name="clientConnect" classname="AggregationServerTest" time="0.103"/>
   <system-out><![CDATA[Server is listening on port 1256
 New client connected
 New client connected
@@ -22,6 +22,7 @@ New request: GET
 Server is listening on port 1254
 New client connected
 New request: GET
+Exception when reading file: java.lang.Exception: 503 data not available yet
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

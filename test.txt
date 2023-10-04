@@ -1,3 +1,0 @@
-name:Myles
-lon:20
-lat:30

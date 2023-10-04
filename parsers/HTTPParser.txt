@@ -11,5 +11,5 @@ ATOMClient/1/0
 
 lamport
 PUT
-plain/text
+application/json
 ATOMClient/1/0

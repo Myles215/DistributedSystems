@@ -34,8 +34,6 @@ public class ServerThread extends Thread
             BufferedReader reader = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
             PrintWriter writer = new PrintWriter(mSocket.getOutputStream(), true);
 
-            sendTimeOnConnect(writer);
-
             String line = "";
             long lastMessage = System.currentTimeMillis();
             long allowedTime = 30000;
@@ -77,14 +75,13 @@ public class ServerThread extends Thread
                             writer.println("HTTP/1.1 " + http.code + " " + http.errorMessage);
                             writer.println("User-Agent: ATOMClient/1/0");
                             writer.println("Content-Type: weather.json");
-                            //TODO
-                            writer.println("Lamport-Time: 0");
+                            writer.println("Lamport-Time: " + Integer.toString(mLamportClock.increment()));
                             writer.println("Content-Length:0");
                         }
                         else if (http.type == HTTPObject.RequestType.PUT)
                         {
                             long currentTime = System.currentTimeMillis();
-                            Boolean created = mFileParser.PlaceInFile(http.data.get(0), currentTime);
+                            Boolean created = mFileParser.PlaceInFile(http.data.get(0), currentTime, http.lamportTime);
 
                             System.out.println("Added content server data to file");
 
@@ -99,42 +96,15 @@ public class ServerThread extends Thread
 
                             writer.println("User-Agent: ATOMClient/1/0");
                             writer.println("Content-Type: text/plain");
-                            //TODO
-                            writer.println("Lamport-Time: 0");
+                            writer.println("Lamport-Time: " + Integer.toString(mLamportClock.increment()));
                             writer.println("Content-Length:0");
                         }
                         else if (http.type == HTTPObject.RequestType.GET)
                         {
-                            ArrayList<String> allData = new ArrayList<String>();
-                            int len = 0;
-
-                            try
-                            {
-                                allData = mFileParser.ReturnFromFile();
-                                for (String s : allData) len += s.length();
-
-                                writer.println("HTTP/1.1 200 OK");
-                                writer.println("User-Agent: ATOMClient/1/0");
-                                writer.println("Content-Type: application/json");
-                                //TODO
-                                writer.println("Lamport-Time: 0");
-                                writer.println("Content-Length:" + len);
-                                for (String s : allData) writer.println(s);
-                            }
-                            catch (Exception e)
-                            {
-                                System.out.println("Exception when reading file: " + e);
-                                writer.println("HTTP/1.1 500 Internal server error");
-                                writer.println("User-Agent: ATOMClient/1/0");
-                                writer.println("Content-Type: none");
-                                //TODO
-                                writer.println("Lamport-Time: 0");
-                                writer.println("Content-Length:0");
-                            }
+                            handleGET(writer, http);
                         }
 
                         mLamportClock.checkForFinish(http.lamportTime);
-
                     }
 
                 }
@@ -143,8 +113,7 @@ public class ServerThread extends Thread
                     writer.println("HTTP/1.1 500 Internal server error");
                     writer.println("User-Agent: ATOMClient/1/0");
                     writer.println("Content-Type: text/plain");
-                    //TODO
-                    writer.println("Lamport-Time: 0");
+                    writer.println("Lamport-Time: " + Integer.toString(mLamportClock.increment()));
                     writer.println("Content-Length:0");
                 }
             }
@@ -159,12 +128,63 @@ public class ServerThread extends Thread
 
     }
 
-    private void sendTimeOnConnect(PrintWriter writer)
+    private void handleGET(PrintWriter writer, HTTPObject http)
     {
-        writer.println("PUT /lamport HTTP/1.1");
+        ArrayList<String> allData = new ArrayList<String>();
+        int len = 0;
+
+        if (http.pathName.equals("weather.json"))
+        {
+            try
+            {
+                allData = mFileParser.ReturnFromFile();
+                sendResponse(writer, 200, "OK", mLamportClock.increment(), allData);
+            }
+            catch (Exception e)
+            {
+                System.out.println("Exception when reading file: " + e);
+                if (e.toString().contains("503"))
+                {
+                    sendResponse(writer, 503, "Service unavailble", mLamportClock.increment(), allData);
+                }
+                else
+                {
+                    sendResponse(writer, 500, "Internal server error", mLamportClock.increment(), allData);
+                }
+            }
+        }
+        else if (http.pathName.equals("lamport"))
+        {
+            sendResponse(writer, 200, "OK", mLamportClock.increment(), allData);
+        }
+        else
+        {
+            sendResponse(writer, 400, "Bad request",  mLamportClock.increment(), allData);
+        }
+    }
+
+    private void sendResponse(PrintWriter writer, int code, String message, int time, ArrayList<String> data)
+    {
+        writer.println("HTTP/1.1 " + code + " " + message);
         writer.println("User-Agent: ATOMClient/1/0");
-        writer.println("Content-Type: plain/text");
-        writer.println("Lamport-Time: " + Integer.toString(mLamportClock.increment()));
-        writer.println("Content-Length:0");
+        writer.println("Content-Type: none");
+        writer.println("Lamport-Time: " + time);
+        
+        int len = 0;
+
+        if (data.size() > 0)
+        {
+            for (String s : data) len += s.length();
+        }
+
+        if (len == 0)
+        {
+            writer.println("Content-Length:0");
+        }
+        else
+        {
+            writer.println("Content-Length:" + len);
+            for (String s : data) writer.println(s);
+        }
     }
 }

@@ -48,7 +48,7 @@ public class AggregationServerTest
         HTTPObject checkReply = client.readResponse();
 
         //We have no data in aggregation server yet
-        assertEquals(checkReply.code, 200);
+        assertEquals(checkReply.code, 503);
         assertEquals(checkReply.data.size(), 0);
 
         client.disconnect();
@@ -70,7 +70,7 @@ public class AggregationServerTest
         contentServer.run(port + 1);
 
         //Add content to server
-        String content = "test content";
+        String content = "{ \"name\" : \"GCAndCSConnect\" }";
         contentServer.sendPutRequest("PUT /weather.json HTTP/1.1");
         contentServer.sendPutRequest("User-Agent: ATOMClient/1/0");
         contentServer.sendPutRequest("Content-Type: application/json");
@@ -88,7 +88,6 @@ public class AggregationServerTest
         getClient.sendGetRequest("GET /weather.json HTTP/1.1");
         getClient.sendGetRequest("User-Agent: ATOMClient/1/0");
         getClient.sendGetRequest("Content-Type: application/json");
-        //TODO
         getClient.sendGetRequest("Lamport-Time: 0");
         getClient.sendGetRequest("Content-Length:0");
 
@@ -119,11 +118,10 @@ public class AggregationServerTest
         contentServer.run(port + 2);
 
         //Add content to server
-        String content = "test content";
+        String content = "{ \"name\" : \"RestartRetainsData\" }";
         contentServer.sendPutRequest("PUT /weather.json HTTP/1.1");
         contentServer.sendPutRequest("User-Agent: ATOMClient/1/0");
         contentServer.sendPutRequest("Content-Type: application/json");
-        //TODO
         contentServer.sendPutRequest("Lamport-Time: 0");
         contentServer.sendPutRequest("Content-Length:" + content.length());
         contentServer.sendPutRequest(content);
@@ -138,7 +136,6 @@ public class AggregationServerTest
         getClient.sendGetRequest("GET /weather.json HTTP/1.1");
         getClient.sendGetRequest("User-Agent: ATOMClient/1/0");
         getClient.sendGetRequest("Content-Type: application/json");
-        //TODO
         getClient.sendGetRequest("Lamport-Time: 0");
         getClient.sendGetRequest("Content-Length:0");
 
@@ -163,7 +160,6 @@ public class AggregationServerTest
         getClient.sendGetRequest("GET /weather.json HTTP/1.1");
         getClient.sendGetRequest("User-Agent: ATOMClient/1/0");
         getClient.sendGetRequest("Content-Type: application/json");
-        //TODO
         getClient.sendGetRequest("Lamport-Time: 0");
         getClient.sendGetRequest("Content-Length:0");
 

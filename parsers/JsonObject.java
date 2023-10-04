@@ -34,7 +34,6 @@ public class JsonObject
     //Print JSON string as key : value
     public void printString(String rawJson) throws Exception
     {
-
         char endChar = '}';
 
         while (rawJson.charAt(index) != endChar)
@@ -169,5 +168,53 @@ public class JsonObject
         }
 
         return data;
+    }
+
+    public String getDataName(String rawJson, String searchName) throws Exception
+    {
+        index = 0;
+        char endChar = '}';
+
+        while (rawJson.charAt(index) != endChar)
+        {
+            if (rawJson.charAt(index) == '"')
+            {
+                String dataName = "";
+                String data = "";
+
+                while (rawJson.charAt(++index) != '"')
+                {
+                    dataName += rawJson.charAt(index);
+                }
+
+                while (rawJson.charAt(++index) != ':');
+                while (rawJson.charAt(++index) == ' ');
+
+                if (rawJson.charAt(index) == '"')
+                {
+                    index++;
+                    data = getAsString(rawJson);
+                }
+                else if (rawJson.charAt(index) == '-' || Character.isDigit(rawJson.charAt(index)))
+                {
+                    data = getAsInt(rawJson, dataName);
+                }
+                else 
+                {
+                    throw new Exception("Data name " + dataName + " not in correct format");
+                }
+
+                if (dataName.equals(searchName)) return data;
+                
+            }
+            index++;
+            
+            if (index >= rawJson.length())
+            {
+                throw new Exception("Json doesn't end with specified char");
+            }
+        }
+
+        return "";
     }
 }

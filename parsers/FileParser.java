@@ -6,9 +6,9 @@ import java.io.*;
 
 public class FileParser
 {
-
     //We delete data older than 30 seconds
     private long timeAllowed = 30000;
+    private JsonObject mJsonParser = new JsonObject();
 
     public FileParser() throws IOException
     {
@@ -19,18 +19,18 @@ public class FileParser
     }
 
     //Place string in file with timestamp
-    public Boolean PlaceInFile(String s, long timestamp) throws IOException
+    public Boolean PlaceInFile(String s, long timestamp, int lamportTime) throws IOException
     {
         String timeStampS = Long.toString(timestamp);
 
         // Open a temporary file to write to.
         PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("./midwayFiles/" + timeStampS + ".txt")));
         writer.println(timeStampS);
-        writer.println(s);
+        writer.println(Integer.toString(lamportTime) + " " + s);
 
         writer.close();
 
-        Boolean ret = AddToData(s, timestamp);
+        Boolean ret = AddToData(s, timestamp, lamportTime);
 
         //Delete midway file too
         File midway = new File("./midwayFiles/" + timeStampS + ".txt");
@@ -40,7 +40,7 @@ public class FileParser
     }
 
     //Add string to data file, as we go, delete data older than 30s
-    private Boolean AddToData(String s, long timestamp) throws IOException
+    private Boolean AddToData(String s, long timestamp, int lamportTime) throws IOException
     {
         //Check if the data is being created for the first time
         File oldData = new File("./allData.txt");
@@ -49,6 +49,7 @@ public class FileParser
         //Check if any data is old
         BufferedReader br = new BufferedReader(new FileReader("./allData.txt"));
         String line;
+        Boolean written = false;
 
         //Now writing to main data file
         PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("./temp.txt")));
@@ -61,9 +62,29 @@ public class FileParser
 
                 if (time > timestamp - timeAllowed)
                 {
-                    writer.println(line);
                     line = br.readLine();
-                    writer.println(line);
+
+                    String loc = line.substring(0, line.indexOf(':'));
+                    int lam = Integer.parseInt(line.substring(line.indexOf(':') + 1, line.indexOf(' ')));
+
+                    try
+                    {
+                        if (loc.equals(mJsonParser.getDataName(s.substring(s.indexOf('{')), "name")) && lamportTime > lam)
+                        {
+                            writer.println("time-" + Long.toString(timestamp));
+                            writer.println(mJsonParser.getDataName(s.substring(s.indexOf('{')), "name") + ":" + lamportTime + " " + s);
+                            written = true;
+                        }
+                        else 
+                        {
+                            writer.println("time-" + Long.toString(time));
+                            writer.println(line);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println("Error translating file, omitting corrupted entry: " + e);
+                    }
                 }
                 else
                 {
@@ -72,8 +93,18 @@ public class FileParser
             }
         }
 
-        writer.println("time-" + Long.toString(timestamp));
-        writer.println(s);
+        if (!written)
+        {
+            try
+            {   
+                writer.println("time-" + Long.toString(timestamp));
+                writer.println(mJsonParser.getDataName(s, "name") + ":" + lamportTime + " " + s);
+            }
+            catch (Exception e)
+            {
+                System.out.println("Exception reading Json: " + e);
+            }
+        }
 
         br.close();
         writer.close();
@@ -101,7 +132,7 @@ public class FileParser
             if (time > timestamp - timeAllowed)
             {
                 String s = br.readLine();
-                AddToData(s, time);
+                AddToData(s.substring(s.indexOf(' ') + 1), time, Integer.parseInt(s.substring(0, s.indexOf(' '))));
             }
 
             br.close();
@@ -124,7 +155,7 @@ public class FileParser
         }
         catch (FileNotFoundException e)
         {
-            return allJson;
+            throw new Exception("503 data not available yet");
         }
 
         String line;
@@ -136,7 +167,8 @@ public class FileParser
                 long time = Long.parseLong(line.substring(line.indexOf('-') + 1));
                 if (time > currentTime - timeAllowed) 
                 {
-                    allJson.add(br.readLine());
+                    line = br.readLine();
+                    allJson.add(line.substring(line.indexOf(' ') + 1));
                 }
                 else br.readLine();
             }

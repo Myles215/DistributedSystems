@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ContentServerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-10-02T09:05:26" hostname="MYLESLAPTOP" time="6.529">
+<testsuite name="ContentServerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-10-04T07:23:51" hostname="MYLESLAPTOP" time="5.01">
   <properties/>
-  <testcase name="IdOnly" classname="ContentServerTest" time="1.633"/>
-  <testcase name="MultipleStrings" classname="ContentServerTest" time="1.636"/>
-  <testcase name="NoID" classname="ContentServerTest" time="1.631"/>
-  <testcase name="MultipleInts" classname="ContentServerTest" time="1.627"/>
+  <testcase name="MultipleStrings" classname="ContentServerTest" time="1.696"/>
+  <testcase name="NoID" classname="ContentServerTest" time="1.648"/>
+  <testcase name="IdAndNameOnly" classname="ContentServerTest" time="1.665"/>
   <system-out><![CDATA[No ID in this data
+java.lang.Exception: No ID in data
+Content server closing
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

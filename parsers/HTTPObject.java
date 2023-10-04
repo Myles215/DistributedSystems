@@ -20,6 +20,7 @@ public class HTTPObject
     public String responseMessage = "";
 
     public ArrayList<String> data = new ArrayList<String>();
+    public String pathName;
     public RequestType type;
 
     public int lamportTime = -1;
@@ -44,6 +45,12 @@ public class HTTPObject
         {
             type = RequestType.NULL;
         }
+    }
+
+    //set path name
+    public void setPathName(String path)
+    {
+        pathName = path;
     }
 
     //Set status

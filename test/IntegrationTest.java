@@ -61,9 +61,10 @@ public class IntegrationTest
         Thread.sleep(100);
     }
 
-    public void checkAllFields(JsonObject check)
+    //Name is the only unique part
+    public void checkAllFields(JsonObject check, String name)
     {
-        assertEquals(check.mJsonMap.get("name"), "Myles");
+        assertEquals(check.mJsonMap.get("name"), name);
         assertEquals(check.mJsonMap.get("id"), "IDS60901");
         assertEquals(check.mJsonMap.get("state"), "SA");
         assertEquals(check.mJsonMap.get("lat"), "-215");
@@ -86,22 +87,26 @@ public class IntegrationTest
     {
         startAll(startPort);
 
-        String[] args = {"localhost:" + Integer.toString(startPort), "./test/testFiles/IdOnly.txt"};
+        String[] args = {"localhost:" + Integer.toString(startPort), "./test/testFiles/IDAndNameOnly.txt"};
         contentServer.main(args);
 
         //Wait for data to process
         Thread.sleep(100);
         getClient.connect(startPort);
 
-        getClient.getRequest("/weather.json", 0);
-        HTTPObject res = getClient.readResponse();
+        getClient.getRequest("/lamport", 0);
+        HTTPObject time = getClient.readServerResponse();
+
+        getClient.getRequest("/weather.json", time.lamportTime);
+        HTTPObject res = getClient.readServerResponse();
 
         JsonObject check = new JsonObject();
         check.StringToObject(res.data.get(0));
 
         assertEquals(res.data.size(), 1);
-        assertEquals(check.mJsonMap.size(), 1);
+        assertEquals(check.mJsonMap.size(), 2);
         assertEquals(check.mJsonMap.get("id"), "Myles");
+        assertEquals(check.mJsonMap.get("name"), "Adelaide");
     }
 
     @Test
@@ -116,13 +121,16 @@ public class IntegrationTest
         Thread.sleep(100);
         getClient.connect(startPort + 1);
 
-        getClient.getRequest("/weather.json", 0);
-        HTTPObject res = getClient.readResponse();
+        getClient.getRequest("/lamport", 0);
+        HTTPObject time = getClient.readServerResponse();
+
+        getClient.getRequest("/weather.json", time.lamportTime);
+        HTTPObject res = getClient.readServerResponse();
 
         JsonObject check = new JsonObject();
         check.StringToObject(res.data.get(0));
 
-        checkAllFields(check);
+        checkAllFields(check, "Myles");
     }
 
     @Test
@@ -140,26 +148,37 @@ public class IntegrationTest
         getClient1.connect(startPort + 2);
 
         //Use a super late timestamp to avoid this being handled before above
-        getClient1.getRequest("/weather.json", 30);
-        HTTPObject res = getClient1.readResponse();
+        getClient1.getRequest("/lamport", 0);
+        HTTPObject time = getClient.readServerResponse();
+
+        getClient1.getRequest("/weather.json", time.lamportTime);
+        HTTPObject res = getClient1.readServerResponse();
         JsonObject check = new JsonObject();
         check.StringToObject(res.data.get(0));
 
-        checkAllFields(check);
+        checkAllFields(check, "Myles");
 
         getClient2.connect(startPort + 2);
-        getClient2.getRequest("/weather.json", 0);
-        res = getClient2.readResponse();
+
+        getClient2.getRequest("/lamport", 0);
+        time = getClient2.readServerResponse();
+
+        getClient2.getRequest("/weather.json", time.lamportTime);
+        res = getClient2.readServerResponse();
         check.StringToObject(res.data.get(0));
 
-        checkAllFields(check);
+        checkAllFields(check, "Myles");
 
         getClient3.connect(startPort + 2);
-        getClient3.getRequest("/weather.json", 0);
-        res = getClient3.readResponse();
+
+        getClient3.getRequest("/lamport", 0);
+        time = getClient3.readServerResponse();
+
+        getClient3.getRequest("/weather.json", time.lamportTime);
+        res = getClient3.readServerResponse();
         check.StringToObject(res.data.get(0));
 
-        checkAllFields(check);
+        checkAllFields(check, "Myles");
     }
 
     @Test
@@ -167,14 +186,17 @@ public class IntegrationTest
     {
         startAll(startPort + 3);
 
+        //We need different files as each data entry is mapped to name, so to have 3 entries we need 3 names
         String[] args = {"localhost:" + Integer.toString(startPort + 3), "./test/testFiles/AllFields.txt"};
         contentServer.main(args);
 
         ContentServer content2 = new ContentServer();
-        content2.main(args);
+        String[] args2 = {"localhost:" + Integer.toString(startPort + 3), "./test/testFiles/AllFieldsMelbourne.txt"};
+        content2.main(args2);
 
         ContentServer content3 = new ContentServer();
-        content3.main(args);
+        String[] args3 = {"localhost:" + Integer.toString(startPort + 3), "./test/testFiles/AllFieldsAdelaide.txt"};
+        content3.main(args3);
 
         GETClient getClient1 = new GETClient();
         GETClient getClient2 = new GETClient();
@@ -182,50 +204,139 @@ public class IntegrationTest
 
         getClient1.connect(startPort + 3);
 
-        getClient1.getRequest("/weather.json", 15);
-        HTTPObject res = getClient1.readResponse();
+        getClient1.getRequest("/lamport", 0);
+        HTTPObject time = getClient.readServerResponse();
+
+        getClient1.getRequest("/weather.json", time.lamportTime);
+        HTTPObject res = getClient1.readServerResponse();
         assertEquals(res.data.size(), 3);
         JsonObject check = new JsonObject();
 
         check.StringToObject(res.data.get(0));
-        checkAllFields(check);
+        checkAllFields(check, "Myles");
 
         check.StringToObject(res.data.get(1));
-        checkAllFields(check);
+        checkAllFields(check, "Melbourne");
 
         check.StringToObject(res.data.get(2));
-        checkAllFields(check);
+        checkAllFields(check, "Adelaide");
 
 
         getClient2.connect(startPort + 3);
-        getClient2.getRequest("/weather.json", 16);
-        res = getClient2.readResponse();
+
+        getClient2.getRequest("/lamport", 0);
+        time = getClient2.readServerResponse();
+
+        getClient2.getRequest("/weather.json", time.lamportTime);
+        res = getClient2.readServerResponse();
         assertEquals(res.data.size(), 3);
         check = new JsonObject();
 
         check.StringToObject(res.data.get(0));
-        checkAllFields(check);
+        checkAllFields(check, "Myles");
 
         check.StringToObject(res.data.get(1));
-        checkAllFields(check);
+        checkAllFields(check, "Melbourne");
 
         check.StringToObject(res.data.get(2));
-        checkAllFields(check);
+        checkAllFields(check, "Adelaide");
 
 
         getClient3.connect(startPort + 3);
-        getClient3.getRequest("/weather.json", 17);
-        res = getClient3.readResponse();
+
+        getClient3.getRequest("/lamport", 0);
+        time = getClient3.readServerResponse();
+
+        getClient3.getRequest("/weather.json", time.lamportTime);
+        res = getClient3.readServerResponse();
         assertEquals(res.data.size(), 3);
         check = new JsonObject();
 
         check.StringToObject(res.data.get(0));
-        checkAllFields(check);
+        checkAllFields(check, "Myles");
 
         check.StringToObject(res.data.get(1));
-        checkAllFields(check);
+        checkAllFields(check, "Melbourne");
 
         check.StringToObject(res.data.get(2));
-        checkAllFields(check);
+        checkAllFields(check, "Adelaide");
+    }
+
+    @Test
+    public void ContentServerSendsSameContent() throws IOException, InterruptedException, Exception
+    {
+        startAll(startPort + 4);
+
+        //We need different files as each data entry is mapped to name, so to have 3 entries we need 3 names
+        String[] args = {"localhost:" + Integer.toString(startPort + 4), "./test/testFiles/AllFields.txt"};
+        contentServer.main(args);
+
+        ContentServer content2 = new ContentServer();
+        String[] args2 = {"localhost:" + Integer.toString(startPort + 4), "./test/testFiles/AllFields.txt"};
+        content2.main(args2);
+
+        ContentServer content3 = new ContentServer();
+        String[] args3 = {"localhost:" + Integer.toString(startPort + 4), "./test/testFiles/AllFields.txt"};
+        content3.main(args3);
+
+        GETClient getClient1 = new GETClient();
+        getClient1.connect(startPort + 4);
+
+        getClient1.getRequest("/lamport", 0);
+        HTTPObject time = getClient.readServerResponse();
+
+        getClient1.getRequest("/weather.json", time.lamportTime);
+        HTTPObject res = getClient1.readServerResponse();
+        //We should replace each entry with another as they all have same name
+        assertEquals(res.data.size(), 1);
+        JsonObject check = new JsonObject();
+
+        check.StringToObject(res.data.get(0));
+        checkAllFields(check, "Myles");
+    }
+
+    @Test
+    public void ServerRestartRetainsData() throws IOException, InterruptedException, Exception
+    {
+        startAll(startPort + 5);
+
+        String[] args = {"localhost:" + Integer.toString(startPort + 4), "./test/testFiles/IDAndNameOnly.txt"};
+        contentServer.main(args);
+
+        //Wait for data to process
+        Thread.sleep(100);
+        getClient.connect(startPort + 5);
+
+        getClient.getRequest("/lamport", 0);
+        HTTPObject time = getClient.readServerResponse();
+
+        getClient.getRequest("/weather.json", time.lamportTime);
+        HTTPObject res = getClient.readServerResponse();
+
+        JsonObject check = new JsonObject();
+        check.StringToObject(res.data.get(0));
+
+        assertEquals(res.data.size(), 1);
+        assertEquals(check.mJsonMap.size(), 2);
+        assertEquals(check.mJsonMap.get("id"), "Myles");
+        assertEquals(check.mJsonMap.get("name"), "Adelaide");
+
+        startAll(startPort + 5);
+
+        //Data should be saved from last time
+        getClient.connect(startPort + 5);
+
+        getClient.getRequest("/lamport", time.lamportTime);
+        time = getClient.readServerResponse();
+
+        getClient.getRequest("/weather.json", time.lamportTime);
+        res = getClient.readServerResponse();
+
+        check = new JsonObject();
+        check.StringToObject(res.data.get(0));
+
+        assertEquals(res.data.size(), 1);
+        assertEquals(check.mJsonMap.size(), 2);
+        assertEquals(check.mJsonMap.get("name"), "Adelaide");
     }
 }

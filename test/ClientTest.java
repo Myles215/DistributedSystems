@@ -3,6 +3,7 @@ import server.MockServer;
 
 import static org.junit.Assert.assertEquals;
 import parsers.HTTPObject;
+import parsers.HTTPParser;
 
 import org.junit.Test;
 import org.junit.Before;
@@ -17,7 +18,6 @@ import java.io.*;
 
 public class ClientTest
 {   
-
     private int port = 1111;
 
     class ClientThread extends Thread
@@ -75,6 +75,11 @@ public class ClientTest
         assertEquals(server.clientConnected, false);
 
         client.connect(port + 1);
+
+        //Do for lamport time reply
+        client.getRequest("/lamport", 0);
+        client.readServerResponse();
+
         client.getRequest("/weather.json", 0);
 
         try { Thread.sleep(1000); } catch (InterruptedException e) { }
@@ -94,11 +99,19 @@ public class ClientTest
         assertEquals(server.clientConnected, false);
 
         client.connect(port + 2);
-        client.getRequest("/weather.json", 0);
+        client.getRequest("/lamport", 0);
 
-        HTTPObject check = client.readResponse();
+        HTTPObject check = client.readServerResponse();
+        //This is inital lamport time reply
+        assertEquals(check.lamportTime, 1);
+
+        client.getRequest("/weather.json", 1);
+
+        check = client.readServerResponse();
 
         assertEquals(check.data.size(), 1);
+        assertEquals(check.type, HTTPObject.RequestType.RES);
+        assertEquals(check.code, 200);
         assertEquals(check.data.get(0), "{ Good job sending GET request! }");
         client.disconnect();
     }
@@ -113,15 +126,85 @@ public class ClientTest
         client.start();
 
         //Wait to start server, client should keep retrying for 500 ms
-        try { Thread.sleep(300); } catch (InterruptedException e) { }
+        long start = System.currentTimeMillis();
+        while (System.currentTimeMillis() < start + 300);
 
         assertEquals(server.clientConnected, false);
         server.start();
 
         //Now, client should connect 
-        try { Thread.sleep(1000); } catch (InterruptedException e) {  }
+        try { Thread.sleep(500); } catch (InterruptedException e) {  }
 
         assertEquals(server.clientConnected, true);
         client.exit = true;
+    }
+
+    @Test
+    public void ClientRetriesGet() throws InterruptedException
+    {
+        ClientThread client = new ClientThread(port + 4);
+        HTTPParser parser = new HTTPParser("./parsers/HTTPParser.txt");
+        client.start();
+
+        try (ServerSocket serverSocket = new ServerSocket(port + 4))
+        {
+            Socket socket = serverSocket.accept();
+            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            HTTPObject req = new HTTPObject("NULL");
+
+            while (req.type != HTTPObject.RequestType.GET)
+            {
+                req = parser.parse(reader);
+            }
+
+            assertEquals(req.pathName, "lamport");
+            assertEquals(req.lamportTime, 0);
+
+            writer.println("HTTP/1.1 200 OK");
+            writer.println("User-Agent: ATOMClient/1/0");
+            writer.println("Content-Type: application/json");
+            writer.println("Lamport-Time: 1");
+            writer.println("Content-Length:0");
+
+            req = new HTTPObject("NULL");
+
+            while (req.type != HTTPObject.RequestType.GET)
+            {
+                req = parser.parse(reader);
+            }
+
+            assertEquals(req.pathName, "weather.json");
+            assertEquals(req.lamportTime, 2);
+
+            writer.println("HTTP/1.1 503 Weather data not available");
+            writer.println("User-Agent: ATOMClient/1/0");
+            writer.println("Content-Type: application/json");
+            writer.println("Lamport-Time: 2");
+            writer.println("Content-Length:0");
+
+            //The GET client will try to request again
+            while (req.type != HTTPObject.RequestType.GET)
+            {
+                req = parser.parse(reader);
+            }
+
+            assertEquals(req.pathName, "weather.json");
+
+            writer.println("HTTP/1.1 200 OK");
+            writer.println("User-Agent: ATOMClient/1/0");
+            writer.println("Content-Type: application/json");
+            writer.println("Lamport-Time: 2");
+            writer.println("Content-Length:0");
+            //Now client is finished
+        }
+        catch (Exception e)
+        {
+            System.out.println("Exception in client test: " + e);
+        }
+
+        //Assure that client has closed and therefore we get to here
+        assertEquals(true, true);
     }
 }

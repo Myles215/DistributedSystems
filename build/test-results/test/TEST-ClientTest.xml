@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ClientTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-10-02T09:05:22" hostname="MYLESLAPTOP" time="3.991">
+<testsuite name="ClientTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-04T07:23:48" hostname="MYLESLAPTOP" time="3.597">
   <properties/>
-  <testcase name="RetryConnection" classname="ClientTest" time="1.32"/>
-  <testcase name="connectAndRequest" classname="ClientTest" time="1.539"/>
-  <testcase name="connect" classname="ClientTest" time="0.619"/>
-  <testcase name="messageAndResponse" classname="ClientTest" time="0.513"/>
-  <system-out><![CDATA[ 
+  <testcase name="ClientRetriesGet" classname="ClientTest" time="0.044"/>
+  <testcase name="RetryConnection" classname="ClientTest" time="0.849"/>
+  <testcase name="connectAndRequest" classname="ClientTest" time="1.524"/>
+  <testcase name="connect" classname="ClientTest" time="0.626"/>
+  <testcase name="messageAndResponse" classname="ClientTest" time="0.554"/>
+  <system-out><![CDATA[Server data not available
+ 
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

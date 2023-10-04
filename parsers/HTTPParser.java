@@ -26,7 +26,6 @@ public class HTTPParser
 
     private Map<String, PathFile> mPaths = new HashMap<String, PathFile>();
 
-
     public HTTPParser(String input)
     {
         try
@@ -96,16 +95,15 @@ public class HTTPParser
     }
 
     //Parse whole HTTP request 
-    private HTTPObject parseRequest(BufferedReader reader) throws IOException, Exception
+    private HTTPObject parseRequest(BufferedReader reader) throws IOException, Exception, InterruptedException
     {
         HTTPObject http;
 
         String line = reader.readLine();
 
-        if (line == null)
+        if (line == null || line.equals(""))
         {
             http = new HTTPObject("NULL");
-            http.status(0, "NONE");
             return http;
         }
         else if (line.substring(0, 4).equals("HTTP"))
@@ -124,8 +122,10 @@ public class HTTPParser
             throw new Exception("HP400: Not a route");
         }
 
-        String pathName = line.substring(line.indexOf('/') + 1, line.indexOf('/') + 1 + line.substring(line.indexOf('/') + 1).indexOf(' '));
+        //Wait for a little in case we're too fast for the request and read null lines before the printer can print
+        Thread.sleep(15);
 
+        String pathName = line.substring(line.indexOf('/') + 1, line.indexOf('/') + 1 + line.substring(line.indexOf('/') + 1).indexOf(' '));
         if (!mPaths.containsKey(pathName))
         {
             throw new Exception("HP401: Pathname " + pathName + " not present in possible paths");
@@ -144,6 +144,8 @@ public class HTTPParser
             throw new Exception("HP502: unrecognized route type: " + line);
         }
 
+        http.setPathName(pathName);
+
         line = reader.readLine();
         if (!line.contains("User-Agent") || !line.substring(line.indexOf(':') + 2).equals(mPaths.get(pathName).mAgent))
         {
@@ -151,9 +153,13 @@ public class HTTPParser
         }
 
         line = reader.readLine();
-        if (!line.contains("Content-Type") || !line.substring(line.indexOf(':') + 2).equals(mPaths.get(pathName).mDataType))
+        if (!line.contains("Content-Type"))
         {
             throw new Exception("HP503: Incorrect request format, needs content type");
+        }
+        else if (!line.substring(line.indexOf(':') + 2).equals(mPaths.get(pathName).mDataType))
+        {
+            throw new Exception("HP504: Incorrect request format, content type " + line.substring(line.indexOf(':') + 2) + " is wrong for request " + pathName);
         }
 
         line = reader.readLine();
@@ -203,10 +209,9 @@ public class HTTPParser
         {
             http.status(Integer.parseInt(code), getMessage(line.indexOf(' '), line));
         }
-        else if (code.equals("400") || code.equals("500"))
+        else if (code.equals("400") || code.equals("500") || code.equals("503"))
         {
             http.status(Integer.parseInt(code), getMessage(line.indexOf(' '), line));
-            return http;
         }
         else
         {
@@ -222,13 +227,13 @@ public class HTTPParser
         line = reader.readLine();
         if (!line.contains("Content-Type"))
         {
-            throw new Exception("HP503: Incorrect request format, needs content type");
+            throw new Exception("HP504: Incorrect request format, needs content type");
         }
 
         line = reader.readLine();
         if (!line.contains("Lamport-Time"))
         {
-            throw new Exception("HP504: Incorrect request format, needs lamport time");
+            throw new Exception("HP505: Incorrect request format, needs lamport time");
         }
 
         http.stamp(Integer.parseInt(line.substring(line.indexOf(':') + 2)));
@@ -236,7 +241,7 @@ public class HTTPParser
         line = reader.readLine();
         if (!line.contains("Content-Length"))
         {
-            throw new Exception("HP504: Incorrect request format, needs content length");
+            throw new Exception("HP506: Incorrect request format, needs content length");
         }
 
         int len = Integer.parseInt(line.substring(line.indexOf(":") + 1));
@@ -252,7 +257,7 @@ public class HTTPParser
 
             if (totalLen > len) 
             {
-                throw new Exception("HP505: Total length of JSON is larger than expected length");
+                throw new Exception("HP507: Total length of JSON is larger than expected length");
             }   
         }
 

@@ -2,6 +2,31 @@ Distributed Systems Assignment 2
 
 Comes packaged with Gradle and Maven jar files
 
+Main Files:
+    Aggregation server
+        - Opens a server socket and starts to receieve connections
+        - On added connection, dispatch a server thread to handle client messages
+        - Maintain aggregation server lamport clock that is used by server threads
+
+    Server thread
+        - Handle client messages
+        - On GET for lamport, reply with lamport time
+        - On GET for weather.json return JSON data
+        - On PUT for weather.json add JSON data to file, if first time, return 201, otherwise 200
+        - If JSON data can't be understood or any internal server error return 500
+        - If route doesn't make sense return 400
+        - If no data in file for GET return 503 (service unavailable)
+
+    GETClient
+        - Start up with host:port and make a GET request for start lamport time
+        - Send GET for latest weather data in all locations
+        - Retry on message or connection failure
+
+    Content Server:
+        - Start up with host:port and input file and make GET request for lamport time
+        - Send PUT with data from input file
+        - Retry on message or connection failure
+
 Lamport clock:
     - My lamport clock is simply an object with functionality to increment the lamport time and check it against an incoming timestamp
     - My design is to have 1 central lamport clock with a queue for timestamp events being completed
@@ -14,10 +39,12 @@ Lamport clock:
             Aggregation server increments lamport time
             Aggregation server sends lamport timestamp 1 to content server
             (This timestamp is now the content servers designated start timestamp)
+            Content server updates it's own lamport time to 1
         3. Lamport time = 1
             Client connects
             Aggregation server increments lamport time
             Aggregation server sends lamport timestamp 2 to client
+            Client updates it's own lamport time to 2
         4. Lamport time = 2
             Client sends a GET request with timestamp 2
             Aggregation server places timestamp 2 in queue
@@ -38,6 +65,13 @@ Lamport clock:
     As we can see, this means if multiple servers and clients connect, they're requests will be handled in order events
     if there is some delay in the ordering of messages
 
+    With a central source of truth for the lamport clock we can avoid:
+        - Ties between the lamport clock of multiple clients / client and content server / multiple content servers
+        - Having to coordinate one lamport clock over all content servers or all clients, now all servers and cients get their starting lamport time from the aggregation server
+
+    As the aggregation server only has 1 lamport clock but handles multiple content servers and clients with different server threads I added sycnhronised functions
+    to make the lamport clock threadsafe. Only 1 thread can increment the lamport clock time or add an event to the queue at any time
+
 Test Methodology:
     To run all automated tests do './gradlew test'
 
@@ -54,11 +88,13 @@ Test Methodology:
     - Can a client send a formatted get request
     - Can a client read a response from a server
     - Client retries connection on failure
+    - Client retries sending GET on anything but 200 reply
 
     Content server
     - Can the content server read data from file and send it to the aggregation server
     - Test reading strings, ints and the two types together
     - Content server retries connection on failure
+    - Content server retries 
 
     File parser
     - Can the file parser read JSON data from a file
@@ -88,8 +124,8 @@ To play with:
     make Makefile
 
     in seperate terminals:
-        java server.AggregationServer hostname:port
+        "java server.AggregationServer localhost:4567" (or your own host + port)
 
-        java server.ContentServer hostname:port ./inputFile.txt
+        "java server.ContentServer localhost:4567 ./test.txt" (or replace test.txt with your own input file + host + port)
 
-        java client.GETClient port
+        "java client.GETClient localhost:4567" (or your own host + port)

@@ -31,7 +31,7 @@ public class MockServer extends Thread
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);
 
-            sendTimeOnConnect(writer);
+            replyTimeOnConnect(writer, reader);
 
             try
             {   
@@ -51,19 +51,27 @@ public class MockServer extends Thread
             writer.println("Content-Length:" + re.length());
             writer.println(re);
  
-        } catch (IOException ex) 
+        } catch (Exception ex) 
         {
             System.out.println("Server exception: " + ex.getMessage());
             ex.printStackTrace();
         }
     }
 
-    private void sendTimeOnConnect(PrintWriter writer)
+    private void replyTimeOnConnect(PrintWriter writer, BufferedReader reader) throws IOException, Exception
     {
-        writer.println("PUT /lamport HTTP/1.1");
+
+        HTTPObject timeCollection = new HTTPObject("NULL");
+
+        while (timeCollection.type != HTTPObject.RequestType.GET) 
+        {
+            timeCollection = mParser.parse(reader);
+        }
+
+        writer.println("HTTP/1.1 200 OK");
         writer.println("User-Agent: ATOMClient/1/0");
-        writer.println("Content-Type: plain/text");
-        writer.println("Lamport-Time: 0");
+        writer.println("Content-Type: application/json");
+        writer.println("Lamport-Time: 1");
         writer.println("Content-Length:0");
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="HTTPParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-02T09:05:33" hostname="MYLESLAPTOP" time="0.003">
+<testsuite name="HTTPParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-04T07:23:57" hostname="MYLESLAPTOP" time="0.091">
   <properties/>
-  <testcase name="runAll" classname="HTTPParserTest" time="0.003"/>
+  <testcase name="runAll" classname="HTTPParserTest" time="0.091"/>
   <system-out><![CDATA[java.lang.Exception: HP400: Not a route
 java.lang.Exception: HP503: Incorrect request format, needs user agent
 java.lang.Exception: HP503: Incorrect request format, needs lamport time
