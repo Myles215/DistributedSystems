@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="json.LamportClockTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-04T07:24:06" hostname="MYLESLAPTOP" time="1.394">
+<testsuite name="json.LamportClockTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-05T23:27:43" hostname="MYLESLAPTOP" time="1.473">
   <properties/>
-  <testcase name="CorrectTimeForConnectionOrder" classname="json.LamportClockTest" time="0.821"/>
-  <testcase name="OneClientOneServer" classname="json.LamportClockTest" time="0.573"/>
+  <testcase name="CorrectTimeForConnectionOrder" classname="json.LamportClockTest" time="0.921"/>
+  <testcase name="OneClientOneServer" classname="json.LamportClockTest" time="0.552"/>
   <system-out><![CDATA[Server is listening on port 6001
 New client connected
 New request: GET
@@ -13,8 +13,8 @@ New request: GET
 Server is listening on port 6002
 New client connected
 New client connected
-New request: PUT
 New request: GET
+New request: PUT
 Added content server data to file
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

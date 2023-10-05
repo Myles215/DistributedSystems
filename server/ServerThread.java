@@ -29,16 +29,13 @@ public class ServerThread extends Thread
     {
         try 
         {
-            String clientInput = "";
-
             BufferedReader reader = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
             PrintWriter writer = new PrintWriter(mSocket.getOutputStream(), true);
 
-            String line = "";
             long lastMessage = System.currentTimeMillis();
             long allowedTime = 30000;
 
-            while (line != null && lastMessage + allowedTime > System.currentTimeMillis() && !exit)
+            while (lastMessage + allowedTime > System.currentTimeMillis() && !exit)
             {
                 try
                 {   
@@ -106,7 +103,6 @@ public class ServerThread extends Thread
 
                         mLamportClock.checkForFinish(http.lamportTime);
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -117,6 +113,8 @@ public class ServerThread extends Thread
                     writer.println("Content-Length:0");
                 }
             }
+
+            System.out.println("Closing connection");
 
             reader.close();
             writer.close();

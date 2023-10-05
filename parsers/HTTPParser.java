@@ -68,16 +68,20 @@ public class HTTPParser
         catch(Exception e)
         {
             System.out.println(e);
-            if (e.toString().contains("HP4"))
+            if (e.toString().contains("400"))
             {
                 HTTPObject http = new HTTPObject("OTHER");
                 http.responseStatus(400, "Bad Request");
                 return http;
             }
-
-            HTTPObject http = new HTTPObject("OTHER");
-            http.responseStatus(500, "Internal server error");
-            return http;
+            else
+            {
+                //If the message contains 500, it is a server error and if there is no message it is also a server error
+                HTTPObject http = new HTTPObject("OTHER");
+                http.responseStatus(500, "Internal server error");
+                return http;
+            }
+            
         }
 
     }
@@ -86,7 +90,7 @@ public class HTTPParser
     {
         String ret = "";
 
-        while (line.charAt(index) != ' ')
+        while (index < line.length())
         {
             ret += line.charAt(index++);
         }
@@ -128,7 +132,7 @@ public class HTTPParser
         String pathName = line.substring(line.indexOf('/') + 1, line.indexOf('/') + 1 + line.substring(line.indexOf('/') + 1).indexOf(' '));
         if (!mPaths.containsKey(pathName))
         {
-            throw new Exception("HP401: Pathname " + pathName + " not present in possible paths");
+            throw new Exception("400: Pathname " + pathName + " not present in possible paths");
         }
 
         if (line.contains("GET"))
@@ -141,7 +145,7 @@ public class HTTPParser
         }
         else
         {
-            throw new Exception("HP502: unrecognized route type: " + line);
+            throw new Exception("500: unrecognized route type: " + line);
         }
 
         http.setPathName(pathName);
@@ -149,13 +153,13 @@ public class HTTPParser
         line = reader.readLine();
         if (!line.contains("User-Agent") || !line.substring(line.indexOf(':') + 2).equals(mPaths.get(pathName).mAgent))
         {
-            throw new Exception("HP503: Incorrect request format, needs user agent");
+            throw new Exception("500: Incorrect request format, needs user agent");
         }
 
         line = reader.readLine();
         if (!line.contains("Content-Type"))
         {
-            throw new Exception("HP503: Incorrect request format, needs content type");
+            throw new Exception("500: Incorrect request format, needs content type");
         }
         else if (!line.substring(line.indexOf(':') + 2).equals(mPaths.get(pathName).mDataType))
         {
@@ -165,7 +169,7 @@ public class HTTPParser
         line = reader.readLine();
         if (!line.contains("Lamport-Time"))
         {
-            throw new Exception("HP503: Incorrect request format, needs lamport time");
+            throw new Exception("500: Incorrect request format, needs lamport time");
         }
 
         http.stamp(Integer.parseInt(line.substring(line.indexOf(':') + 2)));
@@ -173,7 +177,7 @@ public class HTTPParser
         line = reader.readLine();
         if (!line.contains("Content-Length"))
         {
-            throw new Exception("HP504: Incorrect request format, needs content length");
+            throw new Exception("500: Incorrect request format, needs content length");
         }
 
         int len = Integer.parseInt(line.substring(line.indexOf(":") + 1));
@@ -189,7 +193,7 @@ public class HTTPParser
 
             if (totalLen > len) 
             {
-                throw new Exception("HP505: Total length of JSON is larger than expected length");
+                throw new Exception("500: Total length of JSON is larger than expected length");
             }   
         }
 
@@ -207,33 +211,33 @@ public class HTTPParser
 
         if (code.equals("200") || code.equals("201")) 
         {
-            http.status(Integer.parseInt(code), getMessage(line.indexOf(' '), line));
+            http.status(Integer.parseInt(code), getMessage(line.indexOf(' ') + 5, line));
         }
         else if (code.equals("400") || code.equals("500") || code.equals("503"))
         {
-            http.status(Integer.parseInt(code), getMessage(line.indexOf(' '), line));
+            http.status(Integer.parseInt(code), getMessage(line.indexOf(' ') + 5, line));
         }
         else
         {
-            throw new Exception("HP402: Request type wasn't get or put and didn't have a numerical code");
+            throw new Exception("400: Request type wasn't get or put and didn't have a numerical code");
         }
 
         line = reader.readLine();
         if (!line.contains("User-Agent"))
         {
-            throw new Exception("HP503: Incorrect request format, needs user agent");
+            throw new Exception("500: Incorrect request format, needs user agent");
         }
 
         line = reader.readLine();
         if (!line.contains("Content-Type"))
         {
-            throw new Exception("HP504: Incorrect request format, needs content type");
+            throw new Exception("500: Incorrect request format, needs content type");
         }
 
         line = reader.readLine();
         if (!line.contains("Lamport-Time"))
         {
-            throw new Exception("HP505: Incorrect request format, needs lamport time");
+            throw new Exception("500: Incorrect request format, needs lamport time");
         }
 
         http.stamp(Integer.parseInt(line.substring(line.indexOf(':') + 2)));
@@ -241,7 +245,7 @@ public class HTTPParser
         line = reader.readLine();
         if (!line.contains("Content-Length"))
         {
-            throw new Exception("HP506: Incorrect request format, needs content length");
+            throw new Exception("500: Incorrect request format, needs content length");
         }
 
         int len = Integer.parseInt(line.substring(line.indexOf(":") + 1));
@@ -257,7 +261,7 @@ public class HTTPParser
 
             if (totalLen > len) 
             {
-                throw new Exception("HP507: Total length of JSON is larger than expected length");
+                throw new Exception("500: Total length of JSON is larger than expected length");
             }   
         }
 

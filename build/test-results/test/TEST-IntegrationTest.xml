@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="IntegrationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-04T07:23:57" hostname="MYLESLAPTOP" time="8.603">
+<testsuite name="IntegrationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-05T23:27:35" hostname="MYLESLAPTOP" time="8.576">
   <properties/>
-  <testcase name="ContentServerSendsSameContent" classname="IntegrationTest" time="1.629"/>
-  <testcase name="ServerRestartRetainsData" classname="IntegrationTest" time="1.21"/>
-  <testcase name="SendOneData" classname="IntegrationTest" time="1.044"/>
-  <testcase name="SendAllFields" classname="IntegrationTest" time="1.078"/>
-  <testcase name="MultipleContentMultipleClients" classname="IntegrationTest" time="2.061"/>
-  <testcase name="MultipleClients" classname="IntegrationTest" time="1.58"/>
+  <testcase name="ContentServerSendsSameContent" classname="IntegrationTest" time="1.501"/>
+  <testcase name="ServerRestartRetainsData" classname="IntegrationTest" time="1.304"/>
+  <testcase name="SendOneData" classname="IntegrationTest" time="0.869"/>
+  <testcase name="SendAllFields" classname="IntegrationTest" time="1.09"/>
+  <testcase name="MultipleContentMultipleClients" classname="IntegrationTest" time="2.304"/>
+  <testcase name="MultipleClients" classname="IntegrationTest" time="1.507"/>
   <system-out><![CDATA[Server is listening on port 5005
 New client connected
 New request: GET
@@ -31,7 +31,7 @@ Added content server data to file
 New client connected
 New request: GET
 New request: GET
-Server exception: Address already in use: JVM_Bind
+Server is listening on port 5007
 New client connected
 New request: GET
 New request: GET
@@ -88,15 +88,5 @@ New client connected
 New request: GET
 New request: GET
 ]]></system-out>
-  <system-err><![CDATA[java.net.BindException: Address already in use: JVM_Bind
-	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketBind(DualStackPlainSocketImpl.java:106)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:387)
-	at java.net.PlainSocketImpl.bind(PlainSocketImpl.java:190)
-	at java.net.ServerSocket.bind(ServerSocket.java:375)
-	at java.net.ServerSocket.<init>(ServerSocket.java:237)
-	at java.net.ServerSocket.<init>(ServerSocket.java:128)
-	at server.AggregationServer.main(AggregationServer.java:28)
-	at IntegrationTest$RunAggregationServer.run(IntegrationTest.java:48)
-]]></system-err>
+  <system-err><![CDATA[]]></system-err>
 </testsuite>

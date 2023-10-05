@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AggregationServerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-10-04T07:23:46" hostname="MYLESLAPTOP" time="1.83">
+<testsuite name="AggregationServerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-10-05T23:27:23" hostname="MYLESLAPTOP" time="2.31">
   <properties/>
-  <testcase name="ServerRestartRetainsData" classname="AggregationServerTest" time="0.919"/>
-  <testcase name="GetClientAndContentServerConnect" classname="AggregationServerTest" time="0.808"/>
-  <testcase name="clientConnect" classname="AggregationServerTest" time="0.103"/>
+  <testcase name="ServerRestartRetainsData" classname="AggregationServerTest" time="0.898"/>
+  <testcase name="GetClientAndContentServerConnect" classname="AggregationServerTest" time="0.804"/>
+  <testcase name="clientConnect" classname="AggregationServerTest" time="0.608"/>
   <system-out><![CDATA[Server is listening on port 1256
 New client connected
 New client connected

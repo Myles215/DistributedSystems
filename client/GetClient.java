@@ -67,6 +67,7 @@ public class GETClient
                     
                     if (reply.type == HTTPObject.RequestType.RES && expected.equals("weather"))
                     {
+                        System.out.println(reply.type + " " + reply.code + " " + reply.errorMessage);
                         Boolean good = handleResponse(reply);
                         if (!good)
                         {
@@ -83,6 +84,7 @@ public class GETClient
                     else if (reply.type == HTTPObject.RequestType.RES && expected.equals("lamport") && reply.code == 200)
                     {
                         startTime = reply.lamportTime;
+                        System.out.println(reply.type + " " + reply.code + " " + reply.errorMessage);
                         mLamportClock.newTime(startTime);
                         expected = "";
                     }
@@ -97,13 +99,17 @@ public class GETClient
                 else if (startTime == -1 && !waiting)
                 {   
                     expected = "lamport";
+                    System.out.println("Reply from GET /lamport: ");
                     getRequest("./lamport", mLamportClock.increment());
+                    
                     waiting = true;
                 }
                 else if (startTime != -1 && !waiting)
                 {
                     expected = "weather";
+                    System.out.println("Reply from GET /weather.json: ");
                     getRequest("./weather.json", mLamportClock.increment());
+
                     waiting = true;
                 }
             }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ContentServerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-10-04T07:23:51" hostname="MYLESLAPTOP" time="5.01">
+<testsuite name="ContentServerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-10-05T23:27:29" hostname="MYLESLAPTOP" time="5.023">
   <properties/>
-  <testcase name="MultipleStrings" classname="ContentServerTest" time="1.696"/>
-  <testcase name="NoID" classname="ContentServerTest" time="1.648"/>
-  <testcase name="IdAndNameOnly" classname="ContentServerTest" time="1.665"/>
+  <testcase name="MultipleStrings" classname="ContentServerTest" time="1.7"/>
+  <testcase name="NoID" classname="ContentServerTest" time="1.633"/>
+  <testcase name="IdAndNameOnly" classname="ContentServerTest" time="1.69"/>
   <system-out><![CDATA[No ID in this data
 java.lang.Exception: No ID in data
 Content server closing

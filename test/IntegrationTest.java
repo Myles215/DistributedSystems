@@ -321,10 +321,10 @@ public class IntegrationTest
         assertEquals(check.mJsonMap.get("id"), "Myles");
         assertEquals(check.mJsonMap.get("name"), "Adelaide");
 
-        startAll(startPort + 5);
+        startAll(startPort + 6);
 
         //Data should be saved from last time
-        getClient.connect(startPort + 5);
+        getClient.connect(startPort + 6);
 
         getClient.getRequest("/lamport", time.lamportTime);
         time = getClient.readServerResponse();
