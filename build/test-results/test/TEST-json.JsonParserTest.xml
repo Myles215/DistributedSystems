@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="json.JsonParserTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-05T23:27:43" hostname="MYLESLAPTOP" time="0.002">
+<testsuite name="json.JsonParserTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-10-11T09:21:41" hostname="MYLESLAPTOP" time="0.002">
   <properties/>
-  <testcase name="NameAndId" classname="json.JsonParserTest" time="0.001"/>
+  <testcase name="ReadFromNestedObject" classname="json.JsonParserTest" time="0.001"/>
+  <testcase name="NameAndId" classname="json.JsonParserTest" time="0.0"/>
   <testcase name="wholeTest" classname="json.JsonParserTest" time="0.0"/>
   <testcase name="StringAndInt" classname="json.JsonParserTest" time="0.0"/>
   <testcase name="NegativeInts" classname="json.JsonParserTest" time="0.0"/>

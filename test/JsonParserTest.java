@@ -134,4 +134,55 @@ public class JsonParserTest
 
         assertEquals(check, "Adelaide (West Terrace /  ngayirdapira)");
     }
+
+    @Test
+    public void ReadFromNestedObject() throws Exception
+    {
+        String json = "{"
+                    + "\"TestObject1\" : {"
+                        + "\"id\" : \"IDS60901\", "
+                        + "\"name\" : \"Adelaide (West Terrace /  ngayirdapira)\", "
+                        + "\"state\" : \"SA\", "
+                        + "\"time_zone\" : \"CST\", "
+                        + "\"lat\": -34.9, "
+                        + "\"lon\": 138.6, "
+                        + "\"local_date_time\": \"15/04:00pm\", "
+                        + "\"local_date_time_full\": \"20230715160000\", "
+                        + "\"air_temp\": 13.3, "
+                        + "\"apparent_t\": 9.5, "
+                        + "\"cloud\": \"Partly cloudy\", "
+                        + "\"dewpt\": 5.7, "
+                        + "\"press\": 1023.9, "
+                        + "\"rel_hum\": 60, "
+                        + "\"wind_dir\": \"S\", "
+                        + "\"wind_spd_kmh\": 15, "
+                        + "\"wind_spd_kt\": 8 "
+                        + "}, "
+                    + "\"TestObject2\" : {"
+                        + "\"id\" : \"IDS60901\", "
+                        + "\"name\" : \"Adelaide (West Terrace /  ngayirdapira)\", "
+                        + "\"state\" : \"SA\", "
+                        + "\"time_zone\" : \"CST\", "
+                        + "\"lat\": -34.9, "
+                        + "\"lon\": 138.6, "
+                        + "\"local_date_time\": \"15/04:00pm\", "
+                        + "\"local_date_time_full\": \"20230715160000\", "
+                        + "\"air_temp\": 13.3, "
+                        + "\"apparent_t\": 9.5, "
+                        + "\"cloud\": \"Partly cloudy\", "
+                        + "\"dewpt\": 5.7, "
+                        + "\"press\": 1023.9, "
+                        + "\"rel_hum\": 60, "
+                        + "\"wind_dir\": \"S\", "
+                        + "\"wind_spd_kmh\": 15, "
+                        + "\"wind_spd_kt\": 8 "
+                        + "} "
+                    + "}";
+
+        jsonObject.NestedStringToObject(json);
+
+        assertEquals(jsonObject.mObject.containsKey("TestObject1"), true);
+        assertEquals(jsonObject.mObject.containsKey("TestObject2"), true);
+
+    }
 }

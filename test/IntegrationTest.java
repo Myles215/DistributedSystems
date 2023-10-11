@@ -62,24 +62,24 @@ public class IntegrationTest
     }
 
     //Name is the only unique part
-    public void checkAllFields(JsonObject check, String name)
+    public void checkAllFields(Map<String, String> check, String name)
     {
-        assertEquals(check.mJsonMap.get("name"), name);
-        assertEquals(check.mJsonMap.get("id"), "IDS60901");
-        assertEquals(check.mJsonMap.get("state"), "SA");
-        assertEquals(check.mJsonMap.get("lat"), "-215");
-        assertEquals(check.mJsonMap.get("lon"), "123");
-        assertEquals(check.mJsonMap.get("local_date_time"), "15/04:00pm");
-        assertEquals(check.mJsonMap.get("local_date_time_full"), "20230715160000");
-        assertEquals(check.mJsonMap.get("air_temp"), "13.3");
-        assertEquals(check.mJsonMap.get("apparent_t"), "9.5");
-        assertEquals(check.mJsonMap.get("cloud"), "Very cloudy");
-        assertEquals(check.mJsonMap.get("dewpt"), "5.7");
-        assertEquals(check.mJsonMap.get("press"), "1023.9");
-        assertEquals(check.mJsonMap.get("rel_hum"), "60");
-        assertEquals(check.mJsonMap.get("wind_dir"), "S");
-        assertEquals(check.mJsonMap.get("wind_spd_kmh"), "15");
-        assertEquals(check.mJsonMap.get("wind_spd_kt"), "8");
+        assertEquals(check.get("name"), name);
+        assertEquals(check.get("id"), "IDS60901");
+        assertEquals(check.get("state"), "SA");
+        assertEquals(check.get("lat"), "-215");
+        assertEquals(check.get("lon"), "123");
+        assertEquals(check.get("local_date_time"), "15/04:00pm");
+        assertEquals(check.get("local_date_time_full"), "20230715160000");
+        assertEquals(check.get("air_temp"), "13.3");
+        assertEquals(check.get("apparent_t"), "9.5");
+        assertEquals(check.get("cloud"), "Very cloudy");
+        assertEquals(check.get("dewpt"), "5.7");
+        assertEquals(check.get("press"), "1023.9");
+        assertEquals(check.get("rel_hum"), "60");
+        assertEquals(check.get("wind_dir"), "S");
+        assertEquals(check.get("wind_spd_kmh"), "15");
+        assertEquals(check.get("wind_spd_kt"), "8");
     }
 
     @Test
@@ -101,10 +101,15 @@ public class IntegrationTest
         HTTPObject res = getClient.readServerResponse();
 
         JsonObject check = new JsonObject();
-        check.StringToObject(res.data.get(0));
 
-        assertEquals(res.data.size(), 1);
-        assertEquals(check.mJsonMap.size(), 2);
+        assertEquals(res.data.size(), 3);
+
+        //Strip our object into JSON strings
+        check.NestedStringToObject(res.data.get(0) + res.data.get(1) + res.data.get(2));
+
+        assertEquals(check.mObject.size(), 1);
+        assertEquals(check.mObject.containsKey("Adelaide"), true);
+        //Individual JSON will be stored in JsonMap
         assertEquals(check.mJsonMap.get("id"), "Myles");
         assertEquals(check.mJsonMap.get("name"), "Adelaide");
     }
@@ -128,9 +133,13 @@ public class IntegrationTest
         HTTPObject res = getClient.readServerResponse();
 
         JsonObject check = new JsonObject();
-        check.StringToObject(res.data.get(0));
+        //Strip our object into JSON strings
+        check.NestedStringToObject(res.data.get(0) + res.data.get(1) + res.data.get(2));
 
-        checkAllFields(check, "Myles");
+        assertEquals(check.mObject.size(), 1);
+        assertEquals(check.mObject.containsKey("Myles"), true);
+
+        checkAllFields(check.mObject.get("Myles"), "Myles");
     }
 
     @Test
@@ -154,9 +163,16 @@ public class IntegrationTest
         getClient1.getRequest("/weather.json", time.lamportTime);
         HTTPObject res = getClient1.readServerResponse();
         JsonObject check = new JsonObject();
-        check.StringToObject(res.data.get(0));
+        String json = "";
 
-        checkAllFields(check, "Myles");
+        for (String j : res.data) json += j;
+
+        check.NestedStringToObject(json);
+
+        assertEquals(check.mObject.size(), 1);
+        assertEquals(check.mObject.containsKey("Myles"), true);
+
+        checkAllFields(check.mObject.get("Myles"), "Myles");
 
         getClient2.connect(startPort + 2);
 
@@ -165,10 +181,18 @@ public class IntegrationTest
 
         getClient2.getRequest("/weather.json", time.lamportTime);
         res = getClient2.readServerResponse();
-        check.StringToObject(res.data.get(0));
 
-        checkAllFields(check, "Myles");
+        json = "";
 
+        for (String j : res.data) json += j;
+
+        check.NestedStringToObject(json);
+
+        assertEquals(check.mObject.size(), 1);
+        assertEquals(check.mObject.containsKey("Myles"), true);
+
+        checkAllFields(check.mObject.get("Myles"), "Myles");
+        
         getClient3.connect(startPort + 2);
 
         getClient3.getRequest("/lamport", 0);
@@ -176,9 +200,16 @@ public class IntegrationTest
 
         getClient3.getRequest("/weather.json", time.lamportTime);
         res = getClient3.readServerResponse();
-        check.StringToObject(res.data.get(0));
+        json = "";
 
-        checkAllFields(check, "Myles");
+        for (String j : res.data) json += j;
+
+        check.NestedStringToObject(json);
+
+        assertEquals(check.mObject.size(), 1);
+        assertEquals(check.mObject.containsKey("Myles"), true);
+
+        checkAllFields(check.mObject.get("Myles"), "Myles");
     }
 
     @Test
@@ -209,18 +240,24 @@ public class IntegrationTest
 
         getClient1.getRequest("/weather.json", time.lamportTime);
         HTTPObject res = getClient1.readServerResponse();
-        assertEquals(res.data.size(), 3);
+        //Assume we have JSON formatted message size
+        assertEquals(res.data.size(), 5);
         JsonObject check = new JsonObject();
 
-        check.StringToObject(res.data.get(0));
-        checkAllFields(check, "Myles");
+        String json = "";
 
-        check.StringToObject(res.data.get(1));
-        checkAllFields(check, "Melbourne");
+        for (String j : res.data) json += j;
 
-        check.StringToObject(res.data.get(2));
-        checkAllFields(check, "Adelaide");
+        check.NestedStringToObject(json);
 
+        assertEquals(check.mObject.size(), 3);
+        assertEquals(check.mObject.containsKey("Myles"), true);
+        assertEquals(check.mObject.containsKey("Melbourne"), true);
+        assertEquals(check.mObject.containsKey("Adelaide"), true);
+
+        checkAllFields(check.mObject.get("Myles"), "Myles");
+        checkAllFields(check.mObject.get("Melbourne"), "Melbourne");
+        checkAllFields(check.mObject.get("Adelaide"), "Adelaide");
 
         getClient2.connect(startPort + 3);
 
@@ -229,18 +266,22 @@ public class IntegrationTest
 
         getClient2.getRequest("/weather.json", time.lamportTime);
         res = getClient2.readServerResponse();
-        assertEquals(res.data.size(), 3);
         check = new JsonObject();
 
-        check.StringToObject(res.data.get(0));
-        checkAllFields(check, "Myles");
+        json = "";
 
-        check.StringToObject(res.data.get(1));
-        checkAllFields(check, "Melbourne");
+        for (String j : res.data) json += j;
 
-        check.StringToObject(res.data.get(2));
-        checkAllFields(check, "Adelaide");
+        check.NestedStringToObject(json);
 
+        assertEquals(check.mObject.size(), 3);
+        assertEquals(check.mObject.containsKey("Myles"), true);
+        assertEquals(check.mObject.containsKey("Melbourne"), true);
+        assertEquals(check.mObject.containsKey("Adelaide"), true);
+
+        checkAllFields(check.mObject.get("Myles"), "Myles");
+        checkAllFields(check.mObject.get("Melbourne"), "Melbourne");
+        checkAllFields(check.mObject.get("Adelaide"), "Adelaide");
 
         getClient3.connect(startPort + 3);
 
@@ -249,17 +290,22 @@ public class IntegrationTest
 
         getClient3.getRequest("/weather.json", time.lamportTime);
         res = getClient3.readServerResponse();
-        assertEquals(res.data.size(), 3);
         check = new JsonObject();
 
-        check.StringToObject(res.data.get(0));
-        checkAllFields(check, "Myles");
+        json = "";
 
-        check.StringToObject(res.data.get(1));
-        checkAllFields(check, "Melbourne");
+        for (String j : res.data) json += j;
 
-        check.StringToObject(res.data.get(2));
-        checkAllFields(check, "Adelaide");
+        check.NestedStringToObject(json);
+
+        assertEquals(check.mObject.size(), 3);
+        assertEquals(check.mObject.containsKey("Myles"), true);
+        assertEquals(check.mObject.containsKey("Melbourne"), true);
+        assertEquals(check.mObject.containsKey("Adelaide"), true);
+
+        checkAllFields(check.mObject.get("Myles"), "Myles");
+        checkAllFields(check.mObject.get("Melbourne"), "Melbourne");
+        checkAllFields(check.mObject.get("Adelaide"), "Adelaide");
     }
 
     @Test
@@ -287,12 +333,19 @@ public class IntegrationTest
 
         getClient1.getRequest("/weather.json", time.lamportTime);
         HTTPObject res = getClient1.readServerResponse();
-        //We should replace each entry with another as they all have same name
-        assertEquals(res.data.size(), 1);
+        
         JsonObject check = new JsonObject();
 
-        check.StringToObject(res.data.get(0));
-        checkAllFields(check, "Myles");
+        String json = "";
+
+        for (String j : res.data) json += j;
+
+        check.NestedStringToObject(json);
+        //We should replace each entry with another as they all have same name
+        assertEquals(check.mObject.size(), 1);
+        assertEquals(check.mObject.containsKey("Myles"), true);
+
+        checkAllFields(check.mObject.get("Myles"), "Myles");
     }
 
     @Test
@@ -314,12 +367,15 @@ public class IntegrationTest
         HTTPObject res = getClient.readServerResponse();
 
         JsonObject check = new JsonObject();
-        check.StringToObject(res.data.get(0));
+        String json = "";
 
-        assertEquals(res.data.size(), 1);
-        assertEquals(check.mJsonMap.size(), 2);
-        assertEquals(check.mJsonMap.get("id"), "Myles");
-        assertEquals(check.mJsonMap.get("name"), "Adelaide");
+        for (String j : res.data) json += j;
+
+        check.NestedStringToObject(json);
+        //We should replace each entry with another as they all have same name
+        assertEquals(check.mObject.size(), 1);
+        assertEquals(check.mObject.containsKey("Adelaide"), true);
+        assertEquals(check.mObject.get("Adelaide").size(), 2); 
 
         startAll(startPort + 6);
 
@@ -333,10 +389,14 @@ public class IntegrationTest
         res = getClient.readServerResponse();
 
         check = new JsonObject();
-        check.StringToObject(res.data.get(0));
+        json = "";
 
-        assertEquals(res.data.size(), 1);
-        assertEquals(check.mJsonMap.size(), 2);
-        assertEquals(check.mJsonMap.get("name"), "Adelaide");
+        for (String j : res.data) json += j;
+
+        check.NestedStringToObject(json);
+        //We should replace each entry with another as they all have same name
+        assertEquals(check.mObject.size(), 1);
+        assertEquals(check.mObject.containsKey("Adelaide"), true);
+        assertEquals(check.mObject.get("Adelaide").size(), 2); 
     }
 }

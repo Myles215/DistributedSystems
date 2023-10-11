@@ -95,8 +95,10 @@ public class AggregationServerTest
 
         //We should have our placed data
         assertEquals(checkReply.code, 200);
-        assertEquals(checkReply.data.size(), 1);
-        assertEquals(checkReply.data.get(0), content);
+        assertEquals(checkReply.data.size(), 3);
+        assertEquals(checkReply.data.get(0), "{");
+        assertEquals(checkReply.data.get(1), "\"GCAndCSConnect\" : " + content);
+        assertEquals(checkReply.data.get(2), "}");
 
         getClient.disconnect();
         contentServer.disconnect();
@@ -141,10 +143,13 @@ public class AggregationServerTest
 
         checkReply = getClient.readResponse();
 
-        //We should have our placed data
+        //We should have our placed data with JSON object format
         assertEquals(checkReply.code, 200);
-        assertEquals(checkReply.data.size(), 1);
-        assertEquals(checkReply.data.get(0), content);
+        assertEquals(checkReply.data.size(), 3);
+        
+        assertEquals(checkReply.data.get(0), "{");
+        assertEquals(checkReply.data.get(1), "\"RestartRetainsData\" : " + content);
+        assertEquals(checkReply.data.get(2), "}");
 
         getClient.disconnect();
         contentServer.disconnect();
@@ -165,10 +170,12 @@ public class AggregationServerTest
 
         checkReply = getClient.readResponse();
 
-        //We should have our placed data
+        //We should have our placed data with JSON object format
         assertEquals(checkReply.code, 200);
-        assertEquals(checkReply.data.size(), 1);
-        assertEquals(checkReply.data.get(0), content);
+        assertEquals(checkReply.data.size(), 3);
+        assertEquals(checkReply.data.get(0), "{");
+        assertEquals(checkReply.data.get(1), "\"RestartRetainsData\" : " + content);
+        assertEquals(checkReply.data.get(2), "}");
 
         getClient.disconnect();
     }

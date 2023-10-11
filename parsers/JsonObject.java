@@ -6,6 +6,7 @@ import java.lang.*;
 public class JsonObject
 {
     public Map<String, String> mJsonMap = new HashMap<String, String>();
+    public Map<String, Map<String, String>> mObject = new HashMap<String, Map<String, String>>();
 
     public String JsonToString(HashMap<String, String> data)
     {
@@ -13,7 +14,7 @@ public class JsonObject
     }
 
     //Turn JSON string to map
-    public void StringToObject(String json) throws Exception
+    public Map<String, String> StringToObject(String json) throws Exception
     {
         Map<String, String> ret = new HashMap<String, String>();
 
@@ -28,7 +29,131 @@ public class JsonObject
             throw new Exception("Json format incorrect, must start with {");
         }
 
+        //Save internally as well
         mJsonMap = ret;
+
+        return ret;
+    }
+
+    public void NestedStringToObject(String rawMessage) throws Exception
+    {
+        int messageIndex = 0;
+
+        while (rawMessage.charAt(messageIndex) != '}')
+        {
+            if (rawMessage.charAt(messageIndex) == '"')
+            {
+                String JsonObjectName = "";
+
+                while (rawMessage.charAt(++messageIndex) != '"')
+                {
+                    JsonObjectName += rawMessage.charAt(messageIndex);
+                }
+
+                while (rawMessage.charAt(++messageIndex) != ':');
+                while (rawMessage.charAt(++messageIndex) == ' ');
+
+                String json = "";
+
+                if (rawMessage.charAt(messageIndex) == '{')
+                {
+                    json += '{';
+                    messageIndex++;
+                    while (rawMessage.charAt(messageIndex) != '}')
+                    {
+                        json += rawMessage.charAt(messageIndex);
+                        messageIndex++;
+                    }
+                }
+                else 
+                {
+                    throw new Exception("Data name " + JsonObjectName + " expected object next");
+                }
+
+                json += " }";
+
+                StringToObject(json);
+                
+                mObject.put(JsonObjectName, StringToObject(json));
+            }
+            messageIndex++;
+            
+            if (messageIndex >= rawMessage.length())
+            {
+                throw new Exception("Json doesn't end with specified char");
+            }
+        }
+    }   
+
+    public ArrayList<String> GetFromNestAsString(String rawMessage) throws Exception
+    {
+        ArrayList<String> allJson = new ArrayList<String>();
+
+        int start = 0;
+
+        while (rawMessage.charAt(start) != '}')
+        {
+            if (rawMessage.charAt(start) == '"')
+            {
+                String dataName = "";
+
+                while (rawMessage.charAt(++start) != '"')
+                {
+                    dataName += rawMessage.charAt(start);
+                }
+
+                while (rawMessage.charAt(++start) != ':');
+                while (rawMessage.charAt(++start) == ' ');
+
+                String json = "";
+
+                if (rawMessage.charAt(start) == '{')
+                {
+                    json += '{';
+                    start++;
+                    while (rawMessage.charAt(start) != '}')
+                    {
+                        json += rawMessage.charAt(start);
+                        start++;
+                    }
+                }
+                else 
+                {
+                    throw new Exception("Data name " + dataName + " expected object next");
+                }
+
+                json += " }";
+                
+                allJson.add(json);
+            }
+            start++;
+            
+            if (start >= rawMessage.length())
+            {
+                throw new Exception("Json doesn't end with specified char");
+            }
+        }
+
+        return allJson;
+    }   
+
+    public void PrintFromMessage(String message)
+    {
+        ArrayList<String> allJson = new ArrayList<String>();
+
+        try
+        {
+            allJson = GetFromNestAsString(message);
+
+            for (String s : allJson)
+            {
+                printString(s);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error reading server message JSON: " + e);
+        }
     }
 
     //Print JSON string as key : value
@@ -82,7 +207,6 @@ public class JsonObject
     //Recursively get json
     public Map<String, String> recurGetJson(String rawJson, char endChar) throws Exception
     {
-
         Map<String, String> ret = new HashMap<String, String>();
 
         while (rawJson.charAt(index) != endChar)

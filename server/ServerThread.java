@@ -2,6 +2,7 @@ package server;
 
 import parsers.FileParser;
 import parsers.HTTPParser;
+import parsers.JsonObject;
 import parsers.HTTPObject;
 import util.LamportClock;
 
@@ -16,6 +17,7 @@ public class ServerThread extends Thread
     private static String HTTPParserInput = "./parsers/HTTPParser.txt";
     private HTTPParser mHTTPParser = new HTTPParser(HTTPParserInput);
     private LamportClock mLamportClock;
+    private JsonObject mJsonParser = new JsonObject();
     public Boolean exit = false;
 
     public ServerThread(Socket client, LamportClock lamportClock) throws FileNotFoundException, IOException
@@ -168,21 +170,44 @@ public class ServerThread extends Thread
         writer.println("Content-Type: none");
         writer.println("Lamport-Time: " + time);
         
-        int len = 0;
+        //For first and last { of json object
+        int len = 1;
 
-        if (data.size() > 0)
+        ArrayList<String> ActualJsonMessage = new ArrayList<String>();
+
+        try
         {
-            for (String s : data) len += s.length();
+            if (data.size() > 0)
+            {
+                for (String s : data) 
+                {
+                    String FormattedJson = "\"" + mJsonParser.getDataName(s, "name") + "\" : " + s + ",";
+                    len += FormattedJson.length();
+                    ActualJsonMessage.add(FormattedJson);
+                }
+
+                //Remove comma from last part
+                ActualJsonMessage.set(ActualJsonMessage.size() - 1, ActualJsonMessage.get(ActualJsonMessage.size() - 1).substring(0, ActualJsonMessage.get(ActualJsonMessage.size() - 1).length()-1));
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error when reading JSON before replying to GET: " + e);
         }
 
-        if (len == 0)
+        if (len <= 1)
         {
             writer.println("Content-Length:0");
         }
         else
         {
             writer.println("Content-Length:" + len);
-            for (String s : data) writer.println(s);
+            writer.println("{");
+            for (String s : ActualJsonMessage)
+            {
+                writer.println(s);
+            }
+            writer.println("}");
         }
     }
 }

@@ -156,12 +156,21 @@ public class GETClient
             return false;
         }
 
+        String jsonObject = "";
+
         for (String rep : reply.data)
         {
-            mJsonParser.printString(rep);
-            System.out.println(" ");
+            jsonObject += rep;
         }
 
+        ArrayList<String> allJson = mJsonParser.GetFromNestAsString(jsonObject);
+        
+        for (String JSON : allJson)
+        {
+            mJsonParser.printString(JSON);
+            System.out.println(" ");
+        }
+        
         return true;
     }
 

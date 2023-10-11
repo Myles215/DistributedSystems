@@ -24,11 +24,11 @@
 Server data not available
  Reply from GET /weather.json: 
 RES 200 OK
+aSome exception in test: java.lang.StringIndexOutOfBoundsException: String index out of range: 0
 Reply from GET /lamport: 
 RES 200 OK
  Reply from GET /weather.json: 
 RES 200 OK
- 
 No ID in this data
 $java.lang.Exception: No ID in data
 Content server closing
@@ -117,16 +117,16 @@
 New client connected
 New request: GET
 New request: GET
-'&"Server is listening on port 6001
-'&New client connected
-'&New request: GET
-'&New client connected
-'&New request: GET
-'&New client connected
-'&New request: GET
-'("Server is listening on port 6002
-'(New client connected
-'(New client connected
-'(New request: GET
-'(New request: PUT
-'(#Added content server data to file
+('"Server is listening on port 6001
+('New client connected
+('New request: GET
+('New client connected
+('New request: GET
+('New client connected
+('New request: GET
+()"Server is listening on port 6002
+()New client connected
+()New client connected
+()New request: GET
+()New request: PUT
+()#Added content server data to file

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ClientTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-05T23:27:25" hostname="MYLESLAPTOP" time="3.598">
+<testsuite name="ClientTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-11T09:21:22" hostname="MYLESLAPTOP" time="3.614">
   <properties/>
-  <testcase name="ClientRetriesGet" classname="ClientTest" time="0.037"/>
-  <testcase name="RetryConnection" classname="ClientTest" time="0.812"/>
-  <testcase name="connectAndRequest" classname="ClientTest" time="1.574"/>
-  <testcase name="connect" classname="ClientTest" time="0.62"/>
-  <testcase name="messageAndResponse" classname="ClientTest" time="0.555"/>
+  <testcase name="ClientRetriesGet" classname="ClientTest" time="0.058"/>
+  <testcase name="RetryConnection" classname="ClientTest" time="0.823"/>
+  <testcase name="connectAndRequest" classname="ClientTest" time="1.545"/>
+  <testcase name="connect" classname="ClientTest" time="0.65"/>
+  <testcase name="messageAndResponse" classname="ClientTest" time="0.538"/>
   <system-out><![CDATA[Reply from GET /lamport: 
 RES 200 OK
 Reply from GET /weather.json: 
@@ -13,11 +13,11 @@ RES 503 Weather data not available
 Server data not available
 Reply from GET /weather.json: 
 RES 200 OK
+Some exception in test: java.lang.StringIndexOutOfBoundsException: String index out of range: 0
 Reply from GET /lamport: 
 RES 200 OK
 Reply from GET /weather.json: 
 RES 200 OK
- 
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -81,43 +81,59 @@ Test Methodology:
     - These include MockServers and clients that extend threads, allowing them to be run in the background while actual components are tested
 
     Aggregation server
+    To run tests: ./gradlew test --tests AggregationServerTest
+
     - Testing interaction of one or multiple clients with Aggregation server
     - on restart do temporary files get loaded to data
     - can a content server send data and a client can read the same data
 
     Client 
+    To run tests: ./gradlew test --tests ClientTest
+
     - Can a client send a formatted get request
     - Can a client read a response from a server
     - Client retries connection on failure
     - Client retries sending GET on anything but 200 reply
 
     Content server
+    To run tests: ./gradlew test --tests ContentServerTest
+
     - Can the content server read data from file and send it to the aggregation server
     - Test reading strings, ints and the two types together
     - Content server retries connection on failure
     - Content server retries 
 
     File parser
+    To run tests: ./gradlew test --tests FileParserTest
+
     - Can the file parser read JSON data from a file
     - Can the file parser place JSON data in a file
     - Can the file parser delete daa older than 30 seconds
 
     HTTP parser
+    To run tests: ./gradlew test --tests HTTPParserTest
+
     - Can the HTTP parser detect malformed requests
     - Can the HTTP parser detect internal server errors
     - Can the http parser read a proper request and get the correct data
     - All HTTP codes and error codes reported appropriately
 
     Integration test
+    To run tests: ./gradlew test --tests IntegrationTest
+
     - Adding everything together
     - 1 client, 1 content server, 1 aggregation server
     - Multiple clients, multiple content servers, 1 aggregation server
 
     Json parser
+    To run tests: ./gradlew test --tests JsonParserTest
+
     - Can we read JSON from a string to a mapped object
     - Can we transform JSON to a string
 
     Lamport clock
+    To run tests: ./gradlew test --tests LamportClockTest
+
     - Do we do things in the order specified by the lamport timestamp
     - Sending multiple requests to the server in a mixed up order and seeing if they get completed in order
 

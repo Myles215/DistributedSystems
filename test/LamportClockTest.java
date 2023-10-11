@@ -136,8 +136,8 @@ public class LamportClockTest
 
         //We should have our placed data from timestamp 3
         assertEquals(checkReply.code, 200);
-        assertEquals(checkReply.data.size(), 1);
-        assertEquals(checkReply.data.get(0), content);
+        assertEquals(checkReply.data.size(), 3);
+        assertEquals(checkReply.data.get(1), "\"testing\" : " +content);
 
     }
 

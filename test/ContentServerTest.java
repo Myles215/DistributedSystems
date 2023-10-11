@@ -17,7 +17,6 @@ import java.io.*;
 
 public class ContentServerTest
 {
-
     ContentServer contentServer = new ContentServer();
     int port = 1324;
     MockServer server = new MockServer(port);
