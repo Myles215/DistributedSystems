@@ -163,13 +163,7 @@ public class GETClient
             jsonObject += rep;
         }
 
-        ArrayList<String> allJson = mJsonParser.GetFromNestAsString(jsonObject);
-        
-        for (String JSON : allJson)
-        {
-            mJsonParser.printString(JSON);
-            System.out.println(" ");
-        }
+        mJsonParser.NestedStringToObject(jsonObject, true);
         
         return true;
     }

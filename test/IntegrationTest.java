@@ -105,7 +105,7 @@ public class IntegrationTest
         assertEquals(res.data.size(), 3);
 
         //Strip our object into JSON strings
-        check.NestedStringToObject(res.data.get(0) + res.data.get(1) + res.data.get(2));
+        check.NestedStringToObject(res.data.get(0) + res.data.get(1) + res.data.get(2), false);
 
         assertEquals(check.mObject.size(), 1);
         assertEquals(check.mObject.containsKey("Adelaide"), true);
@@ -134,7 +134,7 @@ public class IntegrationTest
 
         JsonObject check = new JsonObject();
         //Strip our object into JSON strings
-        check.NestedStringToObject(res.data.get(0) + res.data.get(1) + res.data.get(2));
+        check.NestedStringToObject(res.data.get(0) + res.data.get(1) + res.data.get(2), false);
 
         assertEquals(check.mObject.size(), 1);
         assertEquals(check.mObject.containsKey("Myles"), true);
@@ -167,7 +167,7 @@ public class IntegrationTest
 
         for (String j : res.data) json += j;
 
-        check.NestedStringToObject(json);
+        check.NestedStringToObject(json, false);
 
         assertEquals(check.mObject.size(), 1);
         assertEquals(check.mObject.containsKey("Myles"), true);
@@ -186,7 +186,7 @@ public class IntegrationTest
 
         for (String j : res.data) json += j;
 
-        check.NestedStringToObject(json);
+        check.NestedStringToObject(json, false);
 
         assertEquals(check.mObject.size(), 1);
         assertEquals(check.mObject.containsKey("Myles"), true);
@@ -204,7 +204,7 @@ public class IntegrationTest
 
         for (String j : res.data) json += j;
 
-        check.NestedStringToObject(json);
+        check.NestedStringToObject(json, false);
 
         assertEquals(check.mObject.size(), 1);
         assertEquals(check.mObject.containsKey("Myles"), true);
@@ -248,7 +248,7 @@ public class IntegrationTest
 
         for (String j : res.data) json += j;
 
-        check.NestedStringToObject(json);
+        check.NestedStringToObject(json, false);
 
         assertEquals(check.mObject.size(), 3);
         assertEquals(check.mObject.containsKey("Myles"), true);
@@ -272,7 +272,7 @@ public class IntegrationTest
 
         for (String j : res.data) json += j;
 
-        check.NestedStringToObject(json);
+        check.NestedStringToObject(json, false);
 
         assertEquals(check.mObject.size(), 3);
         assertEquals(check.mObject.containsKey("Myles"), true);
@@ -296,7 +296,7 @@ public class IntegrationTest
 
         for (String j : res.data) json += j;
 
-        check.NestedStringToObject(json);
+        check.NestedStringToObject(json, false);
 
         assertEquals(check.mObject.size(), 3);
         assertEquals(check.mObject.containsKey("Myles"), true);
@@ -340,7 +340,7 @@ public class IntegrationTest
 
         for (String j : res.data) json += j;
 
-        check.NestedStringToObject(json);
+        check.NestedStringToObject(json, false);
         //We should replace each entry with another as they all have same name
         assertEquals(check.mObject.size(), 1);
         assertEquals(check.mObject.containsKey("Myles"), true);
@@ -371,7 +371,7 @@ public class IntegrationTest
 
         for (String j : res.data) json += j;
 
-        check.NestedStringToObject(json);
+        check.NestedStringToObject(json, false);
         //We should replace each entry with another as they all have same name
         assertEquals(check.mObject.size(), 1);
         assertEquals(check.mObject.containsKey("Adelaide"), true);
@@ -393,7 +393,7 @@ public class IntegrationTest
 
         for (String j : res.data) json += j;
 
-        check.NestedStringToObject(json);
+        check.NestedStringToObject(json, false);
         //We should replace each entry with another as they all have same name
         assertEquals(check.mObject.size(), 1);
         assertEquals(check.mObject.containsKey("Adelaide"), true);

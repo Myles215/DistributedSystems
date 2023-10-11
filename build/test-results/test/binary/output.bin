@@ -1,132 +1,138 @@
-"Server is listening on port 1256
-New client connected
-New client connected
-New request: PUT
-#Added content server data to file
-New request: GET
-"Server is listening on port 1257
+"Server is listening on port 6001
 New client connected
 New request: GET
-"Server is listening on port 1255
+New client connected
+New request: GET
+New client connected
+New request: GET
+"Server is listening on port 6002
 New client connected
 New client connected
+New request: GET
 New request: PUT
 #Added content server data to file
-New request: GET
-"Server is listening on port 1254
-New client connected
-New request: GET
-NException when reading file: java.lang.Exception: 503 data not available yet
-Reply from GET /lamport: 
-RES 200 OK
- Reply from GET /weather.json: 
-$RES 503 Weather data not available
-Server data not available
- Reply from GET /weather.json: 
-RES 200 OK
-aSome exception in test: java.lang.StringIndexOutOfBoundsException: String index out of range: 0
-Reply from GET /lamport: 
-RES 200 OK
- Reply from GET /weather.json: 
-RES 200 OK
-No ID in this data
-$java.lang.Exception: No ID in data
-Content server closing
-SException reading Json: java.lang.Exception: Json doesn't end with specified char
-)java.lang.Exception: HP400: Not a route
-Fjava.lang.Exception: 500: Incorrect request format, needs user agent
-Hjava.lang.Exception: 500: Incorrect request format, needs lamport time
-‚java.lang.Exception: HP500: Error evaluating response HTTP: java.lang.Exception: 500: Incorrect request format, needs user agent
-"Server is listening on port 5005
-New client connected
-New request: GET
-New request: PUT
-#Added content server data to file
-New client connected
-New request: GET
-New request: PUT
-#Added content server data to file
-New client connected
-New request: GET
-New request: PUT
-#Added content server data to file
-New client connected
-New request: GET
-New request: GET
-"Server is listening on port 5006
-New client connected
-New request: GET
-New request: PUT
-#Added content server data to file
-New client connected
-New request: GET
-New request: GET
-"Server is listening on port 5007
-New client connected
-New request: GET
-New request: GET
-"Server is listening on port 5001
-New client connected
-New request: GET
-New request: PUT
-#Added content server data to file
-New client connected
-New request: GET
-New request: GET
-"Server is listening on port 5002
-New client connected
-New request: GET
-New request: PUT
-#Added content server data to file
-New client connected
-New request: GET
-New request: GET
-"Server is listening on port 5004
-New client connected
-New request: GET
-New request: PUT
-#Added content server data to file
-New client connected
-New request: GET
-New request: PUT
-#Added content server data to file
-New client connected
-New request: GET
-New request: PUT
-#Added content server data to file
-New client connected
-New request: GET
-New request: GET
-New client connected
-New request: GET
-New request: GET
-New client connected
-New request: GET
-New request: GET
-"Server is listening on port 5003
-New client connected
-New request: GET
-New request: PUT
-#Added content server data to file
-New client connected
-New request: GET
-New request: GET
-New client connected
-New request: GET
-New request: GET
-New client connected
-New request: GET
-New request: GET
-('"Server is listening on port 6001
-('New client connected
-('New request: GET
-('New client connected
-('New request: GET
-('New client connected
-('New request: GET
-()"Server is listening on port 6002
-()New client connected
-()New client connected
-()New request: GET
-()New request: PUT
-()#Added content server data to file
+"Server is listening on port 1256
+New client connected
+New client connected
+New request: PUT
+#Added content server data to file
+New request: GET
+"Server is listening on port 1257
+New client connected
+New request: GET
+"Server is listening on port 1255
+New client connected
+New client connected
+New request: PUT
+#Added content server data to file
+New request: GET
+"Server is listening on port 1254
+New client connected
+New request: GET
+NException when reading file: java.lang.Exception: 503 data not available yet
+	Reply from GET /lamport: 
+	RES 200 OK
+	 Reply from GET /weather.json: 
+	$RES 503 Weather data not available
+	Server data not available
+	 Reply from GET /weather.json: 
+	
+RES 200 OK
+	
+aSome exception in test: java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+	
+Reply from GET /lamport: 
+	
+RES 200 OK
+	
+ Reply from GET /weather.json: 
+	
+RES 200 OK
+No ID in this data
+$java.lang.Exception: No ID in data
+Content server closing
+SException reading Json: java.lang.Exception: Json doesn't end with specified char
+)java.lang.Exception: HP400: Not a route
+Fjava.lang.Exception: 500: Incorrect request format, needs user agent
+Hjava.lang.Exception: 500: Incorrect request format, needs lamport time
+‚java.lang.Exception: HP500: Error evaluating response HTTP: java.lang.Exception: 500: Incorrect request format, needs user agent
+"Server is listening on port 5005
+New client connected
+New request: GET
+New request: PUT
+#Added content server data to file
+New client connected
+New request: GET
+New request: PUT
+#Added content server data to file
+New client connected
+New request: GET
+New request: PUT
+#Added content server data to file
+New client connected
+New request: GET
+New request: GET
+"Server is listening on port 5006
+New client connected
+New request: GET
+New request: PUT
+#Added content server data to file
+New client connected
+New request: GET
+New request: GET
+"Server is listening on port 5007
+New client connected
+New request: GET
+New request: GET
+"Server is listening on port 5001
+New client connected
+New request: GET
+New request: PUT
+#Added content server data to file
+New client connected
+New request: GET
+New request: GET
+"Server is listening on port 5002
+New client connected
+New request: GET
+New request: PUT
+#Added content server data to file
+New client connected
+New request: GET
+New request: GET
+ "Server is listening on port 5004
+ New client connected
+ New request: GET
+ New request: PUT
+ #Added content server data to file
+ New client connected
+ New request: GET
+ New request: PUT
+ #Added content server data to file
+ New client connected
+ New request: GET
+ New request: PUT
+ #Added content server data to file
+ New client connected
+ New request: GET
+ New request: GET
+ New client connected
+ New request: GET
+ New request: GET
+ New client connected
+ New request: GET
+ New request: GET
+!"Server is listening on port 5003
+!New client connected
+!New request: GET
+!New request: PUT
+!#Added content server data to file
+!New client connected
+!New request: GET
+!New request: GET
+!New client connected
+!New request: GET
+!New request: GET
+!New client connected
+!New request: GET
+!New request: GET

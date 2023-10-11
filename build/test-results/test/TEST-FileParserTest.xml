@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="FileParserTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-11T09:21:31" hostname="MYLESLAPTOP" time="0.694">
+<testsuite name="FileParserTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-11T09:44:32" hostname="MYLESLAPTOP" time="0.711">
   <properties/>
-  <testcase name="SkipsOldData" classname="FileParserTest" time="0.138"/>
-  <testcase name="TestRestart" classname="FileParserTest" time="0.279"/>
-  <testcase name="ReadSingleStringFromFile" classname="FileParserTest" time="0.029"/>
-  <testcase name="ReadMultipleStringFromFile" classname="FileParserTest" time="0.111"/>
-  <testcase name="AddMultipleStrings" classname="FileParserTest" time="0.101"/>
-  <testcase name="AddString" classname="FileParserTest" time="0.035"/>
+  <testcase name="SkipsOldData" classname="FileParserTest" time="0.164"/>
+  <testcase name="TestRestart" classname="FileParserTest" time="0.186"/>
+  <testcase name="ReadSingleStringFromFile" classname="FileParserTest" time="0.038"/>
+  <testcase name="ReadMultipleStringFromFile" classname="FileParserTest" time="0.081"/>
+  <testcase name="AddMultipleStrings" classname="FileParserTest" time="0.177"/>
+  <testcase name="AddString" classname="FileParserTest" time="0.064"/>
   <system-out><![CDATA[Exception reading Json: java.lang.Exception: Json doesn't end with specified char
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

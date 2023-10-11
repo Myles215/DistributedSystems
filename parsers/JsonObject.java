@@ -14,7 +14,7 @@ public class JsonObject
     }
 
     //Turn JSON string to map
-    public Map<String, String> StringToObject(String json) throws Exception
+    public Map<String, String> StringToObject(String json, Boolean verbose) throws Exception
     {
         Map<String, String> ret = new HashMap<String, String>();
 
@@ -22,7 +22,7 @@ public class JsonObject
 
         if (index != -1)
         {
-            ret = recurGetJson(json, '}');
+            ret = recurGetJson(json, '}', verbose);
         }
         else
         {
@@ -35,7 +35,7 @@ public class JsonObject
         return ret;
     }
 
-    public void NestedStringToObject(String rawMessage) throws Exception
+    public void NestedStringToObject(String rawMessage, Boolean verbose) throws Exception
     {
         int messageIndex = 0;
 
@@ -72,9 +72,10 @@ public class JsonObject
 
                 json += " }";
 
-                StringToObject(json);
+                if (verbose) System.out.println("Translating internal JSON for object: " + JsonObjectName);
+                StringToObject(json, verbose);
                 
-                mObject.put(JsonObjectName, StringToObject(json));
+                mObject.put(JsonObjectName, StringToObject(json, verbose));
             }
             messageIndex++;
             
@@ -205,7 +206,7 @@ public class JsonObject
     private int index;
 
     //Recursively get json
-    public Map<String, String> recurGetJson(String rawJson, char endChar) throws Exception
+    public Map<String, String> recurGetJson(String rawJson, char endChar, Boolean verbose) throws Exception
     {
         Map<String, String> ret = new HashMap<String, String>();
 
@@ -226,11 +227,15 @@ public class JsonObject
                 if (rawJson.charAt(index) == '"')
                 {
                     index++;
-                    ret.put(dataName, getAsString(rawJson));
+                    String data = getAsString(rawJson);
+                    if (verbose) System.out.println(dataName + " : " + data);
+                    ret.put(dataName, data);
                 }
                 else if (rawJson.charAt(index) == '-' || Character.isDigit(rawJson.charAt(index)))
                 {
-                    ret.put(dataName, getAsInt(rawJson, dataName));
+                    String data = getAsInt(rawJson, dataName);
+                    if (verbose) System.out.println(dataName + " : " + data);
+                    ret.put(dataName, data);
                 }
                 else 
                 {

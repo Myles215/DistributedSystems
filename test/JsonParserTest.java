@@ -27,7 +27,7 @@ public class JsonParserTest
     {
         String json = "{ \"name\" : \"Myles\" }";
 
-        jsonObject.StringToObject(json);
+        jsonObject.StringToObject(json, false);
 
         assertEquals(jsonObject.mJsonMap.containsKey("name"), true);
         assertEquals(jsonObject.mJsonMap.get("name"), "Myles");
@@ -38,7 +38,7 @@ public class JsonParserTest
     {
         String json = "{ \"name\" : \"Myles\", \"id\" : \"good ID\" }";
 
-        jsonObject.StringToObject(json);
+        jsonObject.StringToObject(json, false);
 
         assertEquals(jsonObject.mJsonMap.containsKey("name"), true);
         assertEquals(jsonObject.mJsonMap.get("name"), "Myles");
@@ -52,7 +52,7 @@ public class JsonParserTest
     {
         String json = "{ \"name\" : \"Myles\", \"lat\" : 25, \"id\" : \"good ID\", \"lon\" : 89 }";
 
-        jsonObject.StringToObject(json);
+        jsonObject.StringToObject(json, false);
 
         assertEquals(jsonObject.mJsonMap.containsKey("name"), true);
         assertEquals(jsonObject.mJsonMap.get("name"), "Myles");
@@ -72,7 +72,7 @@ public class JsonParserTest
     {
         String json = "{ \"lat\" : -25, \"lon\" : -89 }";
 
-        jsonObject.StringToObject(json);
+        jsonObject.StringToObject(json, false);
 
         assertEquals(jsonObject.mJsonMap.containsKey("lat"), true);
         assertEquals(jsonObject.mJsonMap.get("lat"), "-25");
@@ -104,7 +104,7 @@ public class JsonParserTest
                        + "\"wind_spd_kt\": 8 "
                       + "}";
 
-        jsonObject.StringToObject(json);
+        jsonObject.StringToObject(json, false);
     }
 
     @Test
@@ -179,7 +179,7 @@ public class JsonParserTest
                         + "} "
                     + "}";
 
-        jsonObject.NestedStringToObject(json);
+        jsonObject.NestedStringToObject(json,false);
 
         assertEquals(jsonObject.mObject.containsKey("TestObject1"), true);
         assertEquals(jsonObject.mObject.containsKey("TestObject2"), true);

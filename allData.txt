@@ -1,2 +1,2 @@
-time-1697016102855
-testing:1 { "name" : "testing" }
+time-1697017482051
+Myles:79 {  "id" : "IDS60901" , "name" : "Myles" , "state" : "SA" , "time_zone" : "CST" , "lat" : -215 , "lon" : 123 , "local_date_time" : "15/04:00pm" , "local_date_time_full" : "20230715160000" , "air_temp" : 13.3 , "apparent_t" : 9.5 , "cloud" : "Very cloudy" , "dewpt" : 5.7 , "press" : 1023.9 , "rel_hum" : 60 , "wind_dir" : "S" , "wind_spd_kmh" : 15 , "wind_spd_kt" : 8 }

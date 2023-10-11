@@ -181,7 +181,8 @@ public class ServerThread extends Thread
             {
                 for (String s : data) 
                 {
-                    String FormattedJson = "\"" + mJsonParser.getDataName(s, "name") + "\" : " + s + ",";
+                    String actualJson = s.substring(s.indexOf("{"));
+                    String FormattedJson = "\"" + mJsonParser.getDataName(s, "name") + "\" : " + actualJson + ",";
                     len += FormattedJson.length();
                     ActualJsonMessage.add(FormattedJson);
                 }
