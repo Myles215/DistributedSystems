@@ -17,13 +17,13 @@ public class AggregationServer
 
     public static void main(String[] args)
     {
-        if (args.length < 1) 
-        {
-            System.out.println("Needs port as arg");
-            return;
-        }
+        int port = 4567;
 
-        int port = Integer.parseInt(args[0]);
+        if (args.length == 1) 
+        {
+            System.out.println("Using input port");
+            port = Integer.parseInt(args[0]);
+        }
 
         try (ServerSocket serverSocket = new ServerSocket(port)) 
         {
