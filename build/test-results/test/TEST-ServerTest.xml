@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ServerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-13T23:55:10" hostname="MYLESLAPTOP" time="0.522">
+  <properties/>
+  <testcase name="ClientJoinsSuccessfully" classname="ServerTest" time="0.006"/>
+  <testcase name="DuplicateId" classname="ServerTest" time="0.516"/>
+  <system-out><![CDATA[Using input port
+Server is listening on port 1254
+New client connected
+starting
+Using input port
+Server is listening on port 1255
+New client connected
+starting
+New client connected
+client with this ID already exists
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
