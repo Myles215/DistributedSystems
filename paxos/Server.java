@@ -6,6 +6,7 @@ import java.util.concurrent.*;
 import java.lang.Object;
 
 import paxos.ServerThread;
+import paxos.Message;
 
 public class Server
 {
@@ -20,10 +21,12 @@ public class Server
         }
 
         ArrayList<ServerThread> mThreads = new ArrayList<ServerThread>();
+        ArrayList<Message> mMessages = new ArrayList<Message>();
 
         for (int i = 0;i<10;i++)
         {
             mThreads.add(null);
+            mMessages.add(null);
         }
 
         try (ServerSocket serverSocket = new ServerSocket(port)) 
@@ -56,11 +59,9 @@ public class Server
                 else
                 {
                     writer.println("starting");
-                    mThreads.set(id, new ServerThread(socket));
+                    mThreads.set(id, new ServerThread(socket, mMessages, id));
                     mThreads.get(id).start();
                 }
-
-                writer.close();
             }
  
         } catch (IOException ex) {

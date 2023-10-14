@@ -1,12 +1,18 @@
 paxos/LamportClock.java
  paxos.LamportClock
+paxos/Message.java
+ paxos.Message
+ paxos.Message$1
+ paxos.Message$MessageType
+test/ThreadedServer.java
+ ThreadedServer
 paxos/PaxosClient.java
  paxos.PaxosClient
+paxos/Server.java
+ paxos.Server
 paxos/ServerThread.java
  paxos.ServerThread
 test/ServerTest.java
  ServerTest
-test/ThreadedServer.java
- ThreadedServer
-paxos/Server.java
- paxos.Server
+test/MockClient.java
+ MockClient
