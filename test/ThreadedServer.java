@@ -1,3 +1,5 @@
+package test;
+
 import paxos.Server;
 
 public class ThreadedServer extends Thread {

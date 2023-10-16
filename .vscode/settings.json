@@ -1,8 +1,7 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
     "java.project.sourcePaths": [
-        "./test",
-        "./paxos"
+        ""
     ],
     "java.project.referencedLibraries": [
         "lib/**/*.jar"

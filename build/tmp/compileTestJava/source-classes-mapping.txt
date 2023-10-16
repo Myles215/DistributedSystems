@@ -6,13 +6,13 @@ paxos/Message.java
  paxos.Message
  paxos.Message$1
  paxos.Message$MessageType
-ThreadedServer.java
- ThreadedServer
+MockClient.java
+ test.MockClient
 paxos/ServerThread.java
  paxos.ServerThread
+ThreadedServer.java
+ test.ThreadedServer
 paxos/Server.java
  paxos.Server
-MockClient.java
- MockClient
 ServerTest.java
- ServerTest
+ test.ServerTest

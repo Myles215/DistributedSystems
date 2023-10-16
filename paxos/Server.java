@@ -20,14 +20,8 @@ public class Server
             port = Integer.parseInt(args[0]);
         }
 
-        ArrayList<ServerThread> mThreads = new ArrayList<ServerThread>();
-        ArrayList<Message> mMessages = new ArrayList<Message>();
-
-        for (int i = 0;i<10;i++)
-        {
-            mThreads.add(null);
-            mMessages.add(null);
-        }
+        Map<Integer, ServerThread> mThreads = new HashMap<Integer, ServerThread>();
+        Map<Integer, Message> mMessages = new HashMap<Integer, Message>();
 
         try (ServerSocket serverSocket = new ServerSocket(port)) 
         {
@@ -52,14 +46,15 @@ public class Server
 
                 PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
-                if (mThreads.get(id) != null)
+                if (mMessages.containsKey(id))
                 {
                     writer.println("client with this ID already exists");
                 }
                 else
                 {
                     writer.println("starting");
-                    mThreads.set(id, new ServerThread(socket, mMessages, id));
+                    mMessages.put(id, null);
+                    mThreads.put(id, new ServerThread(socket, mMessages, id));
                     mThreads.get(id).start();
                 }
             }

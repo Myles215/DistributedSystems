@@ -12,11 +12,11 @@ public class ServerThread extends Thread {
     //We use this outgoing messages data structure to tell other server threads to communicate with their clients
     //Sort of like a shared memory system, each thread checks for incoming messages, then checks for 
     //outgoing messages
-    private ArrayList<Message> OutgoingMessages;
+    private Map<Integer, Message> OutgoingMessages;
     private Socket connection;
     private int ID;
 
-    ServerThread(Socket socket, ArrayList<Message> MessgaeBank, int id)
+    ServerThread(Socket socket, Map<Integer, Message> MessgaeBank, int id)
     {
         connection = socket;
         OutgoingMessages = MessgaeBank;
@@ -66,7 +66,7 @@ public class ServerThread extends Thread {
                     }
                     else
                     {
-                        OutgoingMessages.set(input.receiver, input);
+                        OutgoingMessages.put(input.receiver, input);
                     }
                 }
             }
@@ -75,6 +75,8 @@ public class ServerThread extends Thread {
         catch (Exception e)
         {
             System.out.println("Exception in server thread: " + e);
+            //this will reset our client and it can rejoin later if it likes
+            OutgoingMessages.remove(ID);
         }
     }
 
@@ -93,7 +95,7 @@ public class ServerThread extends Thread {
         if (OutgoingMessages.get(ID) != null)
         {
             Message ret = OutgoingMessages.get(ID);
-            OutgoingMessages.set(ID, null);
+            OutgoingMessages.put(ID, null);
             return ret;
         }
 

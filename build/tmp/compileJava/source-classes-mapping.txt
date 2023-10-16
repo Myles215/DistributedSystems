@@ -4,15 +4,15 @@ paxos/Message.java
  paxos.Message
  paxos.Message$1
  paxos.Message$MessageType
-test/ThreadedServer.java
- ThreadedServer
 paxos/PaxosClient.java
  paxos.PaxosClient
-paxos/Server.java
- paxos.Server
+test/MockClient.java
+ test.MockClient
+test/ServerTest.java
+ test.ServerTest
 paxos/ServerThread.java
  paxos.ServerThread
-test/ServerTest.java
- ServerTest
-test/MockClient.java
- MockClient
+test/ThreadedServer.java
+ test.ThreadedServer
+paxos/Server.java
+ paxos.Server

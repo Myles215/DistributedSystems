@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ServerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-14T22:39:31" hostname="MYLESLAPTOP" time="3.29">
+<testsuite name="test.ServerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-16T00:57:00" hostname="MYLESLAPTOP" time="3.29">
   <properties/>
-  <testcase name="TwoClientsCanCommunicateWell" classname="ServerTest" time="0.181"/>
-  <testcase name="TwoClientsSuccessfullyJoin" classname="ServerTest" time="0.519"/>
-  <testcase name="ClientJoinsSuccessfully" classname="ServerTest" time="1.512"/>
-  <testcase name="DuplicateId" classname="ServerTest" time="0.51"/>
-  <testcase name="TwoClientsCanMessage" classname="ServerTest" time="0.567"/>
+  <testcase name="TwoClientsCanCommunicateWell" classname="test.ServerTest" time="0.175"/>
+  <testcase name="TwoClientsSuccessfullyJoin" classname="test.ServerTest" time="0.513"/>
+  <testcase name="ClientJoinsSuccessfully" classname="test.ServerTest" time="1.518"/>
+  <testcase name="DuplicateId" classname="test.ServerTest" time="0.512"/>
+  <testcase name="TwoClientsCanMessage" classname="test.ServerTest" time="0.571"/>
   <system-out><![CDATA[Using input port
 Server is listening on port 1254
 New client connected
@@ -15,8 +15,8 @@ Server thread starting to handle client with ID: 2
 Using input port
 Server is listening on port 1255
 New client connected
-New client connected
 Server thread starting to handle client with ID: 1
+New client connected
 Using input port
 Server is listening on port 1256
 New client connected
