@@ -9,7 +9,8 @@ public class Message
         Promise,
         Propose,
         Accept,
-        Commit
+        Commit,
+        NULL
     }
 
     public int sender;
@@ -22,7 +23,7 @@ public class Message
     {
         if (m == null)
         {
-            type = MessageType.Fail;
+            type = MessageType.NULL;
             sender = -1;
             receiver = -1;
             value = "";

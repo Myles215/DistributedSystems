@@ -21,7 +21,9 @@ public class Server
         }
 
         Map<Integer, ServerThread> mThreads = new HashMap<Integer, ServerThread>();
-        Map<Integer, Message> mMessages = new HashMap<Integer, Message>();
+        ConcurrentHashMap<Integer, Message> mMessages = new ConcurrentHashMap<>();
+
+        mMessages.put(0, new Message(null));
 
         try (ServerSocket serverSocket = new ServerSocket(port)) 
         {
@@ -53,7 +55,7 @@ public class Server
                 else
                 {
                     writer.println("starting");
-                    mMessages.put(id, null);
+                    mMessages.put(id, new Message(null));
                     mThreads.put(id, new ServerThread(socket, mMessages, id));
                     mThreads.get(id).start();
                 }

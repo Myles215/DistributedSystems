@@ -1,37 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test.ServerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-16T00:57:00" hostname="MYLESLAPTOP" time="3.29">
+<testsuite name="test.ServerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-16T10:17:17" hostname="MYLESLAPTOP" time="4.28">
   <properties/>
-  <testcase name="TwoClientsCanCommunicateWell" classname="test.ServerTest" time="0.175"/>
-  <testcase name="TwoClientsSuccessfullyJoin" classname="test.ServerTest" time="0.513"/>
-  <testcase name="ClientJoinsSuccessfully" classname="test.ServerTest" time="1.518"/>
-  <testcase name="DuplicateId" classname="test.ServerTest" time="0.512"/>
-  <testcase name="TwoClientsCanMessage" classname="test.ServerTest" time="0.571"/>
+  <testcase name="TwoClientsCanCommunicateWell" classname="test.ServerTest" time="0.197"/>
+  <testcase name="TwoClientsSuccessfullyJoin" classname="test.ServerTest" time="0.517"/>
+  <testcase name="ClientJoinsSuccessfully" classname="test.ServerTest" time="1.521"/>
+  <testcase name="DuplicateId" classname="test.ServerTest" time="0.518"/>
+  <testcase name="TwoClientsCanMessage" classname="test.ServerTest" time="1.524"/>
   <system-out><![CDATA[Using input port
 Server is listening on port 1254
 New client connected
 New client connected
 Server thread starting to handle client with ID: 1
 Server thread starting to handle client with ID: 2
+checking1
+checking2
+done checking2
+Checking input 2
+done checking1
+Checking input 1
+Done input 1
+waiting 1
+sending 1
+checking1
+done checking1
+Checking input 1
+Done input 2
+checking2
+outputting 2
+Checking input 2
+Done input 2
+waiting 2
+sending 2
+checking2
+done checking2
+Checking input 2
+Done input 1
+checking1
+outputting 1
+Checking input 1
+Done input 1
+waiting 1
+sending 1
+checking1
+done checking1
+Checking input 1
+Done input 2
+checking2
+outputting 2
+Checking input 2
 Using input port
 Server is listening on port 1255
 New client connected
-Server thread starting to handle client with ID: 1
 New client connected
+Server thread starting to handle client with ID: 1
+checking1
+done checking1
+Checking input 1
 Using input port
 Server is listening on port 1256
 New client connected
 Server thread starting to handle client with ID: 1
+checking1
+done checking1
+Checking input 1
 Using input port
 Server is listening on port 1257
 New client connected
 New client connected
 Server thread starting to handle client with ID: 1
+checking1
+done checking1
+Checking input 1
 Using input port
 Server is listening on port 1258
 New client connected
-Server thread starting to handle client with ID: 1
 New client connected
+Server thread starting to handle client with ID: 1
+checking1
+done checking1
+Checking input 1
+Done input 1
+waiting 1
+sending 1
 Server thread starting to handle client with ID: 2
+checking1
+checking2
+outputting 2
+done checking1
+Checking input 2
+Checking input 1
+Done input 2
+checking2
+done checking2
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

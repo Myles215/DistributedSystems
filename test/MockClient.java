@@ -4,8 +4,6 @@ import java.util.*;
 import java.net.*;
 import java.io.*;
 
-import static org.junit.Assert.assertEquals;
-
 public class MockClient 
 {
     Socket conn;
@@ -19,7 +17,7 @@ public class MockClient
         in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
     }
 
-    public void Join(int ID, String message)
+    public String Join(int ID, String message)
     {
         try
         {
@@ -33,17 +31,24 @@ public class MockClient
             }
 
             //Expect success or fail message from server
-            assertEquals(line, message);
+            return line;
         }
         catch (Exception e)
         {
             System.out.println("Exception in test: " + e);
         }
+
+        return "";
     }
 
     public void Message(int sender, int receiver, String value, String type)
     {
         out.println(" -r " + Integer.toString(receiver) + "; -s " + Integer.toString(sender) + "; -v " + value + "; -t " + type + ";");
+    }
+
+    public void MessageString(String s)
+    {
+        out.println(s);
     }
 
     public String Read()
@@ -57,7 +62,6 @@ public class MockClient
         }
         catch (IOException e)
         {
-            assertEquals(true, false);
         }
 
         return "";
