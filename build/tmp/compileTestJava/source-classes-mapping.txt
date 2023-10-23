@@ -8,17 +8,17 @@ server/MockServer.java
  server.MockServer
 JsonParserTest.java
  json.JsonParserTest
-server/ServerThread.java
- server.ServerThread
-parsers/HTTPObject.java
- parsers.HTTPObject
- parsers.HTTPObject$RequestType
 IntegrationTest.java
  IntegrationTest
  IntegrationTest$RunAggregationServer
-LamportClockTest.java
- json.LamportClockTest
- json.LamportClockTest$RunAggregationServer
+parsers/HTTPObject.java
+ parsers.HTTPObject
+ parsers.HTTPObject$RequestType
+parsers/HTTPParser.java
+ parsers.HTTPParser
+ parsers.HTTPParser$PathFile
+AggregationServerTest.java
+ AggregationServerTest
 util/LamportClock.java
  util.LamportClock
 ClientTest.java
@@ -28,18 +28,25 @@ server/ContentServer.java
  server.ContentServer
 parsers/JsonObject.java
  parsers.JsonObject
-FileParserTest.java
- FileParserTest
-parsers/FileParser.java
- parsers.FileParser
+server/AggregationServer.java
+ server.AggregationServer
+LamportClockTest.java
+ json.LamportClockTest
+ json.LamportClockTest$RunAggregationServer
 HTTPParserTest.java
  HTTPParserTest
 server/ThreadAggregationServer.java
  server.ThreadAggregationServer
-parsers/HTTPParser.java
- parsers.HTTPParser
- parsers.HTTPParser$PathFile
-AggregationServerTest.java
- AggregationServerTest
-server/AggregationServer.java
- server.AggregationServer
+MylesTest.java
+ test.MylesTest
+ test.MylesTest$AggServerThread
+ContentServerThread.java
+ test.ContentServerThread
+GETClientThread.java
+ test.GETClientThread
+FileParserTest.java
+ FileParserTest
+parsers/FileParser.java
+ parsers.FileParser
+server/ServerThread.java
+ server.ServerThread

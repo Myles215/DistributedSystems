@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="IntegrationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-11T09:44:33" hostname="MYLESLAPTOP" time="10.008">
+<testsuite name="IntegrationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-23T01:16:42" hostname="MYLESLAPTOP" time="6.281">
   <properties/>
-  <testcase name="ContentServerSendsSameContent" classname="IntegrationTest" time="1.726"/>
-  <testcase name="ServerRestartRetainsData" classname="IntegrationTest" time="1.597"/>
-  <testcase name="SendOneData" classname="IntegrationTest" time="1.107"/>
-  <testcase name="SendAllFields" classname="IntegrationTest" time="1.047"/>
-  <testcase name="MultipleContentMultipleClients" classname="IntegrationTest" time="2.681"/>
-  <testcase name="MultipleClients" classname="IntegrationTest" time="1.85"/>
-  <system-out><![CDATA[Server is listening on port 5005
+  <testcase name="ContentServerSendsSameContent" classname="IntegrationTest" time="1.108"/>
+  <testcase name="ServerRestartRetainsData" classname="IntegrationTest" time="0.919"/>
+  <testcase name="SendOneData" classname="IntegrationTest" time="0.678"/>
+  <testcase name="SendAllFields" classname="IntegrationTest" time="0.69"/>
+  <testcase name="MultipleContentMultipleClients" classname="IntegrationTest" time="1.652"/>
+  <testcase name="MultipleClients" classname="IntegrationTest" time="1.234"/>
+  <system-out><![CDATA[Using input port
+Server is listening on port 5005
 New client connected
 New request: GET
 New request: PUT
@@ -23,6 +24,7 @@ Added content server data to file
 New client connected
 New request: GET
 New request: GET
+Using input port
 Server is listening on port 5006
 New client connected
 New request: GET
@@ -31,10 +33,12 @@ Added content server data to file
 New client connected
 New request: GET
 New request: GET
+Using input port
 Server is listening on port 5007
 New client connected
 New request: GET
 New request: GET
+Using input port
 Server is listening on port 5001
 New client connected
 New request: GET
@@ -43,6 +47,7 @@ Added content server data to file
 New client connected
 New request: GET
 New request: GET
+Using input port
 Server is listening on port 5002
 New client connected
 New request: GET
@@ -51,6 +56,7 @@ Added content server data to file
 New client connected
 New request: GET
 New request: GET
+Using input port
 Server is listening on port 5004
 New client connected
 New request: GET
@@ -73,6 +79,7 @@ New request: GET
 New client connected
 New request: GET
 New request: GET
+Using input port
 Server is listening on port 5003
 New client connected
 New request: GET

@@ -26,7 +26,7 @@ public class FileParser
         // Open a temporary file to write to.
         PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("./midwayFiles/" + timeStampS + ".txt")));
         writer.println(timeStampS);
-        writer.println(Integer.toString(lamportTime) + " " + s);
+        writer.println(":" + Integer.toString(lamportTime) + " " + s);
 
         writer.close();
 
@@ -65,7 +65,8 @@ public class FileParser
                     line = br.readLine();
 
                     String loc = line.substring(0, line.indexOf(':'));
-                    int lam = Integer.parseInt(line.substring(line.indexOf(':') + 1, line.indexOf(' ')));
+                    String timeS = line.substring(line.indexOf(':'));
+                    int lam = Integer.parseInt(timeS.substring(1, timeS.indexOf(' ')));
 
                     try
                     {
@@ -75,7 +76,11 @@ public class FileParser
                             writer.println(mJsonParser.getDataName(s.substring(s.indexOf('{')), "name") + ":" + lamportTime + " " + s);
                             written = true;
                         }
-                        else 
+                        else if (loc.equals(mJsonParser.getDataName(s.substring(s.indexOf('{')), "name")))
+                        {
+                            written = true;
+                        }
+                        else
                         {
                             writer.println("time-" + Long.toString(time));
                             writer.println(line);
@@ -132,7 +137,7 @@ public class FileParser
             if (time > timestamp - timeAllowed)
             {
                 String s = br.readLine();
-                AddToData(s.substring(s.indexOf(' ') + 1), time, Integer.parseInt(s.substring(0, s.indexOf(' '))));
+                AddToData(s.substring(s.indexOf(' ') + 1), time, Integer.parseInt(s.substring(1, s.indexOf(' '))));
             }
 
             br.close();
