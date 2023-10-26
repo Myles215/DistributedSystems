@@ -1,16 +1,15 @@
-client/GETClient.java
- client.GETClient
+FileParserTest.java
+ FileParserTest
 client/MockClient.java
  client.MockClient
-ContentServerTest.java
- ContentServerTest
+server/ThreadAggregationServer.java
+ server.ThreadAggregationServer
 server/MockServer.java
  server.MockServer
 JsonParserTest.java
  json.JsonParserTest
-IntegrationTest.java
- IntegrationTest
- IntegrationTest$RunAggregationServer
+HTTPParserTest.java
+ HTTPParserTest
 parsers/HTTPObject.java
  parsers.HTTPObject
  parsers.HTTPObject$RequestType
@@ -21,11 +20,10 @@ AggregationServerTest.java
  AggregationServerTest
 util/LamportClock.java
  util.LamportClock
-ClientTest.java
- ClientTest
- ClientTest$ClientThread
-server/ContentServer.java
- server.ContentServer
+server/ServerThread.java
+ server.ServerThread
+parsers/FileParser.java
+ parsers.FileParser
 parsers/JsonObject.java
  parsers.JsonObject
 server/AggregationServer.java
@@ -33,20 +31,22 @@ server/AggregationServer.java
 LamportClockTest.java
  json.LamportClockTest
  json.LamportClockTest$RunAggregationServer
-HTTPParserTest.java
- HTTPParserTest
-server/ThreadAggregationServer.java
- server.ThreadAggregationServer
+client/GETClient.java
+ client.GETClient
 MylesTest.java
  test.MylesTest
  test.MylesTest$AggServerThread
-ContentServerThread.java
- test.ContentServerThread
+ClientTest.java
+ ClientTest
+ ClientTest$ClientThread
+server/ContentServer.java
+ server.ContentServer
+ContentServerTest.java
+ ContentServerTest
 GETClientThread.java
  test.GETClientThread
-FileParserTest.java
- FileParserTest
-parsers/FileParser.java
- parsers.FileParser
-server/ServerThread.java
- server.ServerThread
+ContentServerThread.java
+ test.ContentServerThread
+IntegrationTest.java
+ IntegrationTest
+ IntegrationTest$RunAggregationServer

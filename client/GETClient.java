@@ -106,6 +106,7 @@ public class GETClient
                 }
                 else if (startTime != -1 && !waiting)
                 {
+                    System.out.println("STARTTIME: " + startTime);
                     expected = "weather";
                     System.out.println("Reply from GET /weather.json: ");
                     getRequest("./weather.json", mLamportClock.increment());

@@ -25,11 +25,14 @@ public class MylesTest {
         ArrayList<Long> allTimes = new ArrayList<Long>();
         int timesID = 0;
 
-        AggServerThread agg = new AggServerThread();
+        AggServerThread agg = null;
         agg.start();
 
-        for (int i = 1;i<=1;i++)
+        for (int i = 1;i<=5;i++)
         {
+            agg = new AggServerThread();
+            agg.start();
+
             ArrayList<GETClientThread> clients = new ArrayList<GETClientThread>();
             ArrayList<ContentServerThread> contents = new ArrayList<ContentServerThread>();
             
@@ -47,6 +50,8 @@ public class MylesTest {
                 contents.get(j).start();
                 clients.get(j).start();
             }
+
+            agg = null;
         }
 
         for (int i = 0;i<allTimes.size();i++)

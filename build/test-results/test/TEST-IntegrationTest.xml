@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="IntegrationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-23T01:16:42" hostname="MYLESLAPTOP" time="6.281">
+<testsuite name="IntegrationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-10-23T01:35:24" hostname="MYLESLAPTOP" time="9.467">
   <properties/>
-  <testcase name="ContentServerSendsSameContent" classname="IntegrationTest" time="1.108"/>
-  <testcase name="ServerRestartRetainsData" classname="IntegrationTest" time="0.919"/>
-  <testcase name="SendOneData" classname="IntegrationTest" time="0.678"/>
-  <testcase name="SendAllFields" classname="IntegrationTest" time="0.69"/>
-  <testcase name="MultipleContentMultipleClients" classname="IntegrationTest" time="1.652"/>
-  <testcase name="MultipleClients" classname="IntegrationTest" time="1.234"/>
+  <testcase name="ContentServerSendsSameContent" classname="IntegrationTest" time="1.621"/>
+  <testcase name="ServerRestartRetainsData" classname="IntegrationTest" time="1.496"/>
+  <testcase name="SendOneData" classname="IntegrationTest" time="1.196"/>
+  <testcase name="SendAllFields" classname="IntegrationTest" time="0.927"/>
+  <testcase name="MultipleContentMultipleClients" classname="IntegrationTest" time="2.601"/>
+  <testcase name="MultipleClients" classname="IntegrationTest" time="1.626"/>
   <system-out><![CDATA[Using input port
 Server is listening on port 5005
 New client connected

@@ -232,6 +232,7 @@ public class ContentServer
     //Send put request with specified path and content
     public static void putRequest(String path, String content, int lamportTime) throws IOException
     {
+        System.out.println("STARTTIME server: " + lamportTime);
         // Create input and output streams to read from and write to the server
         PrintStream out = new PrintStream( socket.getOutputStream() );
         BufferedReader in = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );

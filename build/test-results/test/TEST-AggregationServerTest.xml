@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AggregationServerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-10-23T01:35:12" hostname="MYLESLAPTOP" time="2.323">
+  <properties/>
+  <testcase name="ServerRestartRetainsData" classname="AggregationServerTest" time="0.892"/>
+  <testcase name="GetClientAndContentServerConnect" classname="AggregationServerTest" time="0.819"/>
+  <testcase name="clientConnect" classname="AggregationServerTest" time="0.612"/>
+  <system-out><![CDATA[Server is listening on port 1256
+New client connected
+New client connected
+New request: PUT
+Added content server data to file
+New request: GET
+Server is listening on port 1257
+New client connected
+New request: GET
+Server is listening on port 1255
+New client connected
+New client connected
+New request: PUT
+Added content server data to file
+New request: GET
+Server is listening on port 1254
+New client connected
+New request: GET
+Exception when reading file: java.lang.Exception: 503 data not available yet
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

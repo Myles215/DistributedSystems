@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ContentServerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-10-23T01:35:18" hostname="MYLESLAPTOP" time="5.083">
+  <properties/>
+  <testcase name="MultipleStrings" classname="ContentServerTest" time="1.698"/>
+  <testcase name="NoID" classname="ContentServerTest" time="1.691"/>
+  <testcase name="IdAndNameOnly" classname="ContentServerTest" time="1.694"/>
+  <system-out><![CDATA[No ID in this data
+java.lang.Exception: No ID in data
+Content server closing
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

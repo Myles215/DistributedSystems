@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HTTPParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-23T01:35:23" hostname="MYLESLAPTOP" time="0.101">
+  <properties/>
+  <testcase name="runAll" classname="HTTPParserTest" time="0.101"/>
+  <system-out><![CDATA[java.lang.Exception: HP400: Not a route
+java.lang.Exception: 500: Incorrect request format, needs user agent
+java.lang.Exception: 500: Incorrect request format, needs lamport time
+java.lang.Exception: HP500: Error evaluating response HTTP: java.lang.Exception: 500: Incorrect request format, needs user agent
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

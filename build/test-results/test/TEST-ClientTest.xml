@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ClientTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-23T01:35:14" hostname="MYLESLAPTOP" time="3.666">
+  <properties/>
+  <testcase name="ClientRetriesGet" classname="ClientTest" time="0.062"/>
+  <testcase name="RetryConnection" classname="ClientTest" time="0.883"/>
+  <testcase name="connectAndRequest" classname="ClientTest" time="1.535"/>
+  <testcase name="connect" classname="ClientTest" time="0.636"/>
+  <testcase name="messageAndResponse" classname="ClientTest" time="0.55"/>
+  <system-out><![CDATA[Reply from GET /lamport: 
+RES 200 OK
+Reply from GET /weather.json: 
+RES 503 Weather data not available
+Server data not available
+Reply from GET /weather.json: 
+RES 200 OK
+Some exception in test: java.lang.StringIndexOutOfBoundsException: String index out of range: 0
+Reply from GET /lamport: 
+RES 200 OK
+Reply from GET /weather.json: 
+RES 200 OK
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

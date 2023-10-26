@@ -122,7 +122,7 @@ public class FileParserTest
         PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("./midwayFiles/" + Long.toString(time1) + ".txt")));
 
         writer.println(Long.toString(time1));
-        writer.println("1 " + content1);
+        writer.println(":1 " + content1);
         writer.close();
 
         String content2 = "{ \"name\" : \"Test\" }";
@@ -134,7 +134,7 @@ public class FileParserTest
         writer = new PrintWriter(new BufferedWriter(new FileWriter("./midwayFiles/" + Long.toString(time2) + ".txt")));
 
         writer.println(Long.toString(time2));
-        writer.println("2 " + content2);
+        writer.println(":2 " + content2);
         writer.close();
 
         File other = new File("allData.txt");
