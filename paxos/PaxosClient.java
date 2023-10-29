@@ -27,7 +27,12 @@ public class PaxosClient
         int port = Integer.parseInt(args[1]);
 
         Connect(port);
-        AllocateSlot(ID);
+
+        if (!AllocateSlot(ID))
+        {
+            //in.close();
+            //out.close();
+        }
 
         Boolean isProposer = false;
         String value = "";

@@ -44,7 +44,7 @@ public class ServerTest
 
     public void Message(PrintStream out, int sender, int receiver, String value, String type)
     {
-        out.println(" -r " + Integer.toString(receiver) + "; -s " + Integer.toString(sender) + "; -v " + value + "; -t " + type + ";");
+        out.println(" -r " + Integer.toString(receiver) + "; -s " + Integer.toString(sender) + "; -v " + value + "; -t " + type + "; -i 0;");
     }
 
     public String Read(BufferedReader in)

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test.ServerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-16T10:17:17" hostname="MYLESLAPTOP" time="4.28">
+<testsuite name="test.ServerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-26T11:05:25" hostname="MYLESLAPTOP" time="4.278">
   <properties/>
   <testcase name="TwoClientsCanCommunicateWell" classname="test.ServerTest" time="0.197"/>
-  <testcase name="TwoClientsSuccessfullyJoin" classname="test.ServerTest" time="0.517"/>
-  <testcase name="ClientJoinsSuccessfully" classname="test.ServerTest" time="1.521"/>
-  <testcase name="DuplicateId" classname="test.ServerTest" time="0.518"/>
-  <testcase name="TwoClientsCanMessage" classname="test.ServerTest" time="1.524"/>
+  <testcase name="TwoClientsSuccessfullyJoin" classname="test.ServerTest" time="0.516"/>
+  <testcase name="ClientJoinsSuccessfully" classname="test.ServerTest" time="1.517"/>
+  <testcase name="DuplicateId" classname="test.ServerTest" time="0.519"/>
+  <testcase name="TwoClientsCanMessage" classname="test.ServerTest" time="1.528"/>
   <system-out><![CDATA[Using input port
 Server is listening on port 1254
 New client connected
 New client connected
 Server thread starting to handle client with ID: 1
-Server thread starting to handle client with ID: 2
 checking1
+done checking1
+Server thread starting to handle client with ID: 2
+Checking input 1
 checking2
 done checking2
-Checking input 2
-done checking1
-Checking input 1
 Done input 1
+Checking input 2
 waiting 1
 sending 1
 checking1
@@ -70,8 +70,8 @@ New client connected
 Server thread starting to handle client with ID: 1
 checking1
 done checking1
-Checking input 1
 Using input port
+Checking input 1
 Server is listening on port 1258
 New client connected
 New client connected
@@ -82,16 +82,14 @@ Checking input 1
 Done input 1
 waiting 1
 sending 1
-Server thread starting to handle client with ID: 2
 checking1
+done checking1
+Checking input 1
+Server thread starting to handle client with ID: 2
 checking2
 outputting 2
-done checking1
 Checking input 2
-Checking input 1
 Done input 2
-checking2
-done checking2
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

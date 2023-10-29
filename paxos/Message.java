@@ -15,6 +15,8 @@ public class Message
 
     public int sender;
     public int receiver;
+
+    public int timeID;
     
     public MessageType type;
     public String value;
@@ -27,22 +29,28 @@ public class Message
             sender = -1;
             receiver = -1;
             value = "";
+            timeID = -1;
         }
         else
         {
             //Message format is:
-            //-s sender; -r receiver; -v value; -t type;
+            //-s sender; -r receiver; -v value; -t type; -i timeID;
+            int jump = 3;
+
             String sub = m.substring(m.indexOf("-s"));
-            sender = Integer.parseInt(sub.substring(3, sub.indexOf(";")));
+            sender = Integer.parseInt(sub.substring(jump, sub.indexOf(";")));
 
             sub = m.substring(m.indexOf("-r"));
-            receiver = Integer.parseInt(sub.substring(3, sub.indexOf(";")));
+            receiver = Integer.parseInt(sub.substring(jump, sub.indexOf(";")));
 
             sub = m.substring(m.indexOf("-v"));
-            value = sub.substring(3, sub.indexOf(";"));
+            value = sub.substring(jump, sub.indexOf(";"));
 
             sub = m.substring(m.indexOf("-t"));
-            String t = sub.substring(3, sub.indexOf(";"));
+            String t = sub.substring(jump, sub.indexOf(";"));
+
+            sub = m.substring(m.indexOf("-i"));
+            timeID = Integer.parseInt(sub.substring(jump, sub.indexOf(";")));
 
             switch(t)
             {
@@ -88,6 +96,6 @@ public class Message
 
     public String toString()
     {
-        return "-s " + Integer.toString(sender) + "; -r " + Integer.toString(receiver) + "; -v " + value + "; -t " + TypeToString() + ";";
+        return "-s " + Integer.toString(sender) + "; -r " + Integer.toString(receiver) + "; -v " + value + "; -t " + TypeToString() + "; -i " + Integer.toString(timeID) + ";";
     }
 }

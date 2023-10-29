@@ -43,7 +43,7 @@ public class MockClient
 
     public void Message(int sender, int receiver, String value, String type)
     {
-        out.println(" -r " + Integer.toString(receiver) + "; -s " + Integer.toString(sender) + "; -v " + value + "; -t " + type + ";");
+        out.println(" -r " + Integer.toString(receiver) + "; -s " + Integer.toString(sender) + "; -v " + value + "; -t " + type + "; -i 1;");
     }
 
     public void MessageString(String s)
