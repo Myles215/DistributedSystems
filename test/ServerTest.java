@@ -126,7 +126,6 @@ public class ServerTest
         conn1.Message(1, 2, "hi", "Propose");
         //Need to do this to break the blocking call
         Thread.sleep(1000);
-        conn2.HeartBeat();
 
         String reply = conn2.Read();
 
@@ -154,7 +153,6 @@ public class ServerTest
         conn1.Message(1, 2, "hi", "Prepare");
         //Need to do this to break the blocking call
         Thread.sleep(50);
-        conn2.HeartBeat();
 
         String reply = conn2.Read();
         Message rep = new Message(reply);
@@ -166,7 +164,6 @@ public class ServerTest
         conn2.Message(2, 1, "hi", "Promise");
 
         Thread.sleep(50);
-        conn1.HeartBeat();
 
         rep = new Message(conn1.Read());
 
@@ -177,7 +174,6 @@ public class ServerTest
         conn1.Message(1, 2, "nice!", "Commit");
 
         Thread.sleep(50);
-        conn2.HeartBeat();
 
         rep = new Message(conn2.Read());
 

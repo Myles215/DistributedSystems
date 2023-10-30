@@ -4,30 +4,39 @@ import java.util.*;
 import java.net.*;
 import java.io.*;
 
+import java.nio.ByteBuffer; 
+import java.nio.channels.SocketChannel; 
+
 public class MockClient 
 {
-    Socket conn;
+    SocketChannel conn;
     BufferedReader in;
     PrintStream out;
 
     public MockClient(int port) throws IOException
     {
-        conn = new Socket("localhost", port);
-        out = new PrintStream(conn.getOutputStream());
-        in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        conn = SocketChannel.open( new InetSocketAddress("localhost", port));
     }
 
     public String Join(int ID, String message)
     {
         try
         {
-            out.println(Integer.toString(ID));
+            ByteBuffer buffer = ByteBuffer.allocate(10000); 
 
-            String line = in.readLine();
+            buffer.put(Integer.toString(ID).getBytes()); 
+            buffer.flip(); 
+            conn.write(buffer);
 
-            while (line == null)
+            buffer.clear();
+
+            conn.read(buffer);
+            String line = new String(buffer.array()).trim();
+
+            while (line.equals(""))
             {
-                line = in.readLine();
+                conn.read(buffer);
+                line = new String(buffer.array()).trim();
             }
 
             //Expect success or fail message from server
@@ -36,6 +45,7 @@ public class MockClient
         catch (Exception e)
         {
             System.out.println("Exception in test: " + e);
+            e.printStackTrace();
         }
 
         return "";
@@ -43,7 +53,21 @@ public class MockClient
 
     public void Message(int sender, int receiver, String value, String type)
     {
-        out.println(" -r " + Integer.toString(receiver) + "; -s " + Integer.toString(sender) + "; -v " + value + "; -t " + type + "; -i 1;");
+        String msg = " -r " + Integer.toString(receiver) + "; -s " + Integer.toString(sender) + "; -v " + value + "; -t " + type + "; -i 1;";
+
+        try
+        {
+            ByteBuffer buffer = ByteBuffer.allocate(256);
+            buffer.put(msg.getBytes()); 
+            buffer.flip(); 
+
+            conn.write(buffer);
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error when writing to client");
+            e.printStackTrace();
+        }
     }
 
     public void MessageString(String s)
@@ -55,13 +79,23 @@ public class MockClient
     {
         try
         {
-            String line = in.readLine();
-            while (line == null) line = in.readLine();
+
+            ByteBuffer buffer = ByteBuffer.allocate(256);
+            conn.read(buffer);
+            String line = new String(buffer.array()).trim();
+
+            while (line.equals(""))
+            {
+                conn.read(buffer);
+                line = new String(buffer.array()).trim();
+            }
 
             return line;
         }
         catch (IOException e)
         {
+            System.err.println("Error when reading server reply");
+            e.printStackTrace();
         }
 
         return "";

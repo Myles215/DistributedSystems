@@ -52,7 +52,7 @@ public class PaxosClientTest {
 
         MockServer server = new MockServer(port);
 
-        ClientOnThread client = new ClientOnThread(1, port, null);
+        ClientOnThread client = new ClientOnThread(port, 1, null);
         client.start();
 
         assertEquals(server.AcceptConnection(), true);

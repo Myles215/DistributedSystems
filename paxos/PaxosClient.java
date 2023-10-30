@@ -4,10 +4,13 @@ import java.util.*;
 import java.net.*;
 import java.io.*;
 
+import java.nio.ByteBuffer; 
+import java.nio.channels.SocketChannel; 
+
 public class PaxosClient 
 {
     //Connection variables
-    private static Socket connection;
+    private static SocketChannel connection;
     private static BufferedReader in = null;
     private static PrintStream out = null;
 
@@ -26,7 +29,26 @@ public class PaxosClient
         int ID = Integer.parseInt(args[0]);
         int port = Integer.parseInt(args[1]);
 
-        Connect(port);
+        int retryCount = 0;
+        Boolean connected = false;
+
+        while (retryCount < 5 && !connected)
+        {
+            connected = Connect(port);
+            retryCount++;
+
+            if (!connected && retryCount < 5)
+            {
+                System.err.println("Failed connected to port " + port + " , will retry");
+                try { Thread.sleep(100); } catch(Exception e) {}
+            }
+        }
+
+        if (!connected) 
+        {
+            System.err.println("Failed to connect");
+        }
+        
 
         if (!AllocateSlot(ID))
         {
@@ -58,16 +80,11 @@ public class PaxosClient
     {
         try
         {
-            connection = new Socket("localhost", port);
-            out = new PrintStream(connection.getOutputStream());
-            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            connection = SocketChannel.open( new InetSocketAddress("localhost", port));
         }
         catch (Exception e)
         {
             System.out.println("Exception when connecting: " + e);
-            connection = null;
-            out = null;
-            in = null;
             return false;
         }
 
@@ -76,25 +93,47 @@ public class PaxosClient
 
     private static Boolean AllocateSlot(int ID)
     {
+        long time = System.currentTimeMillis();
+        String line = null;
+
+        while (line == null && time + 1000 > System.currentTimeMillis())
+        {
+            line = ReadString();
+        }
+
+        if (line != null && line.equals("starting")) return true;
+
+        return false;
+    }
+
+    private static Message ReadMessage()
+    {
+        return new Message(null);
+    }
+
+    private static String ReadString()
+    {
         try
         {
-            String line = in.readLine();
-            long time = System.currentTimeMillis();
+            ByteBuffer buffer = ByteBuffer.allocate(256);
+            connection.read(buffer);
+            String line = new String(buffer.array()).trim();
 
-            while (line == null && time + 1000 > System.currentTimeMillis())
+            while (line.equals(""))
             {
-                line = in.readLine();
+                connection.read(buffer);
+                line = new String(buffer.array()).trim();
             }
 
-            if (line != null && line.equals("starting")) return true;
-        } 
+            return line;
+        }
         catch (IOException e)
         {
-            System.out.println("IO error when allocating thread slot: " + e);
+            System.err.println("Error when reading server reply");
             e.printStackTrace();
         }
 
-        return false;
+        return null;
     }
 
 }

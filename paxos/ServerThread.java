@@ -8,6 +8,13 @@ import paxos.LamportClock;
 import paxos.Message;
 import paxos.Message.MessageType;
 
+import java.nio.channels.ServerSocketChannel;
+import java.nio.ByteBuffer; 
+import java.nio.channels.SelectionKey; 
+import java.nio.channels.Selector; 
+import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
+
 public class ServerThread extends Thread {
     private LamportClock mLamportClock = new LamportClock();
     //We use this outgoing messages data structure to tell other server threads to communicate with their clients
@@ -15,86 +22,143 @@ public class ServerThread extends Thread {
     //outgoing messages
     private ConcurrentHashMap<Integer, Message> OutgoingMessages;
     private Socket connection;
-    private int ID;
+    private int ID = -1;
 
-    ServerThread(Socket socket, ConcurrentHashMap<Integer, Message> MessgaeBank, int id)
+    Selector clientHandler; 
+    SocketChannel client;
+
+    ServerThread(ServerSocketChannel socketChannel, ConcurrentHashMap<Integer, Message> MessgaeBank)
     {
-        connection = socket;
+        try
+        {
+            clientHandler = Selector.open();
+            client = socketChannel.accept();
+            client.configureBlocking(false);
+
+            client.register(clientHandler, SelectionKey.OP_READ);
+            System.out.println("New client connected");
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error setting up request processor: " + e);
+        }
+
         OutgoingMessages = MessgaeBank;
-        ID = id;
     }
 
     public void run()
     {
         try
         {
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            PrintStream out = new PrintStream(connection.getOutputStream());
+            while (true) 
+            { 
+                clientHandler.selectNow();
+                Set<SelectionKey> selectedKeys = clientHandler.selectedKeys(); 
+                Iterator<SelectionKey> i = selectedKeys.iterator(); 
 
-            System.out.println("Server thread starting to handle client with ID: " + ID);
-        
-            while (true)
-            {
-                //See if there are any messages in this clients mailbox
-                Message output = CheckForMessageToSend();
+                while (i.hasNext()) 
+                { 
+                    SelectionKey key = i.next(); 
 
-                //If there is a message, send it to our client
-                if (output != null)
+                    if (key.isReadable()) 
+                    { 
+                        System.out.println("Reading client message " + ID);
+                        // create a ServerSocketChannel to read the request   
+
+                        if (ID == -1)
+                        {
+                            SocketChannel client = (SocketChannel)key.channel(); 
+                            
+                            // Create buffer to read data 
+                            ByteBuffer buffer = ByteBuffer.allocate(10000);
+                            
+                            int bytesRead = client.read(buffer);
+
+                            if (bytesRead < 0)
+                            {
+                                i.remove();
+                                continue;
+                            }
+
+                            buffer.flip();                     
+                            // Parse data from buffer to String 
+                            int id = Integer.parseInt(new String(buffer.array(), StandardCharsets.UTF_8).trim());
+
+                            if (OutgoingMessages.containsKey(id))
+                            {
+                                SendString("client with this ID already exists");
+                                
+                                client.close();
+                                throw new Exception("Duplicate client connected");
+                            }
+                            else
+                            {
+                                SendString("starting");
+                                ID = id;
+
+                                OutgoingMessages.put(id, new Message(null));
+                            }
+                        }
+                        else
+                        {
+                            Message message = CheckForReceivedMessage(key);
+
+                            if (message != null)
+                            {
+                                //See if we have some deadlock, only wait 1 second to try send message, then return fail
+                                long startTime = System.currentTimeMillis();
+
+                                while (OutgoingMessages.get(message.receiver).type != MessageType.NULL && System.currentTimeMillis() < startTime + 1000)
+                                {
+                                    //TODO
+                                }
+
+                                //If we can't send an outgoing message, reply with fail
+                                if (OutgoingMessages.get(message.receiver).type != MessageType.NULL)
+                                {
+                                    Message reply = new Message(null);
+                                    SendMessage(reply);
+                                }
+                                else
+                                {
+                                    OutgoingMessages.put(message.receiver, message);
+                                }
+                            }
+                        } 
+                    }
+                    i.remove();
+                } 
+
+                Message message = CheckForMessageToSend();
+
+                if (message.type != Message.MessageType.NULL)
                 {
-
-                    System.out.println("outputting " + ID);
-                    SendMessage(output, out);
+                    System.out.println("Passing message from " + message.sender + " to " + ID);
+                    SendMessage(message);
                 }
-                else HeartBeat(out);
-
-                Message input = null;
-                
-                input = CheckForReceivedMessage(in);
-
-                if (input != null)
-                {
-                    //See if we have some deadlock, only wait 1 second to try send message, then return fail
-                    long startTime = System.currentTimeMillis();
-
-                    System.out.println("waiting " + ID);
-
-                    while (OutgoingMessages.get(input.receiver).type != MessageType.NULL && System.currentTimeMillis() < startTime + 1000)
-                    {
-                        //TODO
-                    }
-
-                    System.out.println("sending " + ID);
-
-                    //If we can't send an outgoing message, reply with fail
-                    if (OutgoingMessages.get(input.receiver).type != MessageType.NULL)
-                    {
-                        Message reply = new Message(null);
-                        SendMessage(reply, out);
-                    }
-                    else
-                    {
-                        OutgoingMessages.put(input.receiver, input);
-                    }
-                }
-            }
-
+            } 
         }
-        catch (Exception e)
+        catch(Exception e)
         {
-            System.out.println("Exception in server thread: " + e);
-            //this will reset our client and it can rejoin later if it likes
-            OutgoingMessages.remove(ID);
+            System.out.println("Error in server thread: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    private Message CheckForReceivedMessage(BufferedReader in) throws IOException
+    private Message CheckForReceivedMessage(SelectionKey key) throws IOException
     {
-        System.out.println("Checking input " + ID);
-        String line = in.readLine();
+        SocketChannel client = (SocketChannel)key.channel(); 
+                        
+        // Create buffer to read data 
+        ByteBuffer buffer = ByteBuffer.allocate(10000);
+        
+        int bytesRead = client.read(buffer);
 
-        System.out.println("Done input " + ID);
+        if (bytesRead == 0) return new Message(null);
 
-        if (line == null || line.equals("")) return null;
+        buffer.flip();                     
+        // Parse data from buffer to String
+        String line = new String(buffer.array(), StandardCharsets.UTF_8).trim();  
 
         return new Message(line);
     }
@@ -102,7 +166,6 @@ public class ServerThread extends Thread {
     //See if we have any messages in our mailbox
     private Message CheckForMessageToSend()
     {
-        System.out.println("checking" + ID);
         Message check = OutgoingMessages.get(ID);
 
         if (check.type != MessageType.NULL)
@@ -111,20 +174,29 @@ public class ServerThread extends Thread {
             return check;
         }
 
-        System.out.println("done checking" + ID);
-
-        return null;
+        return new Message(null);
     }
 
     //Send a message formatted to string
-    private void SendMessage(Message message, PrintStream out)
+    private void SendMessage(Message message)
     {
-        out.println(message.toString());
+        SendString(message.toString());
     }
 
-    //Stop blocking IO calls with a simple empty print allowing the client to escape the readLine call
-    private void HeartBeat(PrintStream out)
+    private void SendString(String msg)
     {
-        out.print("");
+        try
+        {
+            ByteBuffer buffer = ByteBuffer.allocate(256);
+            buffer.put(msg.getBytes()); 
+            buffer.flip(); 
+
+            client.write(buffer);
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error when writing to client");
+            e.printStackTrace();
+        }
     }
 }

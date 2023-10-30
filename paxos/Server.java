@@ -5,6 +5,10 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.lang.Object;
 
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+
 import paxos.ServerThread;
 import paxos.Message;
 
@@ -25,40 +29,40 @@ public class Server
 
         mMessages.put(0, new Message(null));
 
-        try (ServerSocket serverSocket = new ServerSocket(port)) 
+        try 
         {
+            Selector selector = Selector.open(); 
+
+            ServerSocketChannel serverSocketChannel = ServerSocketChannel.open(); 
+            ServerSocket serverSocket = serverSocketChannel.socket(); 
+            serverSocket.setSoTimeout(30000);
+            serverSocket.bind( new InetSocketAddress("localhost", port)); 
+            serverSocketChannel.configureBlocking(false); 
+            int ops = serverSocketChannel.validOps(); 
+            serverSocketChannel.register(selector, ops, null); 
             System.out.println("Server is listening on port " + port);
- 
+
             while (true) 
-            {
-                Socket socket = serverSocket.accept();
+            { 
+                //Selector checks if client has sent any keys
+                selector.select(); 
+                Set<SelectionKey> selectedKeys = selector.selectedKeys(); 
+                Iterator<SelectionKey> i = selectedKeys.iterator(); 
+  
+                while (i.hasNext()) 
+                { 
+                    SelectionKey key = i.next(); 
+                    
+                    //If client wants to join, it will send a key that is acceptable
+                    if (key.isAcceptable()) 
+                    { 
+                        // New client has been  accepted 
+                        Thread thread = new Thread(new ServerThread(serverSocketChannel, mMessages));
+                        thread.start();
+                    } 
 
-                System.out.println("New client connected");
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-                String ID = reader.readLine();
-
-                while (ID == null)
-                {
-                    ID = reader.readLine();
-                }
-
-                int id = Integer.parseInt(ID);
-
-                PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-
-                if (mMessages.containsKey(id))
-                {
-                    writer.println("client with this ID already exists");
-                }
-                else
-                {
-                    writer.println("starting");
-                    mMessages.put(id, new Message(null));
-                    mThreads.put(id, new ServerThread(socket, mMessages, id));
-                    mThreads.get(id).start();
-                }
+                    i.remove(); 
+                } 
             }
  
         } catch (IOException ex) {
