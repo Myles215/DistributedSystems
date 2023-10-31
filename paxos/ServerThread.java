@@ -20,14 +20,14 @@ public class ServerThread extends Thread {
     //We use this outgoing messages data structure to tell other server threads to communicate with their clients
     //Sort of like a shared memory system, each thread checks for incoming messages, then checks for 
     //outgoing messages
-    private ConcurrentHashMap<Integer, Message> OutgoingMessages;
+    private ConcurrentHashMap<Integer, Queue<Message>> OutgoingMessages;
     private Socket connection;
     private int ID = -1;
 
     Selector clientHandler; 
     SocketChannel client;
 
-    ServerThread(ServerSocketChannel socketChannel, ConcurrentHashMap<Integer, Message> MessgaeBank)
+    ServerThread(ServerSocketChannel socketChannel, ConcurrentHashMap<Integer, Queue<Message>> MessgaeBank)
     {
         try
         {
@@ -96,34 +96,12 @@ public class ServerThread extends Thread {
                                 SendString("starting");
                                 ID = id;
 
-                                OutgoingMessages.put(id, new Message(null));
+                                OutgoingMessages.put(id, new PriorityQueue<Message>());
                             }
                         }
                         else
                         {
-                            Message message = CheckForReceivedMessage(key);
-
-                            if (message != null)
-                            {
-                                //See if we have some deadlock, only wait 1 second to try send message, then return fail
-                                long startTime = System.currentTimeMillis();
-
-                                while (OutgoingMessages.get(message.receiver).type != MessageType.NULL && System.currentTimeMillis() < startTime + 1000)
-                                {
-                                    //TODO
-                                }
-
-                                //If we can't send an outgoing message, reply with fail
-                                if (OutgoingMessages.get(message.receiver).type != MessageType.NULL)
-                                {
-                                    Message reply = new Message(null);
-                                    SendMessage(reply);
-                                }
-                                else
-                                {
-                                    OutgoingMessages.put(message.receiver, message);
-                                }
-                            }
+                            CheckForReceivedMessage(key);
                         } 
                     }
                     i.remove();
@@ -145,32 +123,61 @@ public class ServerThread extends Thread {
         }
     }
 
-    private Message CheckForReceivedMessage(SelectionKey key) throws IOException
+    private void CheckForReceivedMessage(SelectionKey key) throws IOException
     {
         SocketChannel client = (SocketChannel)key.channel(); 
-                        
         // Create buffer to read data 
-        ByteBuffer buffer = ByteBuffer.allocate(10000);
+        ByteBuffer buffer = ByteBuffer.allocate(1000);
         
-        int bytesRead = client.read(buffer);
+        int bytesRead = 1;
 
-        if (bytesRead == 0) return new Message(null);
+        while (bytesRead > 0)
+        {
+            bytesRead = client.read(buffer);
 
-        buffer.flip();                     
-        // Parse data from buffer to String
-        String line = new String(buffer.array(), StandardCharsets.UTF_8).trim();  
+            if (bytesRead == 0) return;
 
-        return new Message(line);
+            buffer.flip();                     
+            // Parse data from buffer to String
+            String line = new String(buffer.array(), StandardCharsets.UTF_8).trim(); 
+            int index = 0;
+            int nextIndex = line.indexOf("*");
+
+            while (nextIndex != -1)
+            {
+                Message message = new Message(line.substring(index, nextIndex));
+                if (!PassOnMessage(message))
+                {
+                    SendMessage(new Message(ID, message.receiver, "", -1, Message.MessageType.NC));
+                }
+
+                index = nextIndex + 1;
+                nextIndex = line.indexOf("*", index);
+            }
+        }
+    }
+
+    private boolean PassOnMessage(Message message)
+    {
+        try
+        {
+            OutgoingMessages.get(message.receiver).add(message);
+            return true;
+        }
+        catch (Exception e)
+        {
+        }
+
+        return false;
     }
 
     //See if we have any messages in our mailbox
     private Message CheckForMessageToSend()
     {
-        Message check = OutgoingMessages.get(ID);
-
-        if (check.type != MessageType.NULL)
+        if (OutgoingMessages.get(ID).size() > 0)
         {
-            OutgoingMessages.put(ID, new Message(null));
+            Message check = OutgoingMessages.get(ID).remove();
+
             return check;
         }
 

@@ -13,6 +13,7 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 
 import paxos.PaxosClient;
+import paxos.Message;
 
 public class MockServer 
 {
@@ -99,9 +100,9 @@ public class MockServer
             Selector clientHandler = Selector.open();
             SocketChannel client = serverSocketChannel.accept();
             client.configureBlocking(false);
-            client.register(selector, SelectionKey.OP_READ);
+            client.register(clientHandler, SelectionKey.OP_READ);
 
-            clientHandler.selectNow();
+            clientHandler.select();
             Set<SelectionKey> readingKeys = clientHandler.selectedKeys(); 
             Iterator<SelectionKey> i = readingKeys.iterator();
 
@@ -130,6 +131,7 @@ public class MockServer
 
                     clients.set(id, client);
                     clientHandlers.set(id, clientHandler);
+                    System.out.println("Setting up client with ID " + id);
                 }
                 i.remove();
             }
@@ -142,5 +144,141 @@ public class MockServer
         }
 
         return false;
+    }
+
+    public void SendStringToClient(String message, int ID)
+    {
+        try
+        {
+            message += "*";
+            ByteBuffer buffer = ByteBuffer.allocate(256);
+            buffer.put(message.getBytes()); 
+            buffer.flip(); 
+
+            clients.get(ID).write(buffer);
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error when writing to client");
+            e.printStackTrace();
+        }
+    }
+
+    public Message ReadMessageFromClient(int cli)
+    {
+        long start = System.currentTimeMillis();
+        long timeAllowed = 500;
+
+        while (start + timeAllowed > System.currentTimeMillis())
+        {
+            try
+            {
+                clientHandlers.get(cli).selectNow();
+                Set<SelectionKey> selectedKeys = clientHandlers.get(cli).selectedKeys(); 
+                Iterator<SelectionKey> i = selectedKeys.iterator(); 
+
+                while (i.hasNext())
+                {
+                    SelectionKey key = i.next(); 
+
+                    if (key.isReadable())
+                    {
+                        SocketChannel client = (SocketChannel)key.channel(); 
+                                
+                        // Create buffer to read data 
+                        ByteBuffer buffer = ByteBuffer.allocate(10000);
+                        
+                        int bytesRead = client.read(buffer);
+
+                        if (bytesRead < 0)
+                        {
+                            i.remove();
+                            continue;
+                        }
+
+                        buffer.flip();                     
+                        // Parse data from buffer to String 
+                        String message = new String(buffer.array(), StandardCharsets.UTF_8).trim();
+
+                        if (!message.equals(""))
+                        {
+                            return new Message(message);
+                        }
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                System.err.println("Error when reading client message " + e);
+                e.printStackTrace();
+            }
+        }
+
+        return new Message(null);
+    }
+
+    public ArrayList<Message> ReadStringFromClient(int cli)
+    {
+        long start = System.currentTimeMillis();
+        long timeAllowed = 500;
+
+        while (start + timeAllowed > System.currentTimeMillis())
+        {
+            try
+            {
+                clientHandlers.get(cli).select();
+                Set<SelectionKey> selectedKeys = clientHandlers.get(cli).selectedKeys(); 
+                Iterator<SelectionKey> i = selectedKeys.iterator(); 
+
+                while (i.hasNext())
+                {
+                    SelectionKey key = i.next(); 
+
+                    if (key.isReadable())
+                    {
+                        SocketChannel client = (SocketChannel)key.channel(); 
+                                
+                        // Create buffer to read data 
+                        ByteBuffer buffer = ByteBuffer.allocate(1000);
+                        ArrayList<Message> allMessages = new ArrayList<Message>();
+                        int bytesRead = 1;
+                        
+                        while (bytesRead > 0)
+                        {
+                            bytesRead = client.read(buffer);
+
+                            if (bytesRead == 0) return allMessages;
+
+                            buffer.flip();                     
+                            // Parse data from buffer to String
+                            String line = new String(buffer.array(), StandardCharsets.UTF_8).trim(); 
+                            int index = 0;
+                            int nextIndex = line.indexOf("*");
+
+                            while (nextIndex != -1)
+                            {
+                                String message = line.substring(index, nextIndex);
+                                System.out.println(message);
+                                allMessages.add(new Message(message));
+                                index = nextIndex + 1;
+                                nextIndex = line.indexOf("*", index);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                System.err.println("Error when reading client message " + e);
+                e.printStackTrace();
+            }
+            catch (Exception e)
+            {
+                System.err.println("Some other exception " + e);
+                e.printStackTrace();
+            }
+        }
+
+        return null;
     }
 }

@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test.PaxosClientTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-30T04:44:19" hostname="MYLESLAPTOP" time="0.01">
+<testsuite name="test.PaxosClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-10-31T22:38:32" hostname="MYLESLAPTOP" time="2.013">
   <properties/>
-  <testcase name="ClientJoinsSuccessfully" classname="test.PaxosClientTest" time="0.01"/>
+  <testcase name="PrepareFailsProposerRetries" classname="test.PaxosClientTest" time="2.008"/>
+  <testcase name="ProposerProposes" classname="test.PaxosClientTest" time="0.003"/>
+  <testcase name="ClientJoinsSuccessfully" classname="test.PaxosClientTest" time="0.002"/>
   <system-out><![CDATA[Starting to accept client connections
 Accepting new client
+Setting up client with ID 1
+about to Acting as proposer
+Acting as proposer
+-r 1; -s 1; -v hi; -t Prepare; -i 1;
+-r 2; -s 1; -v hi; -t Prepare; -i 1;
+-r 3; -s 1; -v hi; -t Prepare; -i 1;
+-r 4; -s 1; -v hi; -t Prepare; -i 1;
+-r 5; -s 1; -v hi; -t Prepare; -i 1;
+-r 6; -s 1; -v hi; -t Prepare; -i 1;
+-r 7; -s 1; -v hi; -t Prepare; -i 1;
+-r 8; -s 1; -v hi; -t Prepare; -i 1;
+-r 9; -s 1; -v hi; -t Prepare; -i 1;
+Handling not connected
+Handling not connected
+Handling not connected
+Handling not connected
+Handling not connected
+Handling not connected
+Handling not connected
+Received replies from 0 other members
+Failed prepare, will retry with higher ID - 2
+-r 1; -s 1; -v hi; -t Prepare; -i 2;
+ -r 2; -s 1; -v hi; -t Prepare; -i 2;
+HMMMMM
+Starting to accept client connections
+Accepting new client
+Setting up client with ID 1
+about to Acting as proposer
+Acting as proposer
+-r 1; -s 1; -v hi; -t Prepare; -i 1;
+-r 2; -s 1; -v hi; -t Prepare; -i 1;
+-r 3; -s 1; -v hi; -t Prepare; -i 1;
+-r 4; -s 1; -v hi; -t Prepare; -i 1;
+-r 5; -s 1; -v hi; -t Prepare; -i 1;
+-r 6; -s 1; -v hi; -t Prepare; -i 1;
+-r 7; -s 1; -v hi; -t Prepare; -i 1;
+-r 8; -s 1; -v hi; -t Prepare; -i 1;
+-r 9; -s 1; -v hi; -t Prepare; -i 1;
+Starting to accept client connections
+Accepting new client
+Setting up client with ID 1
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

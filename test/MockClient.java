@@ -53,7 +53,7 @@ public class MockClient
 
     public void Message(int sender, int receiver, String value, String type)
     {
-        String msg = " -r " + Integer.toString(receiver) + "; -s " + Integer.toString(sender) + "; -v " + value + "; -t " + type + "; -i 1;";
+        String msg = " -r " + Integer.toString(receiver) + "; -s " + Integer.toString(sender) + "; -v " + value + "; -t " + type + "; -i 1;*";
 
         try
         {
