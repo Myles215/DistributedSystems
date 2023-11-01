@@ -7,6 +7,7 @@ import java.io.*;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SelectableChannel;
 
 import java.nio.ByteBuffer; 
 import java.nio.channels.SocketChannel;
@@ -31,7 +32,6 @@ public class MockServer
             clients.add(null);
             clientHandlers.add(null);
         }
-
         try
         {
             selector = Selector.open();
@@ -39,7 +39,7 @@ public class MockServer
             // non-blocking mode 
             serverSocketChannel = ServerSocketChannel.open(); 
             serverSocket = serverSocketChannel.socket(); 
-            //serverSocket.setSoTimeout(30000);
+            //serverSocket.setSoTimeout(timeout);
             serverSocket.bind( new InetSocketAddress("localhost", p)); 
             serverSocketChannel.configureBlocking(false); 
             int ops = serverSocketChannel.validOps(); 
@@ -115,7 +115,7 @@ public class MockServer
                     SocketChannel tempClient = (SocketChannel)tempKey.channel();
                         
                     // Create buffer to read data 
-                    ByteBuffer buffer = ByteBuffer.allocate(256);
+                    ByteBuffer buffer = ByteBuffer.allocate(512);
                     
                     int bytesRead = tempClient.read(buffer);
 
@@ -151,7 +151,7 @@ public class MockServer
         try
         {
             message += "*";
-            ByteBuffer buffer = ByteBuffer.allocate(256);
+            ByteBuffer buffer = ByteBuffer.allocate(512);
             buffer.put(message.getBytes()); 
             buffer.flip(); 
 
@@ -186,7 +186,7 @@ public class MockServer
                         SocketChannel client = (SocketChannel)key.channel(); 
                                 
                         // Create buffer to read data 
-                        ByteBuffer buffer = ByteBuffer.allocate(10000);
+                        ByteBuffer buffer = ByteBuffer.allocate(512);
                         
                         int bytesRead = client.read(buffer);
 
@@ -239,7 +239,7 @@ public class MockServer
                         SocketChannel client = (SocketChannel)key.channel(); 
                                 
                         // Create buffer to read data 
-                        ByteBuffer buffer = ByteBuffer.allocate(1000);
+                        ByteBuffer buffer = ByteBuffer.allocate(512);
                         ArrayList<Message> allMessages = new ArrayList<Message>();
                         int bytesRead = 1;
                         
@@ -258,7 +258,6 @@ public class MockServer
                             while (nextIndex != -1)
                             {
                                 String message = line.substring(index, nextIndex);
-                                System.out.println(message);
                                 allMessages.add(new Message(message));
                                 index = nextIndex + 1;
                                 nextIndex = line.indexOf("*", index);
@@ -280,5 +279,28 @@ public class MockServer
         }
 
         return null;
+    }
+
+    public void Stop()
+    {
+        try
+        {
+            serverSocket.close();
+            serverSocketChannel.close();
+
+            for (int i = 0;i<clients.size();i++)
+            {
+                if (clients.get(i) != null)
+                {
+                    clients.get(i).close();
+                    clientHandlers.get(i).close();
+                }
+            }
+            selector.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error closing server: " + e);
+        }
     }
 }

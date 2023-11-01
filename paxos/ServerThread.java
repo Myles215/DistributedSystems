@@ -70,7 +70,7 @@ public class ServerThread extends Thread {
                             SocketChannel client = (SocketChannel)key.channel(); 
                             
                             // Create buffer to read data 
-                            ByteBuffer buffer = ByteBuffer.allocate(10000);
+                            ByteBuffer buffer = ByteBuffer.allocate(512);
                             
                             int bytesRead = client.read(buffer);
 
@@ -127,7 +127,7 @@ public class ServerThread extends Thread {
     {
         SocketChannel client = (SocketChannel)key.channel(); 
         // Create buffer to read data 
-        ByteBuffer buffer = ByteBuffer.allocate(1000);
+        ByteBuffer buffer = ByteBuffer.allocate(512);
         
         int bytesRead = 1;
 
@@ -194,7 +194,7 @@ public class ServerThread extends Thread {
     {
         try
         {
-            ByteBuffer buffer = ByteBuffer.allocate(256);
+            ByteBuffer buffer = ByteBuffer.allocate(512);
             buffer.put(msg.getBytes()); 
             buffer.flip(); 
 

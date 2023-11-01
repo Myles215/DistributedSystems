@@ -10,18 +10,26 @@ import java.nio.channels.SocketChannel;
 
 public class PaxosClient 
 {
+    enum Stage
+    {
+        PREPARING,
+        PROPOSING
+    }
+
     //Connection variables
-    private static SocketChannel connection;
+    private SocketChannel connection;
+
+    public Stage stage = Stage.PREPARING;
 
     //Paxos variables
-    private static int lamportTime = 0;
+    private int lamportTime = 0;
 
-    private static int acceptedTime = -1;
-    private static int acceptedID = -1;
+    private int acceptedTime = -1;
+    private int acceptedID = -1;
 
-    private static String acceptedValue = null;
+    private String acceptedValue = null;
 
-    public static void main(String[] args)
+    public void main(String[] args)
     {
         if (args.length < 2) 
         {
@@ -50,12 +58,12 @@ public class PaxosClient
         if (!connected) 
         {
             System.err.println("Failed to connect");
+            return;
         }
 
         if (!AllocateSlot(ID))
         {
-            //in.close();
-            //out.close();
+            return;
         }
 
         Boolean isProposer = false;
@@ -71,7 +79,6 @@ public class PaxosClient
         }
         //check if we start with a proposed value
         //if yes, this client is a proposer
-        System.out.println("about to Acting as proposer");
 
         if (isProposer)
         {
@@ -96,25 +103,41 @@ public class PaxosClient
 
                 while (start + ALLOWED > System.currentTimeMillis())
                 {   
-                    replies += HandleMessages(participants);
+                    Message.MessageType expected;
+
+                    if (stage == Stage.PREPARING)
+                    {
+                        expected = Message.MessageType.Promise;
+                    }
+                    else expected = Message.MessageType.Accept;
+
+                    replies += HandleMessages(participants, expected);
                 }
 
                 System.out.println("Received replies from " + replies + " other members");
 
-                if (replies >= participants.size() / 2)
+                if (replies >= participants.size()/2)
                 {
-                    hasQuorum = true;
-                }
-
-                if (hasQuorum)
-                {
-                    for (int i = 0;i<participants.size();i++)
+                    if (stage == Stage.PREPARING)
                     {
-                        SendMessage(ID, participants.get(i), acceptedValue, "Proposal", acceptedTime);
+                        for (int i = 0;i<participants.size();i++)
+                        {
+                            SendMessage(ID, participants.get(i), acceptedValue, "Propose", acceptedTime);
+                        }
+                        stage = Stage.PROPOSING;
+                    }
+                    else if (stage == Stage.PROPOSING)
+                    {
+                        for (int i = 0;i<participants.size();i++)
+                        {
+                            SendMessage(ID, participants.get(i), acceptedValue, "Commit", acceptedTime);
+                        }
+                        committed = acceptedValue;
                     }
                 }
                 else
                 {
+                    stage = Stage.PREPARING;
                     System.out.println("Failed prepare, will retry with higher ID - " + ++acceptedTime);
                     //If we don't get quorum, we increment our time ID and try again
                     lamportTime = acceptedTime;
@@ -124,7 +147,6 @@ public class PaxosClient
                         SendMessage(ID, participants.get(i), value, "Prepare", lamportTime);
                     }
                 }
-
             }
         }
 
@@ -137,7 +159,7 @@ public class PaxosClient
         //send accept message and wait for commit then finalise
     }
 
-    private static Boolean Connect(int port)
+    private Boolean Connect(int port)
     {
         try
         {
@@ -153,30 +175,27 @@ public class PaxosClient
         return true;
     }
 
-    private static Boolean AllocateSlot(int ID)
+    private Boolean AllocateSlot(int ID)
     {
         SendString(Integer.toString(ID));
 
         long time = System.currentTimeMillis();
-        String line = null;
+        String line = "";
 
-        while (line == null && time + 1000 > System.currentTimeMillis())
-        {
-            line = ReadString();
-        }
+        while (line.equals("")) line = ReadString();
 
-        if (line != null && line.equals("starting")) return true;
+        if (line.equals("starting*")) return true;
 
         return false;
     }
 
-    private static int HandleMessages(ArrayList<Integer> participants)
+    private int HandleMessages(ArrayList<Integer> participants, Message.MessageType expected)
     {
         int ret = 0;
 
         try
         {
-            ByteBuffer buffer = ByteBuffer.allocate(256);
+            ByteBuffer buffer = ByteBuffer.allocate(512);
             int bytesRead = 1;
 
             while (bytesRead > 0)
@@ -195,17 +214,17 @@ public class PaxosClient
                 {
                     Message message = new Message(line.substring(index, nextIndex));
                     
-                    if (message.type == Message.MessageType.NC)
+                    if (message.type == Message.MessageType.NC && expected == Message.MessageType.Promise)
                     {
                         System.out.println("Handling not connected");
                         participants.remove(participants.indexOf(message.sender));
                     }
-                    else if (message.type == Message.MessageType.Promise)
+                    else if (message.type == Message.MessageType.Promise && message.type == expected)
                     {
                         HandlePromise(message);
                         ret++;
                     }
-                    else if (message.type == Message.MessageType.Accept)
+                    else if (message.type == Message.MessageType.Accept && message.type == expected)
                     {
                         HandleAccept(message);
                         ret++;
@@ -224,7 +243,7 @@ public class PaxosClient
         return ret;
     }
 
-    private static void HandlePromise(Message promise)
+    private void HandlePromise(Message promise)
     {
         if (promise.previousProposal != null)
         {
@@ -237,24 +256,21 @@ public class PaxosClient
         }
     }
 
-    private static void HandleAccept(Message message)
+    private void HandleAccept(Message message)
     {
 
     }
 
-    private static String ReadString()
+    private String ReadString()
     {
         try
         {
-            ByteBuffer buffer = ByteBuffer.allocate(256);
+            ByteBuffer buffer = ByteBuffer.allocate(512);
             connection.read(buffer);
             String line = new String(buffer.array()).trim();
 
-            while (line.equals(""))
-            {
-                connection.read(buffer);
-                line = new String(buffer.array()).trim();
-            }
+            connection.read(buffer);
+            line = new String(buffer.array()).trim();
 
             return line;
         }
@@ -267,7 +283,7 @@ public class PaxosClient
         return null;
     }
 
-    private static void SendMessage(int sender, int receiver, String value, String type, int timeID)
+    private void SendMessage(int sender, int receiver, String value, String type, int timeID)
     {
         String msg = " -r " + Integer.toString(receiver) + "; -s " + Integer.toString(sender) + "; -v " + value + "; -t " + type + "; -i " + timeID + ";*";
 
@@ -286,11 +302,11 @@ public class PaxosClient
         }
     }
 
-    private static void SendString(String message)
+    private void SendString(String message)
     {
         try
         {
-            ByteBuffer buffer = ByteBuffer.allocate(256);
+            ByteBuffer buffer = ByteBuffer.allocate(512);
             buffer.put(message.getBytes()); 
             buffer.flip(); 
 

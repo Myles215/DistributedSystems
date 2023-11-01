@@ -22,7 +22,7 @@ public class MockClient
     {
         try
         {
-            ByteBuffer buffer = ByteBuffer.allocate(10000); 
+            ByteBuffer buffer = ByteBuffer.allocate(512); 
 
             buffer.put(Integer.toString(ID).getBytes()); 
             buffer.flip(); 
@@ -57,7 +57,7 @@ public class MockClient
 
         try
         {
-            ByteBuffer buffer = ByteBuffer.allocate(256);
+            ByteBuffer buffer = ByteBuffer.allocate(512);
             buffer.put(msg.getBytes()); 
             buffer.flip(); 
 
@@ -79,8 +79,7 @@ public class MockClient
     {
         try
         {
-
-            ByteBuffer buffer = ByteBuffer.allocate(256);
+            ByteBuffer buffer = ByteBuffer.allocate(512);
             conn.read(buffer);
             String line = new String(buffer.array()).trim();
 
