@@ -1,7 +1,5 @@
 paxos/LamportClock.java
  paxos.LamportClock
-test/ScaleTest.java
- test.ScaleTest
 test/MockServer.java
  test.MockServer
 paxos/Message.java
@@ -12,23 +10,28 @@ paxos/Server.java
  paxos.Server
 paxos/ServerThread.java
  paxos.ServerThread
+test/ScaleTest.java
+ test.ScaleTest
 test/MessageTest.java
  MessageTest
 test/MockClientDriver.java
  test.MockClientDriver
 test/MockClient.java
  test.MockClient
-test/ServerTest.java
- test.ServerTest
+test/scenarios/OneClientProposes.java
+ test.scenarios.OneClientProposes
 test/AcceptorTest.java
  test.AcceptorTest
 test/ThreadedServer.java
  test.ThreadedServer
-test/ControlledClient.java
- test.ControlledClient
-test/ProposerTest.java
- test.ProposerTest
- test.ProposerTest$ControlledClient
+test/ServerTest.java
+ test.ServerTest
+test/ClientThread.java
+ test.ClientThread
 paxos/PaxosClient.java
  paxos.PaxosClient
+ paxos.PaxosClient$Role
  paxos.PaxosClient$Stage
+test/ProposerTest.java
+ test.ProposerTest
+ test.ProposerTest$ClientThread

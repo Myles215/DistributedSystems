@@ -28,19 +28,19 @@ public class ScaleTest
         int port = startPort++;
         MockServer server = new MockServer(port, 10);
 
-        ControlledClient proposer = new ControlledClient(port, 1, "ThreeClients");
+        ClientThread proposer = new ClientThread(port, 1, "ThreeClients");
         proposer.start();
 
         assertEquals(server.AcceptConnection(), true);
         server.SendStringToClient("starting", 1);
 
-        ControlledClient acceptor1 = new ControlledClient(port, 2, null);
+        ClientThread acceptor1 = new ClientThread(port, 2, null);
         acceptor1.start();
 
         assertEquals(server.AcceptConnection(), true);
         server.SendStringToClient("starting", 2);
 
-        ControlledClient acceptor2 = new ControlledClient(port, 3, null);
+        ClientThread acceptor2 = new ClientThread(port, 3, null);
         acceptor2.start();
 
         assertEquals(server.AcceptConnection(), true);

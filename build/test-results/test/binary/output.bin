@@ -1,27 +1,15 @@
 'Starting to accept client connections
+Connecting to server
 Accepting new client
 Setting up client with ID 1
-'Starting to accept client connections
 Acting as proposer
-Accepting new client
-Setting up client with ID 2
-'Starting to accept client connections
-Acting as acceptor
-Accepting new client
-Setting up client with ID 3
-Acting as acceptor
-Handling prepare
-Handling prepare
 Handling not connected
 Handling not connected
 Handling not connected
 Handling not connected
 Handling not connected
 Handling not connected
+Handling not connected
+Changed to propose new value
 'Received replies from 3 other members
-Handling propose
-Handling propose
-'Received replies from 3 other members
-Committed value: ThreeClients
-Committed value: ThreeClients
-Committed value: ThreeClients
+)Client M1 committed value: Fucking stop

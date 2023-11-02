@@ -2,7 +2,7 @@ package test.scenarios;
 
 import paxos.Server;
 import paxos.PaxosClient;
-import test.ControlledClient;
+import test.ClientThread;
 
 public class OneClientProposes 
 {
@@ -13,16 +13,16 @@ public class OneClientProposes
         Server server = new Server();
         String[] serverArgs = {Integer.toString(port)};
 
-        ControlledClient proposer = new ControlledClient(port, 1, "M1IsPresident");
+        ClientThread proposer = new ClientThread(port, 1, "M1IsPresident");
 
-        ControlledClient acceptor2 = new ControlledClient(port, 2, null);
-        ControlledClient acceptor3 = new ControlledClient(port, 3, null);
-        ControlledClient acceptor4 = new ControlledClient(port, 4, null);
-        ControlledClient acceptor5 = new ControlledClient(port, 5, null);
-        ControlledClient acceptor6 = new ControlledClient(port, 6, null);
-        ControlledClient acceptor7 = new ControlledClient(port, 7, null);
-        ControlledClient acceptor8 = new ControlledClient(port, 8, null);
-        ControlledClient acceptor9 = new ControlledClient(port, 9, null);
+        ClientThread acceptor2 = new ClientThread(port, 2, null);
+        ClientThread acceptor3 = new ClientThread(port, 3, null);
+        ClientThread acceptor4 = new ClientThread(port, 4, null);
+        ClientThread acceptor5 = new ClientThread(port, 5, null);
+        ClientThread acceptor6 = new ClientThread(port, 6, null);
+        ClientThread acceptor7 = new ClientThread(port, 7, null);
+        ClientThread acceptor8 = new ClientThread(port, 8, null);
+        ClientThread acceptor9 = new ClientThread(port, 9, null);
 
         acceptor2.start();
         acceptor3.start();

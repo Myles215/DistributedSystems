@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.ProposerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-02T22:21:22" hostname="MYLESLAPTOP" time="2.354">
+  <properties/>
+  <testcase name="PrepareReturnsAlternateValue" classname="test.ProposerTest" time="2.354"/>
+  <system-out><![CDATA[Starting to accept client connections
+Connecting to server
+Accepting new client
+Setting up client with ID 1
+Acting as proposer
+Handling not connected
+Handling not connected
+Handling not connected
+Handling not connected
+Handling not connected
+Handling not connected
+Handling not connected
+Changed to propose new value
+Received replies from 3 other members
+Client M1 committed value: Fucking stop
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -42,7 +42,7 @@ public class PaxosClient
     public Stage stage = Stage.PREPARING;
     
     //Assignment variable
-    public Role role = normal;
+    public Role role = Role.normal;
 
     private int ID;
 
@@ -87,7 +87,7 @@ public class PaxosClient
 
         Boolean isProposer = false;
 
-        if (args.length > 2)
+        if (args.length > 2 && args[2] != "")
         {
             isProposer = true;
             acceptedValue = args[2];
@@ -170,16 +170,15 @@ public class PaxosClient
             }
 
             replies += HandleProposerMessages(participants, expected);
-
             System.out.println("Received replies from " + replies + " other members");
+
+            //In this case, we didn't receive back a pre-accepted value
+            if (acceptedTime == -1) acceptedTime = lamportTime;
 
             if (replies > participants.size()/2)
             {
                 if (stage == Stage.PREPARING)
                 {
-                    //In this case, we didn't receive back a pre-accepted value
-                    if (acceptedTime == -1) acceptedTime = lamportTime;
-
                     MassSend(participants, acceptedValue, "Propose");
                     stage = Stage.PROPOSING;
                 }
@@ -272,7 +271,8 @@ public class PaxosClient
 
     private int HandleProposerMessages(ArrayList<Integer> participants, Message.MessageType expected) throws IOException
     {
-        int ret = 0;
+        Set<Integer> ret = new HashSet<Integer>();
+        ret.add(0);
 
         try
         {
@@ -334,13 +334,11 @@ public class PaxosClient
                     {                    
                         if (message.type == Message.MessageType.Promise && message.type == expected)
                         {
-                            if (HandlePromise(message)) ret++;
-                            else System.err.println("Proposer M" + ID + " discarding old promise");
-                            
+                            ret.add(HandlePromise(message));
                         }
                         else if (message.type == Message.MessageType.Accept && message.type == expected)
                         {
-                            if (message.timeID/10 >= lamportTime) ret++;
+                            if (message.timeID/10 >= lamportTime) ret.add(message.sender);
                             else System.err.println("Proposer M" + ID + " discarding old accept");
                         }
                     }
@@ -355,7 +353,7 @@ public class PaxosClient
             throw new IOException(e);
         }
 
-        return ret;
+        return ret.size() - 1;
     }
 
     private void HandleAcceptorMessages() throws IOException
@@ -396,10 +394,12 @@ public class PaxosClient
                             System.out.println("Client M" + ID + " handling propose");
                             HandlePropose(message);
                         }
-                        else if (message.type == Message.MessageType.Commit)
-                        {
-                            committed = message.value;
-                        }
+                    }
+
+                    //Always handle this message
+                    if (message.type == Message.MessageType.Commit)
+                    {
+                        committed = message.value;
                     }
 
                     index = nextIndex + 1;
@@ -413,7 +413,7 @@ public class PaxosClient
         }
     }
 
-    private boolean HandlePromise(Message promise)
+    private int HandlePromise(Message promise)
     {
         int timeID = promise.timeID;
 
@@ -429,12 +429,16 @@ public class PaxosClient
                 acceptedID = timeID%10;
             }
 
-            return true;
+            return promise.sender;
         }
 
-        if (timeID / 10 < lamportTime) return false;
+        if (timeID / 10 < lamportTime) 
+        {
+            System.err.println("Proposer M" + ID + " discarding old promise");
+            return 0;
+        }
 
-        return true;
+        return promise.sender;
     }
 
     private void HandlePrepare(Message prepare) throws IOException

@@ -1,34 +1,37 @@
-MockClientDriver.java
- test.MockClientDriver
 paxos/LamportClock.java
  paxos.LamportClock
-MessageTest.java
- MessageTest
-MockClient.java
- test.MockClient
-ThreadedServer.java
- test.ThreadedServer
 paxos/Message.java
  paxos.Message
  paxos.Message$1
  paxos.Message$MessageType
-MockServer.java
- test.MockServer
 paxos/Server.java
  paxos.Server
 paxos/ServerThread.java
  paxos.ServerThread
+MessageTest.java
+ MessageTest
+MockClientDriver.java
+ test.MockClientDriver
 ServerTest.java
  test.ServerTest
+MockClient.java
+ test.MockClient
+MockServer.java
+ test.MockServer
+ThreadedServer.java
+ test.ThreadedServer
 ScaleTest.java
  test.ScaleTest
 AcceptorTest.java
  test.AcceptorTest
-ControlledClient.java
- test.ControlledClient
+ClientThread.java
+ test.ClientThread
 paxos/PaxosClient.java
  paxos.PaxosClient
+ paxos.PaxosClient$Role
  paxos.PaxosClient$Stage
+scenarios/OneClientProposes.java
+ test.scenarios.OneClientProposes
 ProposerTest.java
  test.ProposerTest
- test.ProposerTest$ControlledClient
+ test.ProposerTest$ClientThread

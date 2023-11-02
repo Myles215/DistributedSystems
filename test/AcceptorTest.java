@@ -30,7 +30,7 @@ public class AcceptorTest
 
         MockServer server = new MockServer(port, 1000);
 
-        ControlledClient client = new ControlledClient(port, 1, null);
+        ClientThread client = new ClientThread(port, 1, null);
         client.start();
 
         assertEquals(server.AcceptConnection(), true);
@@ -60,7 +60,7 @@ public class AcceptorTest
 
         MockServer server = new MockServer(port, 1000);
 
-        ControlledClient client = new ControlledClient(port, 1, null);
+        ClientThread client = new ClientThread(port, 1, null);
         client.start();
 
         assertEquals(server.AcceptConnection(), true);
@@ -97,7 +97,7 @@ public class AcceptorTest
 
         MockServer server = new MockServer(port, 1000);
 
-        ControlledClient client = new ControlledClient(port, 1, null);
+        ClientThread client = new ClientThread(port, 1, null);
         client.start();
 
         assertEquals(server.AcceptConnection(), true);

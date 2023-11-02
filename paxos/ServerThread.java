@@ -62,7 +62,6 @@ public class ServerThread extends Thread {
 
                     if (key.isReadable()) 
                     { 
-                        System.out.println("Reading client message " + ID);
                         // create a ServerSocketChannel to read the request   
 
                         if (ID == -1)
@@ -112,7 +111,6 @@ public class ServerThread extends Thread {
 
                 if (message.type != Message.MessageType.NULL)
                 {
-                    System.out.println("Passing message from " + message.sender + " to " + ID);
                     SendMessage(message);
                 }
             } 

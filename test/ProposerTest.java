@@ -23,14 +23,14 @@ public class ProposerTest {
         try { Thread.sleep(i); } catch(InterruptedException e) { }
     }
 
-    public class ControlledClient extends Thread
+    public class ClientThread extends Thread
     {
         PaxosClient client;
         int port;
         int ID;
         String value;
 
-        ControlledClient(int p, int id, String val)
+        ClientThread(int p, int id, String val)
         {
             client = new PaxosClient();
             value = val;
@@ -71,7 +71,7 @@ public class ProposerTest {
 
         MockServer server = new MockServer(port, 1000);
 
-        ControlledClient client = new ControlledClient(port, 1, null);
+        ClientThread client = new ClientThread(port, 1, null);
         client.start();
 
         assertEquals(server.AcceptConnection(), true);
@@ -88,14 +88,14 @@ public class ProposerTest {
 
         MockServer server = new MockServer(port, 1000);
 
-        ControlledClient client = new ControlledClient(port, 1, "Proposes");
+        ClientThread client = new ClientThread(port, 1, "Proposes");
         client.start();
 
         assertEquals(server.AcceptConnection(), true);
 
         server.SendStringToClient("starting", 1);
 
-        wait(100);
+        wait(200);
 
         ArrayList<Message> check = server.ReadStringFromClient(1);
 
@@ -121,7 +121,7 @@ public class ProposerTest {
 
         MockServer server = new MockServer(port, 4000);
 
-        ControlledClient client = new ControlledClient(port, 1, "PFTR");
+        ClientThread client = new ClientThread(port, 1, "PFTR");
         client.start();
 
         assertEquals(server.AcceptConnection(), true);
@@ -151,7 +151,8 @@ public class ProposerTest {
         for (int i = 1;i<3;i++)
         {
             assertEquals(check.get(i-1).type, Message.MessageType.Prepare);
-            assertEquals(check.get(i-1).time, 2);
+            //Try number = 2, ID = 1 so time ID = 21
+            assertEquals(check.get(i-1).timeID, 21);
             assertEquals(check.get(i-1).receiver, i);
         }
 
@@ -165,7 +166,7 @@ public class ProposerTest {
 
         MockServer server = new MockServer(port, 6000);
 
-        ControlledClient client = new ControlledClient(port, 1, "PSTP");
+        ClientThread client = new ClientThread(port, 1, "PSTP");
         client.start();
 
         assertEquals(server.AcceptConnection(), true);
@@ -188,7 +189,7 @@ public class ProposerTest {
         for (int i = 1;i<3;i++)
         {
             //Promise the clients value
-            Message reply = new Message(1, i, "", 2, Message.MessageType.Promise);
+            Message reply = new Message(1, i, "", 10 + i, Message.MessageType.Promise);
             server.SendStringToClient(reply.toString(), 1);
         }
 
@@ -218,7 +219,7 @@ public class ProposerTest {
 
         MockServer server = new MockServer(port, 0);
 
-        ControlledClient client = new ControlledClient(port, 1, "PRAV");
+        ClientThread client = new ClientThread(port, 1, "PRAV");
         client.start();
 
         assertEquals(server.AcceptConnection(), true);
@@ -238,11 +239,11 @@ public class ProposerTest {
         wait(150);
 
         //Promise the client a new value
-        Message reply = new Message(1, 1, "", 2, Message.MessageType.Promise);
+        Message reply = new Message(1, 2, "", 12, Message.MessageType.Promise);
         server.SendStringToClient(reply.toString(), 1);
         
         //Same time and higher rank (lower) means we will update the value
-        reply = new Message(1, 1, "newValue", 10, Message.MessageType.Promise);
+        reply = new Message(1, 1, "newValue", 11, Message.MessageType.Promise);
         server.SendStringToClient(reply.toString(), 1);
 
         client.SetCommittedValue();
@@ -272,7 +273,7 @@ public class ProposerTest {
 
         MockServer server = new MockServer(port, 6000);
 
-        ControlledClient client = new ControlledClient(port, 1, "hi");
+        ClientThread client = new ClientThread(port, 1, "hi");
         client.start();
 
         assertEquals(server.AcceptConnection(), true);
@@ -293,7 +294,7 @@ public class ProposerTest {
         for (int i = 1;i<3;i++)
         {
             //Promise the clients value
-            Message reply = new Message(1, i, "", 2, Message.MessageType.Promise);
+            Message reply = new Message(1, i, "", 10 + i, Message.MessageType.Promise);
             server.SendStringToClient(reply.toString(), 1);
         }
 
@@ -303,7 +304,7 @@ public class ProposerTest {
         for (int i = 1;i<3;i++)
         {
             //Accept the clients value
-            Message reply = new Message(1, i, "", 2, Message.MessageType.Accept);
+            Message reply = new Message(1, i, "", 10 + i, Message.MessageType.Accept);
             server.SendStringToClient(reply.toString(), 1);
         }
 
