@@ -13,21 +13,38 @@ public class PaxosClient
     enum Stage
     {
         PREPARING,
-        PROPOSING
+        PROPOSING,
+        ACCEPTING
+    }
+
+    enum Role 
+    {
+        M1,
+        M2,
+        M3,
+        M4t9,
+        normal
     }
 
     //Connection variables
     private SocketChannel connection;
 
-    public Stage stage = Stage.PREPARING;
-
     //Paxos variables
     private int lamportTime = 0;
+    private int lamportID = 0;
 
     private int acceptedTime = -1;
     private int acceptedID = -1;
-
     private String acceptedValue = null;
+
+    public volatile String committed = null;
+
+    public Stage stage = Stage.PREPARING;
+    
+    //Assignment variable
+    public Role role = normal;
+
+    private int ID;
 
     public void main(String[] args)
     {
@@ -37,11 +54,13 @@ public class PaxosClient
             return;
         }
 
-        int ID = Integer.parseInt(args[0]);
+        ID = Integer.parseInt(args[0]);
         int port = Integer.parseInt(args[1]);
 
         int retryCount = 0;
         Boolean connected = false;
+
+        System.out.println("Connecting to server");
 
         while (retryCount < 5 && !connected)
         {
@@ -67,96 +86,144 @@ public class PaxosClient
         }
 
         Boolean isProposer = false;
-        String value = "";
 
         if (args.length > 2)
         {
             isProposer = true;
-            value = args[2];
             acceptedValue = args[2];
-            acceptedTime = lamportTime = 1;
+            lamportTime = 1;
             acceptedID = ID;
         }
         //check if we start with a proposed value
         //if yes, this client is a proposer
 
-        if (isProposer)
+        if (args.length > 3)
         {
-            System.out.println("Acting as proposer");
-            ArrayList<Integer> participants = new ArrayList<Integer>();
-
-            for (int i = 1;i<10;i++)
+            //Set our role if we include it
+            switch (args[3])
             {
-                participants.add(i);
-                SendMessage(ID, i, value, "Prepare", lamportTime);
-            }
-
-            String committed = null;
-            boolean hasQuorum = false;
-
-            while (committed == null)
-            {
-                long start = System.currentTimeMillis();
-                long ALLOWED = 2000;
-
-                int replies = 0;
-
-                while (start + ALLOWED > System.currentTimeMillis())
-                {   
-                    Message.MessageType expected;
-
-                    if (stage == Stage.PREPARING)
-                    {
-                        expected = Message.MessageType.Promise;
-                    }
-                    else expected = Message.MessageType.Accept;
-
-                    replies += HandleMessages(participants, expected);
-                }
-
-                System.out.println("Received replies from " + replies + " other members");
-
-                if (replies >= participants.size()/2)
-                {
-                    if (stage == Stage.PREPARING)
-                    {
-                        for (int i = 0;i<participants.size();i++)
-                        {
-                            SendMessage(ID, participants.get(i), acceptedValue, "Propose", acceptedTime);
-                        }
-                        stage = Stage.PROPOSING;
-                    }
-                    else if (stage == Stage.PROPOSING)
-                    {
-                        for (int i = 0;i<participants.size();i++)
-                        {
-                            SendMessage(ID, participants.get(i), acceptedValue, "Commit", acceptedTime);
-                        }
-                        committed = acceptedValue;
-                    }
-                }
-                else
-                {
-                    stage = Stage.PREPARING;
-                    System.out.println("Failed prepare, will retry with higher ID - " + ++acceptedTime);
-                    //If we don't get quorum, we increment our time ID and try again
-                    lamportTime = acceptedTime;
-
-                    for (int i = 0;i<participants.size();i++)
-                    {
-                        SendMessage(ID, participants.get(i), value, "Prepare", lamportTime);
-                    }
-                }
+                case "M1":
+                    role = Role.M1;
+                case "M2":
+                    role = Role.M2;
+                case "M3":
+                    role = Role.M3;
+                default:
+                    role = Role.M4t9;
             }
         }
 
-        //if proposer, prepare our value
+        try
+        {
+            if (isProposer)
+            {
+                RunProposer();
+            }
+            else
+            {
+                RunAcceptor();
+            }
 
-        //if we get a quorum of promises for our value, send proposal for our value
+            System.out.println("Client M" + ID + " committed value: " + committed);
+        }
+        catch (IOException e)
+        {
+            System.err.println("Server shut down");
+        }
+        catch (InterruptedException e)
+        {
+            System.out.println("Thank fuck we can stop this server");
+        }
+    }
 
-        //if we don't get quorum, update ID and go back to start
+    private void RunProposer() throws IOException, InterruptedException
+    {
+        System.out.println("Acting as proposer");
+        //Wait a bit for other participants to get set up
+        Thread.sleep(150);
+        ArrayList<Integer> participants = new ArrayList<Integer>();
 
-        //send accept message and wait for commit then finalise
+        for (int i = 1;i<10;i++)
+        {
+            participants.add(i);
+            try { SendMessage(ID, i, acceptedValue, "Prepare", lamportTime*10 + ID); } catch(IOException e) {}
+        }
+
+        while (committed == null)
+        {
+            //We will obviously always accept our own proposal
+            int replies = 1;
+
+            Thread.sleep(1800);
+            Message.MessageType expected;
+
+            if (stage == Stage.PREPARING)
+            {
+                expected = Message.MessageType.Promise;
+                //Temporarily change our value and time to -1
+                //SO we can check if we receive any replies with pre-accepted values
+                acceptedTime = -1;
+            }
+            else 
+            {
+                expected = Message.MessageType.Accept;
+            }
+
+            replies += HandleProposerMessages(participants, expected);
+
+            System.out.println("Received replies from " + replies + " other members");
+
+            if (replies > participants.size()/2)
+            {
+                if (stage == Stage.PREPARING)
+                {
+                    //In this case, we didn't receive back a pre-accepted value
+                    if (acceptedTime == -1) acceptedTime = lamportTime;
+
+                    MassSend(participants, acceptedValue, "Propose");
+                    stage = Stage.PROPOSING;
+                }
+                else if (stage == Stage.PROPOSING)
+                {
+                    MassSend(participants, acceptedValue, "Commit");
+                    committed = acceptedValue;
+                }
+            }
+            else
+            {
+                stage = Stage.PREPARING;
+                System.out.println("Failed prepare, will retry value " + acceptedValue + " with higher ID - " + ++acceptedTime);
+                //If we don't get quorum, we increment our time ID and try again
+                lamportTime = acceptedTime;
+
+                MassSend(participants, acceptedValue, "Prepare");
+            }
+        }
+    }
+
+    private void RunAcceptor()
+    {
+        System.out.println("Acting as acceptor");
+
+        try
+        {
+            while (committed == null)
+            {
+                //Need this to avoid busy wait
+                Thread.sleep(100);
+
+                HandleAcceptorMessages();
+            }
+        }
+        catch (IOException e)
+        {
+            System.err.println("Error in client IO " + e);
+            e.printStackTrace();
+        }
+        catch (InterruptedException e)
+        {
+            System.err.println("Error in client sleep " + e);
+        }
     }
 
     private Boolean Connect(int port)
@@ -179,20 +246,120 @@ public class PaxosClient
     {
         SendString(Integer.toString(ID));
 
-        long time = System.currentTimeMillis();
         String line = "";
 
-        while (line.equals("")) line = ReadString();
+        try
+        {
+            while (line.equals("")) line = ReadString();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Server has shut down");
+        }
 
         if (line.equals("starting*")) return true;
 
         return false;
     }
 
-    private int HandleMessages(ArrayList<Integer> participants, Message.MessageType expected)
+    private void MassSend(ArrayList<Integer> participants, String value, String type) throws IOException
+    {
+        for (int i = 0;i<participants.size();i++)
+        {
+            SendMessage(ID, participants.get(i), value, type, lamportTime*10 + ID);
+        }
+    }
+
+    private int HandleProposerMessages(ArrayList<Integer> participants, Message.MessageType expected) throws IOException
     {
         int ret = 0;
 
+        try
+        {
+            ByteBuffer buffer = ByteBuffer.allocate(512);
+            int bytesRead = 1;
+
+            while (bytesRead > 0)
+            {
+                buffer.clear();
+                bytesRead = connection.read(buffer);
+
+                if (bytesRead == 0) break;
+
+                buffer.flip();                     
+                // Parse data from buffer to String
+                String line = new String(buffer.array(), StandardCharsets.UTF_8).trim(); 
+                int index = 0;
+                int nextIndex = line.indexOf("*");
+
+                boolean awake = true;
+                Random rand = new Random();
+
+                while (nextIndex != -1)
+                {
+                    Message message = new Message(line.substring(index, nextIndex));
+
+                    if (role == Role.M2) //M2 has a 33% chance of going to sleep and 66% chance of waking up
+                    {
+                        if (awake && rand.nextInt() % 3 == 0)
+                        {
+                            awake = false;
+                        } 
+                        else if (!awake && rand.nextInt() % 3 > 0)
+                        {
+                            awake = true;
+                        }
+                    }
+                    else if (role == Role.M3) //M3 has a 60% chance of going to sleep and a 40% chance of waking up
+                    {
+                        if (awake && rand.nextInt() % 5 < 3)
+                        {
+                            awake = false;
+                        }
+                        else if (!awake && rand.nextInt() % 5 >= 3)
+                        {
+                            awake = true;
+                        }
+                    }
+
+                    //Always need to handle this case
+                    if (message.type == Message.MessageType.NC)
+                    {
+                        System.out.println("Handling not connected");
+                        if (participants.indexOf(message.sender) != -1) participants.remove(participants.indexOf(message.sender));
+                    }
+
+                    //If the proposer is awake, handle this message
+                    if (awake)
+                    {                    
+                        if (message.type == Message.MessageType.Promise && message.type == expected)
+                        {
+                            if (HandlePromise(message)) ret++;
+                            else System.err.println("Proposer M" + ID + " discarding old promise");
+                            
+                        }
+                        else if (message.type == Message.MessageType.Accept && message.type == expected)
+                        {
+                            if (message.timeID/10 >= lamportTime) ret++;
+                            else System.err.println("Proposer M" + ID + " discarding old accept");
+                        }
+                    }
+
+                    index = nextIndex + 1;
+                    nextIndex = line.indexOf("*", index);
+                }
+            }
+        }
+        catch (IOException e)
+        {
+            throw new IOException(e);
+        }
+
+        return ret;
+    }
+
+    private void HandleAcceptorMessages() throws IOException
+    {
         try
         {
             ByteBuffer buffer = ByteBuffer.allocate(512);
@@ -213,21 +380,26 @@ public class PaxosClient
                 while (nextIndex != -1)
                 {
                     Message message = new Message(line.substring(index, nextIndex));
-                    
-                    if (message.type == Message.MessageType.NC && expected == Message.MessageType.Promise)
+
+                    //If this client has a role, act accordingly
+                    //Only replies 80% of the time 
+                    Random rand = new Random();
+                    if (role != Role.M4t9 || rand.nextInt()%5 > 0)
                     {
-                        System.out.println("Handling not connected");
-                        participants.remove(participants.indexOf(message.sender));
-                    }
-                    else if (message.type == Message.MessageType.Promise && message.type == expected)
-                    {
-                        HandlePromise(message);
-                        ret++;
-                    }
-                    else if (message.type == Message.MessageType.Accept && message.type == expected)
-                    {
-                        HandleAccept(message);
-                        ret++;
+                        if (message.type == Message.MessageType.Prepare)
+                        {
+                            System.out.println("Client M" + ID + " handling prepare");
+                            HandlePrepare(message);
+                        }
+                        else if (message.type == Message.MessageType.Propose)
+                        {
+                            System.out.println("Client M" + ID + " handling propose");
+                            HandlePropose(message);
+                        }
+                        else if (message.type == Message.MessageType.Commit)
+                        {
+                            committed = message.value;
+                        }
                     }
 
                     index = nextIndex + 1;
@@ -237,31 +409,70 @@ public class PaxosClient
         }
         catch (IOException e)
         {
-            System.out.println("Exception in client " + e);
+            throw new IOException(e);
         }
-
-        return ret;
     }
 
-    private void HandlePromise(Message promise)
+    private boolean HandlePromise(Message promise)
     {
-        if (promise.previousProposal != null)
+        int timeID = promise.timeID;
+
+        if (!promise.value.equals(""))
         {
-            if (promise.previousProposalTime > acceptedTime || (promise.previousProposalTime == acceptedTime && promise.sender < acceptedID))
+            //Two cases, if we receive a time that is higher, or a node with a 
+            //superior ID has already had it's value selected at the same time
+            if (timeID/10 > acceptedTime || (timeID/10 == acceptedTime && timeID%10 < acceptedID))
             {
-                acceptedValue = promise.previousProposal;
-                acceptedTime = promise.previousProposalTime;
-                acceptedID = promise.sender;
+                System.out.println("Changed to propose new value");
+                acceptedValue = promise.value;
+                acceptedTime = timeID/10;
+                acceptedID = timeID%10;
+            }
+
+            return true;
+        }
+
+        if (timeID / 10 < lamportTime) return false;
+
+        return true;
+    }
+
+    private void HandlePrepare(Message prepare) throws IOException
+    {
+        if (prepare.timeID/10 >= lamportTime)
+        {
+            lamportTime = Math.max(lamportTime, prepare.timeID/10);
+
+            try
+            {
+                if (acceptedValue != null)
+                {
+                    SendMessage(ID, prepare.sender, acceptedValue, "Promise", lamportTime*10 + lamportID);
+                }
+                else
+                {
+                    SendMessage(ID, prepare.sender, "", "Promise", lamportTime*10 + ID);
+                }
+            }
+            catch (IOException e)
+            {
+                throw new IOException(e);
             }
         }
     }
 
-    private void HandleAccept(Message message)
+    private void HandlePropose(Message proposal) throws IOException
     {
-
+        if (proposal.timeID/10 > lamportTime || (proposal.timeID/10 == lamportTime && proposal.timeID%10 >= lamportID))
+        {
+            acceptedValue = proposal.value;
+            lamportTime = proposal.timeID/10;
+            lamportID = proposal.timeID%10;
+            SendMessage(ID, proposal.sender, "", "Accept", proposal.timeID);
+        }
     }
 
-    private String ReadString()
+    private String ReadString() throws IOException
     {
         try
         {
@@ -277,14 +488,13 @@ public class PaxosClient
         catch (IOException e)
         {
             System.err.println("Error when reading server reply");
-            e.printStackTrace();
+            throw new IOException(e);
         }
-
-        return null;
     }
 
-    private void SendMessage(int sender, int receiver, String value, String type, int timeID)
+    private void SendMessage(int sender, int receiver, String value, String type, int timeID) throws IOException
     {
+
         String msg = " -r " + Integer.toString(receiver) + "; -s " + Integer.toString(sender) + "; -v " + value + "; -t " + type + "; -i " + timeID + ";*";
 
         try
@@ -297,8 +507,7 @@ public class PaxosClient
         }
         catch (IOException e)
         {
-            System.out.println("Error when writing to client");
-            e.printStackTrace();
+            throw new IOException(e);
         }
     }
 

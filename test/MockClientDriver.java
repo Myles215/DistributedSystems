@@ -6,7 +6,6 @@ import java.io.IOException;
 public class MockClientDriver {
     public static void main(String[] args) throws IOException, InterruptedException
     {
-
         if (args.length < 2) 
         {
             System.out.println("needs 2 args");

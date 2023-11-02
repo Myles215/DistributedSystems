@@ -20,14 +20,14 @@ public class ServerThread extends Thread {
     //We use this outgoing messages data structure to tell other server threads to communicate with their clients
     //Sort of like a shared memory system, each thread checks for incoming messages, then checks for 
     //outgoing messages
-    private ConcurrentHashMap<Integer, Queue<Message>> OutgoingMessages;
+    private ConcurrentHashMap<Integer, ConcurrentLinkedQueue<Message>> OutgoingMessages;
     private Socket connection;
     private int ID = -1;
 
     Selector clientHandler; 
     SocketChannel client;
 
-    ServerThread(ServerSocketChannel socketChannel, ConcurrentHashMap<Integer, Queue<Message>> MessgaeBank)
+    ServerThread(ServerSocketChannel socketChannel, ConcurrentHashMap<Integer, ConcurrentLinkedQueue<Message>> MessgaeBank)
     {
         try
         {
@@ -93,10 +93,11 @@ public class ServerThread extends Thread {
                             }
                             else
                             {
+                                System.out.println("Setting up client with ID " + id);
                                 SendString("starting");
                                 ID = id;
 
-                                OutgoingMessages.put(id, new PriorityQueue<Message>());
+                                OutgoingMessages.put(id, new ConcurrentLinkedQueue<Message>());
                             }
                         }
                         else
@@ -174,11 +175,18 @@ public class ServerThread extends Thread {
     //See if we have any messages in our mailbox
     private Message CheckForMessageToSend()
     {
-        if (OutgoingMessages.get(ID).size() > 0)
+        if (!OutgoingMessages.get(ID).isEmpty())
         {
-            Message check = OutgoingMessages.get(ID).remove();
+            try
+            {
+                Message check = OutgoingMessages.get(ID).remove();
 
-            return check;
+                return check;
+            }
+            catch (Exception e)
+            {
+                System.err.println("Somehow accessing empty queue " + e);
+            }
         }
 
         return new Message(null);
@@ -194,6 +202,7 @@ public class ServerThread extends Thread {
     {
         try
         {
+            msg += "*";
             ByteBuffer buffer = ByteBuffer.allocate(512);
             buffer.put(msg.getBytes()); 
             buffer.flip(); 

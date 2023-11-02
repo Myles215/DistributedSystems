@@ -18,6 +18,8 @@ public class Message
     public int receiver;
 
     public int timeID;
+    public int time;
+    public int ID;
     
     public MessageType type;
     public String value;
@@ -33,7 +35,7 @@ public class Message
             sender = -1;
             receiver = -1;
             value = "";
-            timeID = -1;
+            time = -1;
         }
         else
         {
@@ -55,6 +57,8 @@ public class Message
 
             sub = m.substring(m.indexOf("-i"));
             timeID = Integer.parseInt(sub.substring(jump, sub.indexOf(";")));
+            time = timeID/10;
+            ID = timeID%10;
 
             switch(t)
             {

@@ -25,7 +25,7 @@ public class Server
         }
 
         Map<Integer, ServerThread> mThreads = new HashMap<Integer, ServerThread>();
-        ConcurrentHashMap<Integer, Queue<Message>> mMessages = new ConcurrentHashMap<>();
+        ConcurrentHashMap<Integer, ConcurrentLinkedQueue<Message>> mMessages = new ConcurrentHashMap<>();
 
         try 
         {

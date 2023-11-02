@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.ScaleTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-01T22:24:06" hostname="MYLESLAPTOP" time="3.783">
+  <properties/>
+  <testcase name="ThreeClientsProposal" classname="test.ScaleTest" time="3.783"/>
+  <system-out><![CDATA[Starting to accept client connections
+Accepting new client
+Setting up client with ID 1
+Starting to accept client connections
+Acting as proposer
+Accepting new client
+Setting up client with ID 2
+Starting to accept client connections
+Acting as acceptor
+Accepting new client
+Setting up client with ID 3
+Acting as acceptor
+Handling prepare
+Handling prepare
+Handling not connected
+Handling not connected
+Handling not connected
+Handling not connected
+Handling not connected
+Handling not connected
+Received replies from 3 other members
+Handling propose
+Handling propose
+Received replies from 3 other members
+Committed value: ThreeClients
+Committed value: ThreeClients
+Committed value: ThreeClients
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

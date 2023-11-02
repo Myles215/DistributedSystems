@@ -25,7 +25,7 @@ public class MockServer
     ServerSocketChannel serverSocketChannel;
     ServerSocket serverSocket;
 
-    MockServer(int p)
+    MockServer(int p, int timeout)
     {
         for (int i = 0;i<10;i++)
         {
@@ -39,7 +39,7 @@ public class MockServer
             // non-blocking mode 
             serverSocketChannel = ServerSocketChannel.open(); 
             serverSocket = serverSocketChannel.socket(); 
-            //serverSocket.setSoTimeout(timeout);
+            serverSocket.setSoTimeout(timeout);
             serverSocket.bind( new InetSocketAddress("localhost", p)); 
             serverSocketChannel.configureBlocking(false); 
             int ops = serverSocketChannel.validOps(); 
@@ -164,59 +164,6 @@ public class MockServer
         }
     }
 
-    public Message ReadMessageFromClient(int cli)
-    {
-        long start = System.currentTimeMillis();
-        long timeAllowed = 500;
-
-        while (start + timeAllowed > System.currentTimeMillis())
-        {
-            try
-            {
-                clientHandlers.get(cli).selectNow();
-                Set<SelectionKey> selectedKeys = clientHandlers.get(cli).selectedKeys(); 
-                Iterator<SelectionKey> i = selectedKeys.iterator(); 
-
-                while (i.hasNext())
-                {
-                    SelectionKey key = i.next(); 
-
-                    if (key.isReadable())
-                    {
-                        SocketChannel client = (SocketChannel)key.channel(); 
-                                
-                        // Create buffer to read data 
-                        ByteBuffer buffer = ByteBuffer.allocate(512);
-                        
-                        int bytesRead = client.read(buffer);
-
-                        if (bytesRead < 0)
-                        {
-                            i.remove();
-                            continue;
-                        }
-
-                        buffer.flip();                     
-                        // Parse data from buffer to String 
-                        String message = new String(buffer.array(), StandardCharsets.UTF_8).trim();
-
-                        if (!message.equals(""))
-                        {
-                            return new Message(message);
-                        }
-                    }
-                }
-            }
-            catch (IOException e)
-            {
-                System.err.println("Error when reading client message " + e);
-                e.printStackTrace();
-            }
-        }
-
-        return new Message(null);
-    }
-
     public ArrayList<Message> ReadStringFromClient(int cli)
     {
         long start = System.currentTimeMillis();
@@ -285,6 +232,9 @@ public class MockServer
     {
         try
         {
+            //Wait for a sec
+            Thread.sleep(500);
+
             serverSocket.close();
             serverSocketChannel.close();
 
@@ -292,6 +242,7 @@ public class MockServer
             {
                 if (clients.get(i) != null)
                 {
+                    ReadStringFromClient(i);
                     clients.get(i).close();
                     clientHandlers.get(i).close();
                 }
@@ -301,6 +252,10 @@ public class MockServer
         catch (IOException e)
         {
             System.out.println("Error closing server: " + e);
+        }
+        catch (InterruptedException e)
+        {
+
         }
     }
 }
