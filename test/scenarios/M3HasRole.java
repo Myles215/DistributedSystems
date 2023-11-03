@@ -1,5 +1,9 @@
 package test.scenarios;
 
+import paxos.Server;
+import paxos.PaxosClient;
+import test.ClientThread;
+
 public class M3HasRole {
     public static void main(String[] args)
     {
@@ -9,10 +13,10 @@ public class M3HasRole {
         String[] serverArgs = {Integer.toString(port)};
 
         //Set role here
-        ClientThread proposer = new ClientThread(port, 1, "M1IsPresident", 3);
+        ClientThread proposer = new ClientThread(port, 3, "M3IsPresident", 3);
 
-        ClientThread acceptor2 = new ClientThread(port, 2, null);
-        ClientThread acceptor3 = new ClientThread(port, 3, null);
+        ClientThread acceptor2 = new ClientThread(port, 1, null);
+        ClientThread acceptor3 = new ClientThread(port, 2, null);
         ClientThread acceptor4 = new ClientThread(port, 4, null);
         ClientThread acceptor5 = new ClientThread(port, 5, null);
         ClientThread acceptor6 = new ClientThread(port, 6, null);

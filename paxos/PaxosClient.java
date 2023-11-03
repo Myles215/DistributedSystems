@@ -104,10 +104,15 @@ public class PaxosClient
             {
                 case "M1":
                     role = Role.M1;
+                    break;
                 case "M2":
+                    System.out.println("Starting up as M2");
                     role = Role.M2;
+                    break;
                 case "M3":
+                    System.out.println("Starting up as M3");
                     role = Role.M3;
+                    break;
                 default:
                     role = Role.M4t9;
             }
@@ -170,7 +175,7 @@ public class PaxosClient
             }
 
             replies += HandleProposerMessages(participants, expected);
-            System.out.println("Received replies from " + replies + " other members");
+            System.out.println("M" + ID + " Received replies from " + replies + " other members");
 
             //In this case, we didn't receive back a pre-accepted value
             if (acceptedTime == -1) acceptedTime = lamportTime;
@@ -210,6 +215,25 @@ public class PaxosClient
             {
                 //Need this to avoid busy wait
                 Thread.sleep(100);
+                Random rand = new Random();
+                int action = rand.nextInt() % 3;
+
+                if (role == Role.M3)
+                {
+                    if (action == 0)
+                    {
+                        System.out.println("M3 is going camping, see you next round!");
+                        Thread.sleep(1800);
+                    }
+                }
+                else if (role == Role.M2)
+                {
+                    if (action > 0)
+                    {
+                        System.out.println("M2 finished their coffee at the cafe");
+                        Thread.sleep(600 * action);
+                    }
+                }
 
                 HandleAcceptorMessages();
             }
@@ -304,29 +328,38 @@ public class PaxosClient
                         if (awake && rand.nextInt() % 3 == 0)
                         {
                             awake = false;
+                            System.out.println("M2 has left the cafe :(");
                         } 
                         else if (!awake && rand.nextInt() % 3 > 0)
                         {
                             awake = true;
+                            System.out.println("M2 is back at the cafe :)");
                         }
                     }
                     else if (role == Role.M3) //M3 has a 60% chance of going to sleep and a 40% chance of waking up
                     {
-                        if (awake && rand.nextInt() % 5 < 3)
+                        if (awake && rand.nextInt() % 2 == 0)
                         {
                             awake = false;
+                            System.out.println("M3 has gone camping :(");
                         }
-                        else if (!awake && rand.nextInt() % 5 >= 3)
+                        else if (!awake && rand.nextInt() % 2 == 1)
                         {
                             awake = true;
+                            System.out.println("M3 is back from camping :)");
                         }
                     }
 
                     //Always need to handle this case
                     if (message.type == Message.MessageType.NC)
                     {
-                        System.out.println("Handling not connected");
+                        System.out.println("M" + ID + " Handling not connected");
                         if (participants.indexOf(message.sender) != -1) participants.remove(participants.indexOf(message.sender));
+                    }
+                    else if (message.type == Message.MessageType.Commit)
+                    {
+                        committed = message.value;
+                        return 0;
                     }
 
                     //If the proposer is awake, handle this message
@@ -334,12 +367,17 @@ public class PaxosClient
                     {                    
                         if (message.type == Message.MessageType.Promise && message.type == expected)
                         {
+                            System.out.println("M" + ID + " Handling promise from M" + message.sender);
                             ret.add(HandlePromise(message));
                         }
                         else if (message.type == Message.MessageType.Accept && message.type == expected)
                         {
-                            if (message.timeID/10 >= lamportTime) ret.add(message.sender);
-                            else System.err.println("Proposer M" + ID + " discarding old accept");
+                            if (message.timeID/10 >= lamportTime) 
+                            {
+                                ret.add(message.sender);
+                                System.out.println("M" + ID + " Handling accept from M" + message.sender);
+                            }
+                            else System.err.println("M" + ID + " discarding old accept from M" + message.sender);
                         }
                     }
 
@@ -382,18 +420,22 @@ public class PaxosClient
                     //If this client has a role, act accordingly
                     //Only replies 80% of the time 
                     Random rand = new Random();
-                    if (role != Role.M4t9 || rand.nextInt()%5 > 0)
+                    if (role == Role.normal || (role == Role.M4t9 && rand.nextInt()%5 > 0) || (role == Role.M2 && rand.nextInt()%3 != 0) || role == Role.M3)
                     {
                         if (message.type == Message.MessageType.Prepare)
                         {
-                            System.out.println("Client M" + ID + " handling prepare");
+                            System.out.println("M" + ID + " handling prepare from M" + message.sender);
                             HandlePrepare(message);
                         }
                         else if (message.type == Message.MessageType.Propose)
-                        {
-                            System.out.println("Client M" + ID + " handling propose");
+                        { 
+                            System.out.println("M" + ID + " handling propose from M" + message.sender);
                             HandlePropose(message);
                         }
+                    }
+                    else if (role == Role.M2)
+                    {
+                        System.out.println("M2 missed message!");
                     }
 
                     //Always handle this message
@@ -423,7 +465,7 @@ public class PaxosClient
             //superior ID has already had it's value selected at the same time
             if (timeID/10 > acceptedTime || (timeID/10 == acceptedTime && timeID%10 < acceptedID))
             {
-                System.out.println("Changed to propose new value");
+                System.out.println("M" + ID + " changed to propose new value from M" + promise.sender + " : " + promise.value);
                 acceptedValue = promise.value;
                 acceptedTime = timeID/10;
                 acceptedID = timeID%10;
@@ -463,6 +505,7 @@ public class PaxosClient
                 throw new IOException(e);
             }
         }
+        else System.out.println("M" + ID + " Ignoring old prepare from M" + prepare.sender);
     }
 
     private void HandlePropose(Message proposal) throws IOException
@@ -474,6 +517,7 @@ public class PaxosClient
             lamportID = proposal.timeID%10;
             SendMessage(ID, proposal.sender, "", "Accept", proposal.timeID);
         }
+        else System.out.println("M" + ID + " Ignoring old proposal from M" + proposal.sender);
     }
 
     private String ReadString() throws IOException

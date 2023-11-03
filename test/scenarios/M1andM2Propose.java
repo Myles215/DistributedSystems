@@ -4,7 +4,8 @@ import paxos.Server;
 import paxos.PaxosClient;
 import test.ClientThread;
 
-public class M2HasRole {
+public class M1andM2Propose 
+{
     public static void main(String[] args)
     {
         int port = 1234;
@@ -12,9 +13,9 @@ public class M2HasRole {
         Server server = new Server();
         String[] serverArgs = {Integer.toString(port)};
 
-        ClientThread proposer = new ClientThread(port, 2, "M2IsPresident", 2);
+        ClientThread proposer = new ClientThread(port, 1, "M1IsPresident");
+        ClientThread proposer2 = new ClientThread(port, 2, "M2IsPresident");
 
-        ClientThread acceptor2 = new ClientThread(port, 1, null);
         ClientThread acceptor3 = new ClientThread(port, 3, null);
         ClientThread acceptor4 = new ClientThread(port, 4, null);
         ClientThread acceptor5 = new ClientThread(port, 5, null);
@@ -23,7 +24,6 @@ public class M2HasRole {
         ClientThread acceptor8 = new ClientThread(port, 8, null);
         ClientThread acceptor9 = new ClientThread(port, 9, null);
 
-        acceptor2.start();
         acceptor3.start();
         acceptor4.start();
         acceptor5.start();
@@ -33,6 +33,7 @@ public class M2HasRole {
         acceptor9.start();
 
         proposer.start();
+        proposer2.start();
 
         server.main(serverArgs);
     }
