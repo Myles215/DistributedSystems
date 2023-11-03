@@ -20,7 +20,12 @@ all other clients and close. All clients will commit a value on hearing this com
 Acceptors reply to proposer messages but will only reply to the most up to date messages they receive. To prepares, they reply a 
 promise with the latest value they've accepted (empty if they haven't accepted a value). To proposes, they reply an accepted
 
-## Scearios
+## Testing
+I have a testing harness in the test folder. There are proposer, acceptor and server tests. These check that each specific function of the
+server and paxos clients works as expected. I use a mock client and mock server to have control over the flow of data. I also use clients
+and a server on a thread to be able to run multiple things at once. These tests can be run with ./gradlew test. 
+
+## Scenarios
 To fill in assignment requirements I've made a few 'scenarios' files in the test directory. These can be run with:
 javac ./test/scenarios/'filename'.java
 java test.scenarios.filename
@@ -79,3 +84,13 @@ All roles switched on, M1 proposing
 
 # M1andM2Propose
 The test to check if 2 proposers can work in conjunction... They can! The test reaches a result with the first proposer to reach quorum winning
+
+- compile with: javac ./test/scenarios/M1andM2Propose.java
+- run with: java test.scenarios.M1andM2Propose.java
+
+# M1M2andM3Propose
+The test to see if all 3 can propose all at once!
+When they all propose at once, due to M2 and M3s roles they often lose, as they are away and do not reply
+
+- compile with: javac ./test/scenarios/M1M2andM3Propose.java
+- run with: java test.scenarios.M1M2andM3Propose.java

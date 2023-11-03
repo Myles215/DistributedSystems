@@ -6,7 +6,7 @@ public class ThreadedServer extends Thread {
     
     private int port;
 
-    ThreadedServer(int p)
+    public ThreadedServer(int p)
     {   
         port = p;
     }

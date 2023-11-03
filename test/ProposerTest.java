@@ -139,10 +139,12 @@ public class ProposerTest {
             server.SendStringToClient(reply.toString(), 1);
         }
 
+        wait(500);
+
         client.SetCommittedValue();
 
         //Wait for client to read and handle
-        wait(2100);
+        wait(1500);
 
         //Client should retry sending prepares
         ArrayList<Message> check = server.ReadStringFromClient(1);

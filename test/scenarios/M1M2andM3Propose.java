@@ -14,8 +14,8 @@ public class M1M2andM3Propose
         String[] serverArgs = {Integer.toString(port)};
 
         ClientThread proposer = new ClientThread(port, 1, "M1IsPresident");
-        ClientThread proposer2 = new ClientThread(port, 2, "M2IsPresident");
-        ClientThread proposer3 = new ClientThread(port, 3, "M3IsPresident");
+        ClientThread proposer2 = new ClientThread(port, 2, "M2IsPresident", 2);
+        ClientThread proposer3 = new ClientThread(port, 3, "M3IsPresident", 3);
 
         ClientThread acceptor4 = new ClientThread(port, 4, null);
         ClientThread acceptor5 = new ClientThread(port, 5, null);

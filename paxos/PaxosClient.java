@@ -488,6 +488,7 @@ public class PaxosClient
         if (prepare.timeID/10 >= lamportTime)
         {
             lamportTime = Math.max(lamportTime, prepare.timeID/10);
+            lamportID = prepare.sender;
 
             try
             {
@@ -510,7 +511,7 @@ public class PaxosClient
 
     private void HandlePropose(Message proposal) throws IOException
     {
-        if (proposal.timeID/10 > lamportTime || (proposal.timeID/10 == lamportTime && proposal.timeID%10 >= lamportID))
+        if (proposal.timeID/10 > lamportTime || (proposal.timeID/10 == lamportTime && proposal.timeID%10 <= lamportID))
         {
             acceptedValue = proposal.value;
             lamportTime = proposal.timeID/10;

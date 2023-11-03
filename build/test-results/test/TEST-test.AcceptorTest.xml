@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.AcceptorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-11-03T11:30:45" hostname="MYLESLAPTOP" time="2.841">
+  <properties/>
+  <testcase name="RepliesToPrepare" classname="test.AcceptorTest" time="0.44"/>
+  <testcase name="RepliesToPropose" classname="test.AcceptorTest" time="0.991"/>
+  <testcase name="RepliesWithAlternateValue" classname="test.AcceptorTest" time="1.408"/>
+  <system-out><![CDATA[Connecting to server
+Starting to accept client connections
+Accepting new client
+Setting up client with ID 1
+Acting as acceptor
+M1 handling prepare from M2
+Client M1 committed value: STOP
+Starting to accept client connections
+Connecting to server
+Accepting new client
+Setting up client with ID 1
+Acting as acceptor
+M1 handling prepare from M2
+M1 handling propose from M2
+Client M1 committed value: STOP
+Starting to accept client connections
+Connecting to server
+Accepting new client
+Setting up client with ID 1
+Acting as acceptor
+M1 handling prepare from M2
+M1 handling propose from M2
+M1 handling prepare from M2
+Client M1 committed value: STOP
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

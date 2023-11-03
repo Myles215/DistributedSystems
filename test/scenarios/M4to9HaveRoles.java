@@ -4,7 +4,7 @@ import paxos.Server;
 import paxos.PaxosClient;
 import test.ClientThread;
 
-public class ClientsHaveRoles 
+public class M4to9HaveRoles 
 {
     public static void main(String[] args)
     {

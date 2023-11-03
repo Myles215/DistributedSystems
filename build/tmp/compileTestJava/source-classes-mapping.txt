@@ -8,30 +8,44 @@ paxos/Server.java
  paxos.Server
 paxos/ServerThread.java
  paxos.ServerThread
-MessageTest.java
- MessageTest
-MockClientDriver.java
- test.MockClientDriver
-ServerTest.java
- test.ServerTest
-MockClient.java
- test.MockClient
-MockServer.java
- test.MockServer
-ThreadedServer.java
- test.ThreadedServer
 ScaleTest.java
  test.ScaleTest
+scenarios/M1andM2Propose.java
+ test.scenarios.M1andM2Propose
+ServerTest.java
+ test.ServerTest
 AcceptorTest.java
  test.AcceptorTest
+scenarios/JustM1M2M3.java
+ test.scenarios.JustM1M2M3
+scenarios/M4to9HaveRoles.java
+ test.scenarios.M4to9HaveRoles
 ClientThread.java
  test.ClientThread
 paxos/PaxosClient.java
  paxos.PaxosClient
  paxos.PaxosClient$Role
  paxos.PaxosClient$Stage
-scenarios/OneClientProposes.java
- test.scenarios.OneClientProposes
+MockClientDriver.java
+ test.MockClientDriver
 ProposerTest.java
  test.ProposerTest
  test.ProposerTest$ClientThread
+ThreadedServer.java
+ test.ThreadedServer
+MockServer.java
+ test.MockServer
+scenarios/M1M2andM3Propose.java
+ test.scenarios.M1M2andM3Propose
+MockClient.java
+ test.MockClient
+scenarios/M2HasRole.java
+ test.scenarios.M2HasRole
+scenarios/M2ProposesThenLeaves.java
+ test.scenarios.M2ProposesThenLeaves
+scenarios/M3HasRole.java
+ test.scenarios.M3HasRole
+scenarios/M1ProposesAllRoles.java
+ test.scenarios.M1ProposesAllRoles
+scenarios/OneClientProposes.java
+ test.scenarios.OneClientProposes
