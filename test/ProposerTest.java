@@ -59,8 +59,7 @@ public class ProposerTest {
 
         public void SetCommittedValue()
         {
-            //Client is pissing me off so I just want it to stop!
-            while (CommittedValue() == null) client.committed = "Fucking stop";
+            while (CommittedValue() == null) client.committed = "STOP";
         }
     }
 
@@ -95,7 +94,7 @@ public class ProposerTest {
 
         server.SendStringToClient("starting", 1);
 
-        wait(200);
+        wait(700);
 
         ArrayList<Message> check = server.ReadStringFromClient(1);
 
@@ -128,7 +127,7 @@ public class ProposerTest {
 
         server.SendStringToClient("starting", 1);
 
-        wait(100);
+        wait(700);
 
         server.ReadStringFromClient(1);
 
@@ -175,7 +174,7 @@ public class ProposerTest {
 
         server.SendStringToClient("starting", 1);
 
-        wait(100);
+        wait(700);
 
         server.ReadStringFromClient(1);
 
@@ -228,7 +227,7 @@ public class ProposerTest {
 
         server.SendStringToClient("starting", 1);
 
-        wait(100);
+        wait(700);
         server.ReadStringFromClient(1);
 
         for (int i = 3;i<10;i++)
@@ -281,6 +280,8 @@ public class ProposerTest {
         assertEquals(server.AcceptConnection(), true);
 
         server.SendStringToClient("starting", 1);
+
+        wait(700);
 
         server.ReadStringFromClient(1);
 

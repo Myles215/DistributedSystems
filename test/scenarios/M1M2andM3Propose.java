@@ -3,15 +3,18 @@ package test.scenarios;
 import paxos.Server;
 import paxos.PaxosClient;
 import test.ClientThread;
+import test.ThreadedServer;
+
+import org.junit.Test;
 
 public class M1M2andM3Propose 
 {
-    public static void main(String[] args)
+    @Test
+    public void runTest()
     {
-        int port = 1234;
+        int port = 1378;
 
-        Server server = new Server();
-        String[] serverArgs = {Integer.toString(port)};
+        ThreadedServer Tserver = new ThreadedServer(port);
 
         ClientThread proposer = new ClientThread(port, 1, "M1IsPresident");
         ClientThread proposer2 = new ClientThread(port, 2, "M2IsPresident", 2);
@@ -31,10 +34,20 @@ public class M1M2andM3Propose
         acceptor8.start();
         acceptor9.start();
 
+        Tserver.start();
+
+        try { Thread.sleep(150); } catch (InterruptedException e) {}
+
         proposer.start();
         proposer2.start();
         proposer3.start();
 
-        server.main(serverArgs);
+        while (proposer.client.committed == null || proposer2.client.committed == null || proposer3.client.committed == null)
+        {
+            try { Thread.sleep(250); } catch (InterruptedException e) {}
+        }
+
+        //Wait to complete
+        try { Thread.sleep(150); } catch (InterruptedException e) {}
     }
 }

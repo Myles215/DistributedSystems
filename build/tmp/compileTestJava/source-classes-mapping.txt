@@ -4,16 +4,24 @@ paxos/Message.java
  paxos.Message
  paxos.Message$1
  paxos.Message$MessageType
-paxos/Server.java
- paxos.Server
+ServerTest.java
+ test.ServerTest
 paxos/ServerThread.java
  paxos.ServerThread
+MockServer.java
+ test.MockServer
+MockClient.java
+ test.MockClient
+paxos/Server.java
+ paxos.Server
+ThreadedServer.java
+ test.ThreadedServer
+MockClientDriver.java
+ test.MockClientDriver
 ScaleTest.java
  test.ScaleTest
 scenarios/M1andM2Propose.java
  test.scenarios.M1andM2Propose
-ServerTest.java
- test.ServerTest
 AcceptorTest.java
  test.AcceptorTest
 scenarios/JustM1M2M3.java
@@ -26,19 +34,11 @@ paxos/PaxosClient.java
  paxos.PaxosClient
  paxos.PaxosClient$Role
  paxos.PaxosClient$Stage
-MockClientDriver.java
- test.MockClientDriver
 ProposerTest.java
  test.ProposerTest
  test.ProposerTest$ClientThread
-ThreadedServer.java
- test.ThreadedServer
-MockServer.java
- test.MockServer
 scenarios/M1M2andM3Propose.java
  test.scenarios.M1M2andM3Propose
-MockClient.java
- test.MockClient
 scenarios/M2HasRole.java
  test.scenarios.M2HasRole
 scenarios/M2ProposesThenLeaves.java

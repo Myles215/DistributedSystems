@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.scenarios.M3HasRole" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-08T03:34:54" hostname="MYLESLAPTOP" time="15.858">
+  <properties/>
+  <testcase name="runTest" classname="test.scenarios.M3HasRole" time="15.858"/>
+  <system-out><![CDATA[Connecting to server
+Connecting to server
+Using input port
+Connecting to server
+Connecting to server
+Connecting to server
+Connecting to server
+Connecting to server
+Connecting to server
+Server is listening on port 8432
+New client connected
+Setting up client with ID 1
+Acting as acceptor
+New client connected
+Setting up client with ID 6
+Acting as acceptor
+Connecting to server
+New client connected
+Setting up client with ID 8
+Acting as acceptor
+New client connected
+Setting up client with ID 5
+Acting as acceptor
+New client connected
+Setting up client with ID 9
+Acting as acceptor
+New client connected
+Setting up client with ID 4
+Acting as acceptor
+New client connected
+Setting up client with ID 2
+Acting as acceptor
+New client connected
+Setting up client with ID 7
+Acting as acceptor
+New client connected
+Setting up client with ID 3
+Starting up as M3
+Acting as proposer
+M6 handling prepare from M3
+M9 handling prepare from M3
+M1 handling prepare from M3
+M5 handling prepare from M3
+M7 handling prepare from M3
+M2 handling prepare from M3
+M4 handling prepare from M3
+M8 handling prepare from M3
+M8 handling prepare from M3
+M3 has gone camping :(
+M3 is back from camping :)
+M3 Handling promise from M9
+M3 Handling promise from M5
+M3 has gone camping :(
+M3 is back from camping :)
+M3 Handling promise from M7
+M3 Handling promise from M2
+M3 has gone camping :(
+M3 is back from camping :)
+M3 Handling promise from M8
+M3 Handling promise from M8
+M3 Received replies from 6 other members
+M1 handling propose from M3
+M5 handling propose from M3
+M9 handling propose from M3
+M2 handling propose from M3
+M2 handling propose from M3
+M2 handling propose from M3
+M2 handling propose from M3
+M2 handling propose from M3
+M4 handling propose from M3
+M7 handling propose from M3
+M8 handling propose from M3
+M8 handling propose from M3
+M6 handling propose from M3
+M3 has gone camping :(
+M3 is back from camping :)
+M3 Handling accept from M5
+M3 has gone camping :(
+M3 is back from camping :)
+M3 Handling accept from M2
+M3 Handling accept from M2
+M3 has gone camping :(
+M3 is back from camping :)
+M3 Handling accept from M4
+M3 has gone camping :(
+M3 Received replies from 4 other members
+M3 Failed prepare, will retry value M3IsPresident with higher ID - 2
+M6 handling prepare from M3
+M7 handling prepare from M3
+M4 handling prepare from M3
+M2 handling prepare from M3
+M8 handling prepare from M3
+M1 handling prepare from M3
+M5 handling prepare from M3
+M5 handling prepare from M3
+M9 handling prepare from M3
+M3 has gone camping :(
+M3 is back from camping :)
+M3 Handling promise from M7
+M3 changed to propose new value from M7 : M3IsPresident
+M3 has gone camping :(
+M3 Received replies from 2 other members
+M3 Failed prepare, will retry value M3IsPresident with higher ID - 3
+M7 handling prepare from M3
+M4 handling prepare from M3
+M4 handling prepare from M3
+M4 handling prepare from M3
+M4 handling prepare from M3
+M1 handling prepare from M3
+M5 handling prepare from M3
+M9 handling prepare from M3
+M2 handling prepare from M3
+M8 handling prepare from M3
+M6 handling prepare from M3
+M6 handling prepare from M3
+M6 handling prepare from M3
+M3 has gone camping :(
+M3 is back from camping :)
+M3 Handling promise from M7
+M3 changed to propose new value from M7 : M3IsPresident
+M3 Handling promise from M1
+M3 Received replies from 1 other members
+M3 Failed prepare, will retry value M3IsPresident with higher ID - 4
+M9 handling prepare from M3
+M1 handling prepare from M3
+M7 handling prepare from M3
+M4 handling prepare from M3
+M6 handling prepare from M3
+M5 handling prepare from M3
+M8 handling prepare from M3
+M2 handling prepare from M3
+M3 Handling promise from M9
+M3 changed to propose new value from M9 : M3IsPresident
+M3 Handling promise from M1
+M3 Handling promise from M4
+M3 Handling promise from M7
+M3 has gone camping :(
+M3 is back from camping :)
+M3 Handling promise from M8
+M3 Handling promise from M2
+M3 Received replies from 7 other members
+M2 handling propose from M3
+M7 handling propose from M3
+M8 handling propose from M3
+M6 handling propose from M3
+M5 handling propose from M3
+M4 handling propose from M3
+M9 handling propose from M3
+M1 handling propose from M3
+M3 has gone camping :(
+M3 is back from camping :)
+M3 Handling accept from M5
+M3 Handling accept from M4
+M3 Handling accept from M9
+M3 Handling accept from M1
+M3 Received replies from 5 other members
+Client M1 committed value: M3IsPresident
+Client M9 committed value: M3IsPresident
+Client M6 committed value: M3IsPresident
+Client M5 committed value: M3IsPresident
+Client M7 committed value: M3IsPresident
+Client M2 committed value: M3IsPresident
+Client M8 committed value: M3IsPresident
+Client M4 committed value: M3IsPresident
+Client M3 committed value: M3IsPresident
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

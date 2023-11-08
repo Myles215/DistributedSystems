@@ -74,7 +74,7 @@ public class ServerTest
 
         MockClient conn1 = new MockClient(port);
 
-        assertEquals(conn1.Join(1, "starting"), "starting");
+        assertEquals(conn1.Join(1, "starting*"), "starting*");
 
         Thread.sleep(1000);
     }
@@ -88,10 +88,10 @@ public class ServerTest
         server.start();
 
         MockClient conn1 = new MockClient(port);
-        assertEquals(conn1.Join(1, "starting"), "starting");
+        assertEquals(conn1.Join(1, "starting*"), "starting*");
 
         MockClient conn2 = new MockClient(port);
-        assertEquals(conn2.Join(1, "client with this ID already exists"), "client with this ID already exists");
+        assertEquals(conn2.Join(1, "client with this ID already exists*"), "client with this ID already exists*");
     }
 
     @Test
@@ -118,10 +118,10 @@ public class ServerTest
         server.start();
 
         MockClient conn1 = new MockClient(port);
-        assertEquals(conn1.Join(1, "starting"), "starting");
+        assertEquals(conn1.Join(1, "starting*"), "starting*");
 
         MockClient conn2 = new MockClient(port);
-        assertEquals(conn2.Join(2, "starting"), "starting");
+        assertEquals(conn2.Join(2, "starting*"), "starting*");
 
         conn1.Message(1, 2, "hi", "Propose");
         //Need to do this to break the blocking call
@@ -145,10 +145,10 @@ public class ServerTest
         server.start();
 
         MockClient conn1 = new MockClient(port);
-        assertEquals(conn1.Join(1, "starting"), "starting");
+        assertEquals(conn1.Join(1, "starting*"), "starting*");
 
         MockClient conn2 = new MockClient(port);
-        assertEquals(conn2.Join(2, "starting"), "starting");
+        assertEquals(conn2.Join(2, "starting*"), "starting*");
 
         conn1.Message(1, 2, "hi", "Prepare");
         //Need to do this to break the blocking call

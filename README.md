@@ -27,21 +27,30 @@ and a server on a thread to be able to run multiple things at once. These tests 
 
 ## Scenarios
 To fill in assignment requirements I've made a few 'scenarios' files in the test directory. These can be run with:
-javac ./test/scenarios/'filename'.java
-java test.scenarios.filename
+./gradlew test --tests 'testName'
+
+Each scenario is implemented using gradle testing. They just start a server on a thread and a number
+of clients on threads and run each of these. Each test has some ending conditions (found in a while loop at the end) but will time out
+after 60 seconds if it hasn't reached a conclusion. Printouts will occur during each scenario and these can be followed in the terminal. Each message is
+in the format:
+M 'ID' Handling 'message type' from M 'sender ID'
+and potentially any other necessary details. When M1, M2 or M3s value activates they will also send a message
+
+To Run all tests use: ./gradlew test
+all printouts will be available
 
 I will go through one by one what each means
 
 # OneClientProposes
 As the name suggests, one client proposes a value and all others immediately reply. Just the simple case "paxos works when one client proposes"
-- compile with: javac ./test/scenarios/OneClientProposes.java
-- run with: java test.scenarios.OneClientProposes
+
+- run with: ./gradlew test --tests OneClientProposes
 
 # M4to9HaveRoles
 This test keeps one client proposing but adds roles to clients 4 to 9. As they 'try to vote fairly' they have an 80% chance of replying but will sometimes
 fall asleep. As there is an 80% chance each client replies this test could potentially run for a lot more iterations than the first immediaate reply test
-- compile with: javac ./test/scenarios/M4to9HaveRoles.java
-- run with: java test.scenarios.M4to9HaveRoles
+
+- run with: ./gradlew test --tests M4to9HaveRoles
 
 # M2HasRole
 M2s role makes it visit the cafe sometimes, where it has good internet. If it's at the cafe, there is a 33% chance it will leave and go back home,
@@ -49,8 +58,8 @@ where it's internet is bad. If it's at home it will not reply to messages. Altho
 it can start immediately replying again.
 
 What this means for Paxos is that if M2 is proposing, it will only handle promise and accept messages 66% of the time. Other times, it will omit these messages.
-- compile with: javac ./test/scenarios/M2HasRole.java
-- run with: java test.scenarios.M2HasRole.java
+
+- run with: ./gradlew test --tests M2HasRole
 
 # M3HasRole
 M3 occassionally goes camping. M3 loves camping so will head out and not reply to messages 60% of the time. As camping is a long task, there is a 40%
@@ -60,8 +69,8 @@ When it is an acceptor, 50% of the time, M3 will leave to go camping and reply e
 announcing that it is leaving to camp.
 
 For paxos, this means it will be very very slow when M3 is proposing. When M3 is an acceptor paxos can still trod along but only very slowly
-- compile with: javac ./test/scenarios/M3HasRole.java
-- run with: java test.scenarios.M3HasRole.java
+
+- run with: ./gradlew test --tests M3HasRole
 
 # JustM1M2M3
 Just running paxos with M1 as aproposer and M2 and M3 with their acceptor roles making them reply very slowly (or not at all).
@@ -73,24 +82,29 @@ M3 has one action, they will sometimes go camping for a whole round, on this the
 
 In this test, the proposer M1 must also handle late replies, as M3 will reply to current messages in a future round (when they go camping)
 
-- compile with: javac ./test/scenarios/JustM1M2M3.java
-- run with: java test.scenarios.JustM1M2M3.java
+- run with: ./gradlew test --tests JustM1M2M3.java
 
 # M1ProposesAllRoles
 All roles switched on, M1 proposing
 
-- compile with: javac ./test/scenarios/M1ProposesAllRoles.java
-- run with: java test.scenarios.M1ProposesAllRoles.java
+- run with: ./gradlew test --tests M1ProposesAllRoles
 
 # M1andM2Propose
 The test to check if 2 proposers can work in conjunction... They can! The test reaches a result with the first proposer to reach quorum winning
 
-- compile with: javac ./test/scenarios/M1andM2Propose.java
-- run with: java test.scenarios.M1andM2Propose.java
+- run with: ./gradlew test --tests M1andM2Propose
 
 # M1M2andM3Propose
 The test to see if all 3 can propose all at once!
 When they all propose at once, due to M2 and M3s roles they often lose, as they are away and do not reply
 
-- compile with: javac ./test/scenarios/M1M2andM3Propose.java
-- run with: java test.scenarios.M1M2andM3Propose.java
+- run with: ./gradlew test --tests M1M2andM3Propose
+
+# M2ProposesThenLeaves
+The test to cover the scneario where M2 proposes then goes offline. As specified a few times: There is no paxos implementation in which an acceptor
+flips between acceptor and proposer. Even if nothing happens, even if there is an accepted value, it cannot become a proposer. Why is this though? Well,
+it is the same reason why if there is not a quorum of clients active (e.g. 2/5) we have some mass server or node failure. If there are not enough nodes to
+complete a normal protocol, is it safe to have a work aorund? Probably not. So, in this scenario, M2 proposes and goes to sleep, then, M1 wakes up and
+tries to propose, thus pushing M2s proposal through and we can see in printouts that the committed value is M2IsPresident
+
+- run with: ./gradlew test --tests M2ProposesThenLeaves

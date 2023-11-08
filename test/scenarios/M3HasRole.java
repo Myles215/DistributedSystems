@@ -3,14 +3,17 @@ package test.scenarios;
 import paxos.Server;
 import paxos.PaxosClient;
 import test.ClientThread;
+import test.ThreadedServer;
+
+import org.junit.Test;
 
 public class M3HasRole {
-    public static void main(String[] args)
+    @Test
+    public void runTest()
     {
-        int port = 1234;
+        int port = 8432;
 
-        Server server = new Server();
-        String[] serverArgs = {Integer.toString(port)};
+        ThreadedServer Tserver = new ThreadedServer(port);
 
         //Set role here
         ClientThread proposer = new ClientThread(port, 3, "M3IsPresident", 3);
@@ -33,8 +36,18 @@ public class M3HasRole {
         acceptor8.start();
         acceptor9.start();
 
+        Tserver.start();
+
+        try { Thread.sleep(150); } catch (InterruptedException e) {}
+
         proposer.start();
 
-        server.main(serverArgs);
+        while (proposer.client.committed == null)
+        {
+            try { Thread.sleep(100); } catch(InterruptedException e) {}
+        }
+
+        //Wait to complete
+        try { Thread.sleep(250); } catch (InterruptedException e) {}
     }
 }

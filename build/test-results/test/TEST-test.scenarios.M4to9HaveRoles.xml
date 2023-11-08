@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.scenarios.M4to9HaveRoles" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-08T03:35:11" hostname="MYLESLAPTOP" time="12.078">
+  <properties/>
+  <testcase name="runTest" classname="test.scenarios.M4to9HaveRoles" time="12.078"/>
+  <system-out><![CDATA[Using input port
+Connecting to server
+Connecting to server
+Connecting to server
+Connecting to server
+Connecting to server
+Connecting to server
+Connecting to server
+Connecting to server
+Server is listening on port 7354
+New client connected
+Setting up client with ID 8
+Acting as acceptor
+New client connected
+Setting up client with ID 5
+Acting as acceptor
+Connecting to server
+New client connected
+Setting up client with ID 7
+Acting as acceptor
+New client connected
+Setting up client with ID 9
+Acting as acceptor
+New client connected
+Setting up client with ID 3
+Acting as acceptor
+New client connected
+Setting up client with ID 6
+Acting as acceptor
+New client connected
+Setting up client with ID 2
+Acting as acceptor
+New client connected
+Setting up client with ID 4
+Acting as acceptor
+New client connected
+Setting up client with ID 1
+Acting as proposer
+M8 handling prepare from M1
+M9 handling prepare from M1
+M6 handling prepare from M1
+M2 handling prepare from M1
+M4 handling prepare from M1
+M3 handling prepare from M1
+M1 Handling promise from M8
+M1 Handling promise from M9
+M1 Handling promise from M6
+M1 Handling promise from M2
+M1 Handling promise from M4
+M1 Handling promise from M3
+M1 Received replies from 7 other members
+M1 Received replies from 1 other members
+M1 Failed prepare, will retry value M1IsPresident with higher ID - 2
+M7 handling prepare from M1
+M2 handling prepare from M1
+M6 handling prepare from M1
+M9 handling prepare from M1
+M1 Handling promise from M7
+M1 Handling promise from M2
+M1 Handling promise from M6
+M1 Handling promise from M9
+M1 Received replies from 5 other members
+M5 handling propose from M1
+M9 handling propose from M1
+M7 handling propose from M1
+M4 handling propose from M1
+M3 handling propose from M1
+M1 Handling accept from M9
+M1 Handling accept from M5
+M1 Handling accept from M4
+M1 Handling accept from M3
+M1 Handling accept from M7
+M1 Received replies from 6 other members
+Client M2 committed value: M1IsPresident
+Client M6 committed value: M1IsPresident
+Client M5 committed value: M1IsPresident
+Client M4 committed value: M1IsPresident
+Client M3 committed value: M1IsPresident
+Client M8 committed value: M1IsPresident
+Client M7 committed value: M1IsPresident
+Client M9 committed value: M1IsPresident
+Client M1 committed value: M1IsPresident
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

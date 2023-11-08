@@ -3,14 +3,18 @@ package test.scenarios;
 import paxos.Server;
 import paxos.PaxosClient;
 import test.ClientThread;
+import test.ThreadedServer;
+
+import org.junit.Test;
 
 public class M4to9HaveRoles 
 {
-    public static void main(String[] args)
+    @Test
+    public void runTest()
     {
-        int port = 1234;
+        int port = 7354;
 
-        Server server = new Server();
+        ThreadedServer Tserver = new ThreadedServer(port);
         String[] serverArgs = {Integer.toString(port)};
 
         ClientThread proposer = new ClientThread(port, 1, "M1IsPresident");
@@ -33,8 +37,18 @@ public class M4to9HaveRoles
         acceptor8.start();
         acceptor9.start();
 
+        Tserver.start();
+
+        try { Thread.sleep(150); } catch (InterruptedException e) {}
+
         proposer.start();
 
-        server.main(serverArgs);
+        while (proposer.client.committed == null)
+        {
+            try { Thread.sleep(100); } catch (InterruptedException e) {}
+        }
+
+        //Wait to complete
+        try { Thread.sleep(150); } catch (InterruptedException e) {}
     }
 }

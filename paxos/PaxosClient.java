@@ -145,7 +145,7 @@ public class PaxosClient
     {
         System.out.println("Acting as proposer");
         //Wait a bit for other participants to get set up
-        Thread.sleep(150);
+        Thread.sleep(600);
         ArrayList<Integer> participants = new ArrayList<Integer>();
 
         for (int i = 1;i<10;i++)
@@ -189,14 +189,16 @@ public class PaxosClient
                 }
                 else if (stage == Stage.PROPOSING)
                 {
-                    MassSend(participants, acceptedValue, "Commit");
+                    participants.clear();
+                    for (int i = 1;i<=9;i++) participants.add(i);
+                    Committed(participants);
                     committed = acceptedValue;
                 }
             }
             else
             {
                 stage = Stage.PREPARING;
-                System.out.println("Failed prepare, will retry value " + acceptedValue + " with higher ID - " + ++acceptedTime);
+                System.out.println("M" + ID + " Failed prepare, will retry value " + acceptedValue + " with higher ID - " + ++acceptedTime);
                 //If we don't get quorum, we increment our time ID and try again
                 lamportTime = acceptedTime;
 
@@ -321,7 +323,16 @@ public class PaxosClient
 
                 while (nextIndex != -1)
                 {
-                    Message message = new Message(line.substring(index, nextIndex));
+                    Message message;
+                    try 
+                    { 
+                        message = new Message(line.substring(index, nextIndex));
+                    }
+                    catch (Exception e)
+                    {
+                        buffer.clear();
+                        return 0;
+                    }
 
                     if (role == Role.M2) //M2 has a 33% chance of going to sleep and 66% chance of waking up
                     {
@@ -353,8 +364,11 @@ public class PaxosClient
                     //Always need to handle this case
                     if (message.type == Message.MessageType.NC)
                     {
-                        System.out.println("M" + ID + " Handling not connected");
-                        if (participants.indexOf(message.sender) != -1) participants.remove(participants.indexOf(message.sender));
+                        if (participants.indexOf(message.sender) != -1) 
+                        {
+                            participants.remove(participants.indexOf(message.sender));
+                            System.out.println("M" + ID + " Handling not connected");
+                        }
                     }
                     else if (message.type == Message.MessageType.Commit)
                     {
@@ -519,6 +533,16 @@ public class PaxosClient
             SendMessage(ID, proposal.sender, "", "Accept", proposal.timeID);
         }
         else System.out.println("M" + ID + " Ignoring old proposal from M" + proposal.sender);
+    }
+
+    //Now that we are done, broadcast committed a few times
+    private void Committed(ArrayList<Integer> participants) throws IOException
+    {
+        for (int i = 0;i<3;i++)
+        {
+            try { Thread.sleep(1000); } catch (InterruptedException e) {}
+            MassSend(participants, acceptedValue, "Commit");
+        }
     }
 
     private String ReadString() throws IOException

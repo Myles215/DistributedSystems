@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.scenarios.M2HasRole" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-08T03:34:34" hostname="MYLESLAPTOP" time="8.632">
+  <properties/>
+  <testcase name="runTest" classname="test.scenarios.M2HasRole" time="8.632"/>
+  <system-out><![CDATA[Connecting to server
+Connecting to server
+Connecting to server
+Connecting to server
+Using input port
+Connecting to server
+Connecting to server
+Connecting to server
+Connecting to server
+Server is listening on port 4434
+New client connected
+Setting up client with ID 3
+Acting as acceptor
+New client connected
+Setting up client with ID 9
+Acting as acceptor
+Connecting to server
+New client connected
+Setting up client with ID 7
+Acting as acceptor
+New client connected
+Setting up client with ID 5
+Acting as acceptor
+New client connected
+Setting up client with ID 8
+Acting as acceptor
+New client connected
+Setting up client with ID 1
+Acting as acceptor
+New client connected
+Setting up client with ID 6
+Acting as acceptor
+New client connected
+Setting up client with ID 4
+Acting as acceptor
+New client connected
+Setting up client with ID 2
+Starting up as M2
+Acting as proposer
+M3 handling prepare from M2
+M9 handling prepare from M2
+M7 handling prepare from M2
+M4 handling prepare from M2
+M8 handling prepare from M2
+M6 handling prepare from M2
+M1 handling prepare from M2
+M5 handling prepare from M2
+M2 Handling promise from M3
+M2 Handling promise from M9
+M2 Handling promise from M8
+M2 has left the cafe :(
+M2 is back at the cafe :)
+M2 Handling promise from M7
+M2 Handling promise from M6
+M2 Handling promise from M1
+M2 has left the cafe :(
+M2 Received replies from 7 other members
+M4 handling propose from M2
+M8 handling propose from M2
+M3 handling propose from M2
+M7 handling propose from M2
+M9 handling propose from M2
+M6 handling propose from M2
+M1 handling propose from M2
+M5 handling propose from M2
+M2 has left the cafe :(
+M2 is back at the cafe :)
+M2 Handling accept from M7
+M2 Handling accept from M4
+M2 has left the cafe :(
+M2 is back at the cafe :)
+M2 Handling accept from M6
+M2 Handling accept from M1
+M2 Handling accept from M5
+M2 Received replies from 6 other members
+Client M4 committed value: M2IsPresident
+Client M7 committed value: M2IsPresident
+Client M3 committed value: M2IsPresident
+Client M8 committed value: M2IsPresident
+Client M5 committed value: M2IsPresident
+Client M9 committed value: M2IsPresident
+Client M6 committed value: M2IsPresident
+Client M1 committed value: M2IsPresident
+Client M2 committed value: M2IsPresident
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

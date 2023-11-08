@@ -44,6 +44,8 @@ test {
     useJUnit {
      
     }
+
+    forkEvery = 1 
  
     testLogging {
         events "passed", "skipped", "failed"

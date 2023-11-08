@@ -5,9 +5,12 @@ import paxos.PaxosClient;
 import test.ClientThread;
 import test.ThreadedServer;
 
+import org.junit.Test;
+
 public class M2ProposesThenLeaves
 {
-    public static void main(String[] args)
+    @Test
+    public void runTest()
     {
         int port = 1234;
 
@@ -33,16 +36,26 @@ public class M2ProposesThenLeaves
         acceptor8.start();
         acceptor9.start();
 
-        M2.start();
-
         server.start();
 
+        try { Thread.sleep(250); } catch (InterruptedException e) {}
+
+        M2.start();
+
         //Give M2 a chance to get it's proposal through
-        try { Thread.sleep(3000); } catch (InterruptedException e) {}
+        try { Thread.sleep(2550); } catch (InterruptedException e) {}
 
         M2.SetCommittedValue();
 
         //Now, we start M1 and it will push through M2s previous proposal
         M1.start();
+
+        while (M1.client.committed == null) 
+        {
+            try { Thread.sleep(250); } catch (InterruptedException e) {}
+        }
+
+        //Wait to finish
+        try { Thread.sleep(150); } catch (InterruptedException e) {}
     }
 }

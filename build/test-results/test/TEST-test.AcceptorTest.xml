@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test.AcceptorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-11-03T11:30:45" hostname="MYLESLAPTOP" time="2.841">
+<testsuite name="test.AcceptorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-11-08T03:32:07" hostname="MYLESLAPTOP" time="2.906">
   <properties/>
-  <testcase name="RepliesToPrepare" classname="test.AcceptorTest" time="0.44"/>
-  <testcase name="RepliesToPropose" classname="test.AcceptorTest" time="0.991"/>
-  <testcase name="RepliesWithAlternateValue" classname="test.AcceptorTest" time="1.408"/>
+  <testcase name="RepliesToPrepare" classname="test.AcceptorTest" time="0.487"/>
+  <testcase name="RepliesToPropose" classname="test.AcceptorTest" time="0.985"/>
+  <testcase name="RepliesWithAlternateValue" classname="test.AcceptorTest" time="1.434"/>
   <system-out><![CDATA[Connecting to server
 Starting to accept client connections
 Accepting new client

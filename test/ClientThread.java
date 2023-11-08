@@ -4,7 +4,7 @@ import paxos.PaxosClient;
 
 public class ClientThread extends Thread
     {
-        PaxosClient client;
+        public PaxosClient client;
         String clientRole = null;
         int port;
         int ID;

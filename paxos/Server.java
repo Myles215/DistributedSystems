@@ -14,6 +14,8 @@ import paxos.Message;
 
 public class Server
 {
+    public static long TIMEOUT = 60000;
+
     public static void main(String[] args)
     {
         int port = 4567;
@@ -34,16 +36,18 @@ public class Server
             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open(); 
             ServerSocket serverSocket = serverSocketChannel.socket(); 
             serverSocket.setSoTimeout(30000);
-            serverSocket.bind( new InetSocketAddress("localhost", port)); 
+            serverSocket.bind(new InetSocketAddress("localhost", port)); 
             serverSocketChannel.configureBlocking(false); 
             int ops = serverSocketChannel.validOps(); 
             serverSocketChannel.register(selector, ops, null); 
             System.out.println("Server is listening on port " + port);
 
+            long start = System.currentTimeMillis();
+
             while (true) 
             { 
                 //Selector checks if client has sent any keys
-                selector.select(); 
+                selector.selectNow(); 
                 Set<SelectionKey> selectedKeys = selector.selectedKeys(); 
                 Iterator<SelectionKey> i = selectedKeys.iterator(); 
   
@@ -61,6 +65,8 @@ public class Server
 
                     i.remove(); 
                 } 
+
+                try { Thread.sleep(100); } catch (InterruptedException e) {}
             }
  
         } catch (IOException ex) {

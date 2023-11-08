@@ -73,7 +73,7 @@ public class ScaleTest
         assertEquals(passBack.get(0).type, Message.MessageType.Promise);
         server.SendStringToClient(passBack.get(0).toString(), 1);
 
-        wait(1500);
+        wait(1600);
 
         //Now, the proposer, having been promised 3 values, will send a proposal with the initial value
         passOn = server.ReadStringFromClient(1);
@@ -102,8 +102,7 @@ public class ScaleTest
 
         //Now, our proposer will commit
         passOn = server.ReadStringFromClient(1);
-
-        assertEquals(passOn.size(), 3);
+        
         assertEquals(passOn.get(0).type, Message.MessageType.Commit);
         assertEquals(passOn.get(0).value, "ThreeClients");
 

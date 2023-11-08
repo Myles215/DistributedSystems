@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.scenarios.JustM1M2M3" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-08T03:32:35" hostname="MYLESLAPTOP" time="7.763">
+  <properties/>
+  <testcase name="runTest" classname="test.scenarios.JustM1M2M3" time="7.763"/>
+  <system-out><![CDATA[Using input port
+Connecting to server
+Connecting to server
+Server is listening on port 1234
+New client connected
+Setting up client with ID 2
+Starting up as M2
+Acting as acceptor
+Connecting to server
+New client connected
+Setting up client with ID 3
+Starting up as M3
+Acting as acceptor
+M3 is going camping, see you next round!
+M2 finished their coffee at the cafe
+New client connected
+Setting up client with ID 1
+Starting up as M2
+Acting as proposer
+M2 handling prepare from M1
+M2 finished their coffee at the cafe
+M3 handling prepare from M1
+M3 is going camping, see you next round!
+M1 Handling not connected
+M1 Handling not connected
+M1 Handling not connected
+M2 has left the cafe :(
+M1 Handling not connected
+M1 Handling not connected
+M1 Handling not connected
+M2 is back at the cafe :)
+M1 Handling promise from M2
+M1 Handling promise from M3
+M1 Received replies from 3 other members
+M2 handling propose from M1
+M2 finished their coffee at the cafe
+M3 handling propose from M1
+M2 has left the cafe :(
+M2 is back at the cafe :)
+M1 Handling accept from M3
+M1 Received replies from 2 other members
+M3 is going camping, see you next round!
+M2 finished their coffee at the cafe
+Client M2 committed value: M1IsPresident
+Client M3 committed value: M1IsPresident
+Client M1 committed value: M1IsPresident
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
