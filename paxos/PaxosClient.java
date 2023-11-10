@@ -87,7 +87,7 @@ public class PaxosClient
 
         Boolean isProposer = false;
 
-        if (args.length > 2 && args[2] != "")
+        if (args.length > 2 && args[2].length() > 1)
         {
             isProposer = true;
             acceptedValue = args[2];

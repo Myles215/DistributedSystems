@@ -20,6 +20,8 @@ MockClientDriver.java
  test.MockClientDriver
 ScaleTest.java
  test.ScaleTest
+paxos/PaxosClientDriver.java
+ paxos.PaxosClientDriver
 scenarios/M1andM2Propose.java
  test.scenarios.M1andM2Propose
 AcceptorTest.java
@@ -34,9 +36,8 @@ paxos/PaxosClient.java
  paxos.PaxosClient
  paxos.PaxosClient$Role
  paxos.PaxosClient$Stage
-ProposerTest.java
- test.ProposerTest
- test.ProposerTest$ClientThread
+scenarios/OneClientProposes.java
+ test.scenarios.OneClientProposes
 scenarios/M1M2andM3Propose.java
  test.scenarios.M1M2andM3Propose
 scenarios/M2HasRole.java
@@ -47,5 +48,6 @@ scenarios/M3HasRole.java
  test.scenarios.M3HasRole
 scenarios/M1ProposesAllRoles.java
  test.scenarios.M1ProposesAllRoles
-scenarios/OneClientProposes.java
- test.scenarios.OneClientProposes
+ProposerTest.java
+ test.ProposerTest
+ test.ProposerTest$ClientThread

@@ -1,6 +1,6 @@
 JC = javac
 
-FILES = ./paxos/LamportClock.java ./paxos/Message.java ./paxos/PaxosClient.java ./paxos/Server.java
+FILES = ./paxos/LamportClock.java ./paxos/Message.java ./paxos/PaxosClient.java ./paxos/Server.java ./paxos/PaxosClientDriver.java
 
 CONVERT = $(FILES:.java=.class)
 

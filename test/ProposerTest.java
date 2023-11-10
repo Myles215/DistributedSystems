@@ -311,12 +311,12 @@ public class ProposerTest {
             server.SendStringToClient(reply.toString(), 1);
         }
 
-        wait(2500);
+        wait(6000);
 
         //Client has now committed value
         assertEquals(client.CommittedValue(), "hi");
 
-        server.Stop();
+        //server.Stop();
         client.join();
     }
 

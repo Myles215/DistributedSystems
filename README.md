@@ -25,6 +25,22 @@ I have a testing harness in the test folder. There are proposer, acceptor and se
 server and paxos clients works as expected. I use a mock client and mock server to have control over the flow of data. I also use clients
 and a server on a thread to be able to run multiple things at once. These tests can be run with ./gradlew test. 
 
+To manually run, first run 'make' to compile everything, then do java paxos.Server from the base directory, you may use
+a port but by default it will be on 4567. After this has started you may start any number of clients. 
+To make a standard acceptor that joins and listens for proposer messages, do: java paxos.PaxosClient 'ID' 'port'
+ID corresponds to a number between 1 and 9 that identifies the client, no two clients may have the same idea and there will be an error if
+you try this. The port is obviously the port. To start a client as a proposer, similarly do: java paxos.PaxosClient 'ID' 'port' 'value' to 
+propose the value identified in args[2]. Next, to start with a client do: java paxos.PaxosClient 'ID' 'port' 'value' 'role' where role is: 2, 3
+or any number between 4 and 9. You can have each role on an accpetor or proposer, to set it to a proposer, set value to a string, to set
+it to an acceptor set value to "". 
+
+One thing to remember is proposers will not communicate with acceptors not connected when the proposer starts. So, if you want to manually run 
+start acceptors before starting the proposer.
+
+Role explanation. Role 2 when a proposer sometimes leaves the cafe and when an accpetor sometimes misses messages as they are forgetful or 
+at the cafe. Role 3 makes the proposer go to sleep for long periods and miss messages when camping as an acceptor. Role 4 to 9
+makes acceptors miss some messages.
+
 ## Scenarios
 To fill in assignment requirements I've made a few 'scenarios' files in the test directory. These can be run with:
 ./gradlew test --tests 'testName'

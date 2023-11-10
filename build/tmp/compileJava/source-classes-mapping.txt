@@ -22,23 +22,14 @@ test/ThreadedServer.java
  test.ThreadedServer
 test/AcceptorTest.java
  test.AcceptorTest
-test/scenarios/M1andM2Propose.java
- test.scenarios.M1andM2Propose
 test/scenarios/JustM1M2M3.java
  test.scenarios.JustM1M2M3
 test/scenarios/M1M2andM3Propose.java
  test.scenarios.M1M2andM3Propose
-test/scenarios/OneClientProposes.java
- test.scenarios.OneClientProposes
 test/ClientThread.java
  test.ClientThread
-test/scenarios/M3HasRole.java
- test.scenarios.M3HasRole
-test/scenarios/M2HasRole.java
- test.scenarios.M2HasRole
-test/ProposerTest.java
- test.ProposerTest
- test.ProposerTest$ClientThread
+paxos/PaxosClientDriver.java
+ paxos.PaxosClientDriver
 test/scenarios/M1ProposesAllRoles.java
  test.scenarios.M1ProposesAllRoles
 test/scenarios/M2ProposesThenLeaves.java
@@ -49,3 +40,14 @@ paxos/PaxosClient.java
  paxos.PaxosClient$Stage
 test/scenarios/M4to9HaveRoles.java
  test.scenarios.M4to9HaveRoles
+test/scenarios/M1andM2Propose.java
+ test.scenarios.M1andM2Propose
+test/scenarios/OneClientProposes.java
+ test.scenarios.OneClientProposes
+test/scenarios/M3HasRole.java
+ test.scenarios.M3HasRole
+test/scenarios/M2HasRole.java
+ test.scenarios.M2HasRole
+test/ProposerTest.java
+ test.ProposerTest
+ test.ProposerTest$ClientThread

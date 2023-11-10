@@ -1,5 +1,5 @@
-Connecting to server
 'Starting to accept client connections
+Connecting to server
 Accepting new client
 Setting up client with ID 1
 Acting as acceptor
@@ -22,8 +22,8 @@
 M1 handling propose from M2
 M1 handling prepare from M2
 !Client M1 committed value: STOP
-'Starting to accept client connections
 Connecting to server
+'Starting to accept client connections
 Accepting new client
 Setting up client with ID 1
 Acting as proposer
@@ -40,3337 +40,9 @@
 M1 Handling accept from M1
 M1 Handling accept from M2
 *M1 Received replies from 3 other members
+Client M1 committed value: hi
 'Starting to accept client connections
 Connecting to server
 Accepting new client
 Setting up client with ID 1
 Acting as proposer
-Client M1 committed value: hi
-*M1 Received replies from 1 other members
-AM1 Failed prepare, will retry value Proposes with higher ID - 2
-!Client M1 committed value: STOP
-'Starting to accept client connections
-Connecting to server
-Accepting new client
-Setting up client with ID 1
-Acting as proposer
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-*M1 Received replies from 1 other members
-=M1 Failed prepare, will retry value PFTR with higher ID - 2
-!Client M1 committed value: STOP
-	'Starting to accept client connections
-	Connecting to server
-	Accepting new client
-	Setting up client with ID 1
-	Acting as proposer
-	M1 Handling not connected
-	M1 Handling not connected
-	M1 Handling not connected
-	M1 Handling not connected
-	M1 Handling not connected
-	M1 Handling not connected
-	M1 Handling not connected
-	M1 Handling promise from M1
-	M1 Handling promise from M2
-	*M1 Received replies from 3 other members
-	!Client M1 committed value: STOP
-
-'Starting to accept client connections
-
-Connecting to server
-
-Accepting new client
-
-Setting up client with ID 1
-
-Acting as acceptor
-
-!Client M1 committed value: STOP
-'Starting to accept client connections
-Connecting to server
-Accepting new client
-Setting up client with ID 1
-Acting as proposer
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling promise from M2
-M1 Handling promise from M1
-4M1 changed to propose new value from M1 : newValue
-*M1 Received replies from 3 other members
-!Client M1 committed value: STOP
-Connecting to server
-'Starting to accept client connections
-Accepting new client
-Setting up client with ID 1
-'Starting to accept client connections
-Acting as proposer
-Connecting to server
-Accepting new client
-Setting up client with ID 2
-Acting as acceptor
-'Starting to accept client connections
-Connecting to server
-Accepting new client
-Setting up client with ID 3
-Acting as acceptor
-M3 handling prepare from M1
-M2 handling prepare from M1
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling promise from M2
-M1 Handling promise from M3
-*M1 Received replies from 3 other members
-M2 handling propose from M1
-M3 handling propose from M1
-M1 Handling accept from M2
-M1 Handling accept from M3
-*M1 Received replies from 3 other members
-)Client M3 committed value: ThreeClients
-)Client M2 committed value: ThreeClients
-)Client M1 committed value: ThreeClients
-Using input port
-Connecting to server
-Connecting to server
-"Server is listening on port 1234
-New client connected
-Setting up client with ID 2
-Starting up as M2
-Acting as acceptor
-Connecting to server
-New client connected
-Setting up client with ID 3
-Starting up as M3
-Acting as acceptor
-*M3 is going camping, see you next round!
-&M2 finished their coffee at the cafe
-New client connected
-Setting up client with ID 1
-Starting up as M2
-Acting as proposer
-M2 handling prepare from M1
-&M2 finished their coffee at the cafe
-M3 handling prepare from M1
-*M3 is going camping, see you next round!
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M2 has left the cafe :(
-M1 Handling not connected
-M1 Handling not connected
-M1 Handling not connected
-M2 is back at the cafe :)
-M1 Handling promise from M2
-M1 Handling promise from M3
-*M1 Received replies from 3 other members
-M2 handling propose from M1
-&M2 finished their coffee at the cafe
-M3 handling propose from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M1 Handling accept from M3
-*M1 Received replies from 2 other members
-*M3 is going camping, see you next round!
-&M2 finished their coffee at the cafe
-*Client M2 committed value: M1IsPresident
-*Client M3 committed value: M1IsPresident
-*Client M1 committed value: M1IsPresident
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Using input port
-Connecting to server
-Connecting to server
-"Server is listening on port 1379
-New client connected
-Setting up client with ID 4
-Acting as acceptor
-New client connected
-Setting up client with ID 8
-Acting as acceptor
-Connecting to server
-Connecting to server
-New client connected
-Setting up client with ID 3
-Acting as acceptor
-New client connected
-Setting up client with ID 7
-Acting as acceptor
-New client connected
-Setting up client with ID 6
-Acting as acceptor
-New client connected
-Setting up client with ID 5
-Acting as acceptor
-New client connected
-Setting up client with ID 9
-Acting as acceptor
-New client connected
-Setting up client with ID 2
-Acting as proposer
-New client connected
-Setting up client with ID 1
-Acting as proposer
-M6 handling prepare from M2
-M3 handling prepare from M2
-M7 handling prepare from M2
-M4 handling prepare from M2
-M5 handling prepare from M2
-M8 handling prepare from M2
-M9 handling prepare from M2
-M9 handling prepare from M1
-M8 handling prepare from M1
-M7 handling prepare from M1
-M7 handling prepare from M1
-M7 handling prepare from M1
-M6 handling prepare from M1
-M3 handling prepare from M1
-M5 handling prepare from M1
-M4 handling prepare from M1
-M2 Handling promise from M3
-M2 Handling promise from M7
-M2 Handling promise from M6
-M2 Handling promise from M5
-M2 Handling promise from M4
-M2 Handling promise from M9
-M2 Handling promise from M8
-*M2 Received replies from 8 other members
-M8 handling propose from M2
-"M8 Ignoring old proposal from M2
-M9 handling propose from M2
-"M9 Ignoring old proposal from M2
-M3 handling propose from M2
-"M3 Ignoring old proposal from M2
-M6 handling propose from M2
-"M6 Ignoring old proposal from M2
-M7 handling propose from M2
-"M7 Ignoring old proposal from M2
-M5 handling propose from M2
-"M5 Ignoring old proposal from M2
-M4 handling propose from M2
-"M4 Ignoring old proposal from M2
-M1 Handling promise from M9
-M1 Handling promise from M8
-M1 Handling promise from M7
-M1 Handling promise from M7
-M1 Handling promise from M7
-M1 Handling promise from M3
-M1 Handling promise from M6
-M1 Handling promise from M5
-M1 Handling promise from M4
-*M1 Received replies from 8 other members
-M9 handling propose from M1
-M8 handling propose from M1
-M6 handling propose from M1
-M7 handling propose from M1
-M3 handling propose from M1
-M3 handling propose from M1
-M5 handling propose from M1
-M4 handling propose from M1
-M4 handling propose from M1
-*M2 Received replies from 1 other members
-FM2 Failed prepare, will retry value M2IsPresident with higher ID - 2
-M9 handling prepare from M2
-M7 handling prepare from M2
-M6 handling prepare from M2
-M3 handling prepare from M2
-M5 handling prepare from M2
-M4 handling prepare from M2
-M1 Handling accept from M9
-M1 Handling accept from M8
-M1 Handling accept from M3
-M1 Handling accept from M3
-M1 Handling accept from M6
-M1 Handling accept from M7
-M1 Handling accept from M5
-M1 Handling accept from M4
-M1 Handling accept from M4
-*M1 Received replies from 8 other members
-M8 handling prepare from M2
-*Client M3 committed value: M1IsPresident
-*Client M6 committed value: M1IsPresident
-*Client M7 committed value: M1IsPresident
-*Client M4 committed value: M1IsPresident
-*Client M5 committed value: M1IsPresident
-*Client M8 committed value: M1IsPresident
-*Client M9 committed value: M1IsPresident
-M2 Handling promise from M9
-9M2 changed to propose new value from M9 : M1IsPresident
-M2 Handling promise from M7
-M2 Handling promise from M6
-M2 Handling promise from M3
-M2 Handling promise from M4
-M2 Handling promise from M5
-M2 Handling promise from M8
-*M2 Received replies from 1 other members
-FM2 Failed prepare, will retry value M1IsPresident with higher ID - 3
-*Client M2 committed value: M1IsPresident
-*Client M1 committed value: M1IsPresident
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Using input port
-Connecting to server
-Connecting to server
-"Server is listening on port 1378
-New client connected
-Setting up client with ID 6
-Acting as acceptor
-New client connected
-Setting up client with ID 5
-Acting as acceptor
-Connecting to server
-Connecting to server
-Connecting to server
-New client connected
-Setting up client with ID 4
-Acting as acceptor
-New client connected
-Setting up client with ID 9
-Acting as acceptor
-New client connected
-Setting up client with ID 8
-Acting as acceptor
-New client connected
-Setting up client with ID 7
-Acting as acceptor
-New client connected
-Setting up client with ID 2
-Starting up as M2
-Acting as proposer
-New client connected
-Setting up client with ID 3
-Starting up as M3
-Acting as proposer
-New client connected
-Setting up client with ID 1
-Acting as proposer
-M6 handling prepare from M2
-M5 handling prepare from M2
-M8 handling prepare from M2
-M8 handling prepare from M2
-M4 handling prepare from M2
-M9 handling prepare from M2
-M7 handling prepare from M2
-M6 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M9 handling prepare from M3
-M7 handling prepare from M3
-M5 handling prepare from M3
-M5 handling prepare from M1
-M6 handling prepare from M1
-M9 handling prepare from M1
-M8 handling prepare from M1
-M4 handling prepare from M1
-M7 handling prepare from M1
-M2 Handling promise from M6
-M2 Handling promise from M5
-M2 Handling promise from M8
-M2 Handling promise from M8
-M2 Handling promise from M9
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M7
-*M2 Received replies from 6 other members
-M5 handling propose from M2
-"M5 Ignoring old proposal from M2
-M6 handling propose from M2
-"M6 Ignoring old proposal from M2
-M9 handling propose from M2
-"M9 Ignoring old proposal from M2
-M4 handling propose from M2
-"M4 Ignoring old proposal from M2
-M4 handling propose from M2
-"M4 Ignoring old proposal from M2
-M8 handling propose from M2
-"M8 Ignoring old proposal from M2
-M7 handling propose from M2
-"M7 Ignoring old proposal from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M6
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M9
-M3 Handling promise from M4
-M3 has gone camping :(
-*M3 Received replies from 4 other members
-FM3 Failed prepare, will retry value M3IsPresident with higher ID - 2
-M5 handling prepare from M3
-M6 handling prepare from M3
-M7 handling prepare from M3
-M8 handling prepare from M3
-M4 handling prepare from M3
-M9 handling prepare from M3
-M1 Handling promise from M5
-M1 Handling promise from M6
-M1 Handling promise from M9
-M1 Handling promise from M4
-M1 Handling promise from M8
-M1 Handling promise from M7
-*M1 Received replies from 7 other members
-M5 handling propose from M1
-"M5 Ignoring old proposal from M1
-M5 handling propose from M1
-"M5 Ignoring old proposal from M1
-M6 handling propose from M1
-"M6 Ignoring old proposal from M1
-M6 handling propose from M1
-"M6 Ignoring old proposal from M1
-M7 handling propose from M1
-"M7 Ignoring old proposal from M1
-M8 handling propose from M1
-"M8 Ignoring old proposal from M1
-M4 handling propose from M1
-"M4 Ignoring old proposal from M1
-M9 handling propose from M1
-"M9 Ignoring old proposal from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-FM2 Failed prepare, will retry value M2IsPresident with higher ID - 2
-M9 handling prepare from M2
-M8 handling prepare from M2
-M7 handling prepare from M2
-M4 handling prepare from M2
-M5 handling prepare from M2
-M5 handling prepare from M2
-M6 handling prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M7
-M3 Handling promise from M8
-M3 has gone camping :(
-M3 is back from camping :)
-*M3 Received replies from 3 other members
-FM3 Failed prepare, will retry value M3IsPresident with higher ID - 3
-M7 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-M9 handling prepare from M3
-*M1 Received replies from 1 other members
-FM1 Failed prepare, will retry value M1IsPresident with higher ID - 2
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M2 Handling promise from M9
-M2 Handling promise from M7
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M5
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 4 other members
-FM2 Failed prepare, will retry value M2IsPresident with higher ID - 3
-M5 handling prepare from M2
-M6 handling prepare from M2
-M9 handling prepare from M2
-M6 handling prepare from M2
-M6 handling prepare from M2
-M7 handling prepare from M2
-M4 handling prepare from M2
-M8 handling prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M6
-M3 has gone camping :(
-*M3 Received replies from 2 other members
-FM3 Failed prepare, will retry value M3IsPresident with higher ID - 4
-M6 handling prepare from M3
-M9 handling prepare from M3
-M5 handling prepare from M3
-M8 handling prepare from M3
-M4 handling prepare from M3
-M7 handling prepare from M3
-*M1 Received replies from 1 other members
-FM1 Failed prepare, will retry value M1IsPresident with higher ID - 3
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-!M8 Ignoring old prepare from M1
-M5 handling prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M5 Ignoring old prepare from M1
-!M6 Ignoring old prepare from M1
-M2 Handling promise from M6
-M2 Handling promise from M9
-M2 Handling promise from M6
-M2 Handling promise from M6
-M2 Handling promise from M5
-M2 Handling promise from M7
-M2 Handling promise from M8
-M2 Handling promise from M4
-M2 has left the cafe :(
-*M2 Received replies from 7 other members
-M7 handling propose from M2
-"M7 Ignoring old proposal from M2
-M8 handling propose from M2
-"M8 Ignoring old proposal from M2
-M4 handling propose from M2
-"M4 Ignoring old proposal from M2
-M5 handling propose from M2
-"M5 Ignoring old proposal from M2
-M6 handling propose from M2
-M9 handling propose from M2
-"M6 Ignoring old proposal from M2
-"M9 Ignoring old proposal from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M4
-M3 has gone camping :(
-*M3 Received replies from 2 other members
-FM3 Failed prepare, will retry value M3IsPresident with higher ID - 5
-M7 handling prepare from M3
-M8 handling prepare from M3
-M4 handling prepare from M3
-M9 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-*M1 Received replies from 1 other members
-FM1 Failed prepare, will retry value M1IsPresident with higher ID - 4
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 1 other members
-FM2 Failed prepare, will retry value M2IsPresident with higher ID - 4
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M8 handling prepare from M2
-M7 handling prepare from M2
-!M8 Ignoring old prepare from M2
-!M7 Ignoring old prepare from M2
-M3 Handling promise from M7
-M3 has gone camping :(
-*M3 Received replies from 2 other members
-FM3 Failed prepare, will retry value M3IsPresident with higher ID - 6
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M9 handling prepare from M3
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M6 handling prepare from M3
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M5 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-*M1 Received replies from 1 other members
-FM1 Failed prepare, will retry value M1IsPresident with higher ID - 5
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-*M2 Received replies from 1 other members
-FM2 Failed prepare, will retry value M2IsPresident with higher ID - 5
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M4 handling prepare from M2
-M8 handling prepare from M2
-M7 handling prepare from M2
-!M4 Ignoring old prepare from M2
-!M8 Ignoring old prepare from M2
-!M7 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-*M3 Received replies from 1 other members
-FM3 Failed prepare, will retry value M3IsPresident with higher ID - 7
-M5 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M7 handling prepare from M3
-M8 handling prepare from M3
-M4 handling prepare from M3
-*M1 Received replies from 1 other members
-FM1 Failed prepare, will retry value M1IsPresident with higher ID - 6
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-FM2 Failed prepare, will retry value M2IsPresident with higher ID - 6
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-*M3 Received replies from 1 other members
-FM3 Failed prepare, will retry value M3IsPresident with higher ID - 8
-M6 handling prepare from M3
-M5 handling prepare from M3
-M8 handling prepare from M3
-M4 handling prepare from M3
-M7 handling prepare from M3
-M9 handling prepare from M3
-*M1 Received replies from 1 other members
-FM1 Failed prepare, will retry value M1IsPresident with higher ID - 7
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M7 handling prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-!M7 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-FM2 Failed prepare, will retry value M2IsPresident with higher ID - 7
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M3 has gone camping :(
-M4 handling prepare from M2
-M3 is back from camping :)
-M3 Handling promise from M6
-!M4 Ignoring old prepare from M2
-M3 Handling promise from M8
-M3 Handling promise from M7
-M3 Handling promise from M9
-*M3 Received replies from 5 other members
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M4 handling propose from M3
-M9 handling propose from M3
-M6 handling propose from M3
-M5 handling propose from M3
-M8 handling propose from M3
-M7 handling propose from M3
-*M1 Received replies from 1 other members
-FM1 Failed prepare, will retry value M1IsPresident with higher ID - 8
-M9 handling prepare from M1
-M6 handling prepare from M1
-M5 handling prepare from M1
-M8 handling prepare from M1
-M7 handling prepare from M1
-M4 handling prepare from M1
-*M2 Received replies from 1 other members
-FM2 Failed prepare, will retry value M2IsPresident with higher ID - 8
-M5 handling prepare from M2
-M7 handling prepare from M2
-M4 handling prepare from M2
-M8 handling prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling accept from M6
-*M3 Received replies from 2 other members
-FM3 Failed prepare, will retry value M3IsPresident with higher ID - 9
-M7 handling prepare from M3
-M7 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M8 handling prepare from M3
-M6 handling prepare from M2
-M5 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M2
-M6 handling prepare from M3
-M9 handling prepare from M3
-M1 Handling promise from M5
-9M1 changed to propose new value from M5 : M3IsPresident
-M1 Handling promise from M9
-M1 Handling promise from M8
-M1 Handling promise from M4
-M1 Handling promise from M6
-M1 Handling promise from M7
-*M1 Received replies from 7 other members
-M9 handling propose from M1
-"M9 Ignoring old proposal from M1
-M6 handling propose from M1
-"M6 Ignoring old proposal from M1
-M5 handling propose from M1
-"M5 Ignoring old proposal from M1
-M7 handling propose from M1
-"M7 Ignoring old proposal from M1
-M4 handling propose from M1
-"M4 Ignoring old proposal from M1
-M8 handling propose from M1
-"M8 Ignoring old proposal from M1
-M2 Handling promise from M5
-9M2 changed to propose new value from M5 : M3IsPresident
-M2 Handling promise from M7
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M6
-M2 has left the cafe :(
-*M2 Received replies from 4 other members
-FM2 Failed prepare, will retry value M3IsPresident with higher ID - 9
-M8 handling prepare from M2
-M4 handling prepare from M2
-M4 handling prepare from M2
-M7 handling prepare from M2
-M5 handling prepare from M2
-M6 handling prepare from M2
-M9 handling prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M8
-9M3 changed to propose new value from M8 : M3IsPresident
-M3 Handling promise from M7
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M4
-M3 Handling promise from M5
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M6
-M3 Handling promise from M9
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 10
-M9 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-M7 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-*M1 Received replies from 1 other members
-FM1 Failed prepare, will retry value M3IsPresident with higher ID - 9
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M4
-9M2 changed to propose new value from M4 : M3IsPresident
-M2 Handling promise from M8
-M2 Handling promise from M7
-M2 Handling promise from M9
-M2 Handling promise from M6
-M2 has left the cafe :(
-*M2 Received replies from 6 other members
-M4 handling propose from M2
-"M4 Ignoring old proposal from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M8
-9M3 changed to propose new value from M8 : M3IsPresident
-M3 Handling promise from M7
-M3 has gone camping :(
-M3 is back from camping :)
-*M3 Received replies from 3 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 11
-M5 handling propose from M2
-"M5 Ignoring old proposal from M2
-M5 handling prepare from M3
-M4 handling prepare from M3
-M7 handling propose from M2
-"M7 Ignoring old proposal from M2
-M7 handling prepare from M3
-M8 handling propose from M2
-"M8 Ignoring old proposal from M2
-M8 handling prepare from M3
-M9 handling propose from M2
-"M9 Ignoring old proposal from M2
-M9 handling prepare from M3
-M6 handling propose from M2
-"M6 Ignoring old proposal from M2
-M6 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 10
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 10
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M3 has gone camping :(
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 12
-M7 handling prepare from M3
-M8 handling prepare from M3
-M4 handling prepare from M3
-M5 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 11
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 11
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M5
-9M3 changed to propose new value from M5 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-*M3 Received replies from 2 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 13
-M4 handling prepare from M3
-M7 handling prepare from M3
-M8 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-M9 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 12
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M4 handling prepare from M1
-M8 handling prepare from M1
-!M4 Ignoring old prepare from M1
-!M8 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 12
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M7
-9M3 changed to propose new value from M7 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M6
-M3 Handling promise from M5
-M3 has gone camping :(
-*M3 Received replies from 4 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 14
-M8 handling prepare from M3
-M4 handling prepare from M3
-M7 handling prepare from M3
-M9 handling prepare from M3
-M5 handling prepare from M3
-M6 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 13
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 13
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M3 Handling promise from M8
-9M3 changed to propose new value from M8 : M3IsPresident
-M3 Handling promise from M7
-M3 Handling promise from M4
-M3 Handling promise from M5
-M3 Handling promise from M6
-M3 Handling promise from M9
-M3 has gone camping :(
-*M3 Received replies from 7 other members
-M4 handling propose from M3
-M7 handling propose from M3
-M8 handling propose from M3
-M9 handling propose from M3
-M6 handling propose from M3
-M5 handling propose from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 14
-M6 handling prepare from M1
-M9 handling prepare from M1
-M5 handling prepare from M1
-M8 handling prepare from M1
-M4 handling prepare from M1
-M7 handling prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 14
-M8 handling prepare from M2
-M4 handling prepare from M2
-M7 handling prepare from M2
-M5 handling prepare from M2
-M9 handling prepare from M2
-M6 handling prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling accept from M4
-M3 Handling accept from M7
-M3 has gone camping :(
-*M3 Received replies from 3 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 15
-M7 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M5 handling prepare from M3
-M1 Handling promise from M6
-9M1 changed to propose new value from M6 : M3IsPresident
-M1 Handling promise from M9
-M1 Handling promise from M5
-M1 Handling promise from M8
-M1 Handling promise from M4
-M1 Handling promise from M7
-*M1 Received replies from 7 other members
-M4 handling propose from M1
-"M4 Ignoring old proposal from M1
-M7 handling propose from M1
-"M7 Ignoring old proposal from M1
-M6 handling propose from M1
-"M6 Ignoring old proposal from M1
-M5 handling propose from M1
-"M5 Ignoring old proposal from M1
-M9 handling propose from M1
-"M9 Ignoring old proposal from M1
-M8 handling propose from M1
-"M8 Ignoring old proposal from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M7
-9M2 changed to propose new value from M7 : M3IsPresident
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M5
-M2 has left the cafe :(
-*M2 Received replies from 3 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 15
-M8 handling prepare from M2
-M7 handling prepare from M2
-M4 handling prepare from M2
-M9 handling prepare from M2
-M6 handling prepare from M2
-M5 handling prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M7
-9M3 changed to propose new value from M7 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M5
-M3 Handling promise from M8
-M3 has gone camping :(
-*M3 Received replies from 4 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 16
-M5 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-M4 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 15
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M7 handling prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-!M7 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M2 Handling promise from M8
-9M2 changed to propose new value from M8 : M3IsPresident
-M2 Handling promise from M4
-M2 Handling promise from M7
-M2 Handling promise from M9
-M2 Handling promise from M5
-M2 Handling promise from M6
-M2 has left the cafe :(
-*M2 Received replies from 7 other members
-M5 handling propose from M2
-"M5 Ignoring old proposal from M2
-M5 handling propose from M2
-"M5 Ignoring old proposal from M2
-M5 handling propose from M2
-"M5 Ignoring old proposal from M2
-M6 handling propose from M2
-M4 handling propose from M2
-"M4 Ignoring old proposal from M2
-M4 handling propose from M2
-"M4 Ignoring old proposal from M2
-M4 handling propose from M2
-"M4 Ignoring old proposal from M2
-"M6 Ignoring old proposal from M2
-M8 handling propose from M2
-"M8 Ignoring old proposal from M2
-M7 handling propose from M2
-"M7 Ignoring old proposal from M2
-M6 handling propose from M2
-"M6 Ignoring old proposal from M2
-M6 handling propose from M2
-"M6 Ignoring old proposal from M2
-M9 handling propose from M2
-"M9 Ignoring old proposal from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M4
-9M3 changed to propose new value from M4 : M3IsPresident
-M3 has gone camping :(
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 17
-M7 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M5 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 16
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 16
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M4
-9M3 changed to propose new value from M4 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M9
-M3 has gone camping :(
-*M3 Received replies from 3 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 18
-M7 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M5 handling prepare from M3
-M9 handling prepare from M3
-M6 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 17
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 17
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M4
-9M3 changed to propose new value from M4 : M3IsPresident
-M3 Handling promise from M8
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M6
-M3 has gone camping :(
-M3 is back from camping :)
-*M3 Received replies from 4 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 19
-M8 handling prepare from M3
-M4 handling prepare from M3
-M7 handling prepare from M3
-M9 handling prepare from M3
-M5 handling prepare from M3
-M6 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 18
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 18
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M4
-9M3 changed to propose new value from M4 : M3IsPresident
-M3 has gone camping :(
-*M3 Received replies from 2 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 20
-M9 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 19
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M7 handling prepare from M1
-M8 handling prepare from M1
-!M7 Ignoring old prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 19
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M6 handling prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M7
-9M3 changed to propose new value from M7 : M3IsPresident
-*M3 Received replies from 2 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 21
-M4 handling prepare from M3
-M7 handling prepare from M2
-M8 handling prepare from M3
-!M7 Ignoring old prepare from M2
-M7 handling prepare from M3
-M5 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 20
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 20
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M4
-9M3 changed to propose new value from M4 : M3IsPresident
-M3 Handling promise from M5
-M3 has gone camping :(
-M3 is back from camping :)
-M3 has gone camping :(
-*M3 Received replies from 3 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 22
-M4 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-M9 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 21
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 21
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M3 Handling promise from M4
-9M3 changed to propose new value from M4 : M3IsPresident
-M3 Handling promise from M8
-M3 has gone camping :(
-M3 is back from camping :)
-M3 has gone camping :(
-*M3 Received replies from 3 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 23
-M4 handling prepare from M3
-M8 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-M9 handling prepare from M3
-M7 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 22
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 22
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M5
-9M3 changed to propose new value from M5 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M6
-M3 Handling promise from M7
-M3 has gone camping :(
-*M3 Received replies from 4 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 24
-M6 handling prepare from M3
-M9 handling prepare from M2
-M5 handling prepare from M3
-!M9 Ignoring old prepare from M2
-M9 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 23
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 23
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M4
-9M3 changed to propose new value from M4 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-*M3 Received replies from 2 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 25
-M7 handling prepare from M3
-M8 handling prepare from M3
-M4 handling prepare from M3
-M9 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 24
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 24
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M3 Handling promise from M7
-9M3 changed to propose new value from M7 : M3IsPresident
-M3 has gone camping :(
-*M3 Received replies from 2 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 26
-M6 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M5 handling prepare from M3
-M5 handling prepare from M3
-M4 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-M7 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 25
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 25
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M9
-9M3 changed to propose new value from M9 : M3IsPresident
-M3 Handling promise from M5
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M4
-M3 Handling promise from M8
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 27
-M6 handling prepare from M3
-M6 handling prepare from M3
-M6 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M5 handling prepare from M3
-M5 handling prepare from M3
-M5 handling prepare from M3
-M5 handling prepare from M3
-M4 handling prepare from M3
-M4 handling prepare from M3
-M4 handling prepare from M3
-M4 handling prepare from M3
-M7 handling prepare from M3
-M8 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 26
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M7 handling prepare from M1
-M4 handling prepare from M1
-!M7 Ignoring old prepare from M1
-!M4 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 26
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M3 has gone camping :(
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 28
-M5 handling prepare from M3
-M5 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M7 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 27
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 27
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 29
-M7 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 28
-M9 handling prepare from M3
-M6 handling prepare from M3
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M3
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M9 handling prepare from M1
-M4 handling prepare from M1
-M7 handling prepare from M1
-!M9 Ignoring old prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-!M7 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 28
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 30
-M7 handling prepare from M3
-M8 handling prepare from M3
-M4 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M5 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 29
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 29
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M7 handling prepare from M2
-M8 handling prepare from M2
-M5 handling prepare from M2
-!M8 Ignoring old prepare from M2
-!M5 Ignoring old prepare from M2
-!M7 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 31
-M5 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-M4 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 30
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 30
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M5
-9M3 changed to propose new value from M5 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M7
-M3 Handling promise from M4
-*M3 Received replies from 4 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 32
-M9 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-M8 handling prepare from M3
-M4 handling prepare from M3
-M7 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 31
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 31
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M9
-9M3 changed to propose new value from M9 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M8
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 33
-M9 handling prepare from M3
-M5 handling prepare from M3
-M6 handling prepare from M3
-M7 handling prepare from M3
-M8 handling prepare from M3
-M4 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 32
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 32
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M4 handling prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-!M4 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M7
-9M3 changed to propose new value from M7 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 34
-M7 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-M9 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 33
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 33
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M3 Handling promise from M7
-9M3 changed to propose new value from M7 : M3IsPresident
-M3 Handling promise from M4
-M3 Handling promise from M8
-M3 Handling promise from M5
-M3 Handling promise from M6
-M3 Handling promise from M9
-M3 has gone camping :(
-*M3 Received replies from 7 other members
-M4 handling propose from M3
-M8 handling propose from M3
-M7 handling propose from M3
-M9 handling propose from M3
-M5 handling propose from M3
-M6 handling propose from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 34
-M8 handling prepare from M1
-M4 handling prepare from M1
-M7 handling prepare from M1
-M9 handling prepare from M1
-M5 handling prepare from M1
-M6 handling prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 34
-M8 handling prepare from M2
-M7 handling prepare from M2
-M4 handling prepare from M2
-M9 handling prepare from M2
-M6 handling prepare from M2
-M5 handling prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling accept from M6
-M3 has gone camping :(
-*M3 Received replies from 2 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 35
-M5 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-M4 handling prepare from M3
-M1 Handling promise from M8
-9M1 changed to propose new value from M8 : M3IsPresident
-M1 Handling promise from M4
-M1 Handling promise from M7
-M1 Handling promise from M9
-M1 Handling promise from M5
-M1 Handling promise from M6
-*M1 Received replies from 7 other members
-M9 handling propose from M1
-"M9 Ignoring old proposal from M1
-M6 handling propose from M1
-"M6 Ignoring old proposal from M1
-M5 handling propose from M1
-"M5 Ignoring old proposal from M1
-M8 handling propose from M1
-"M8 Ignoring old proposal from M1
-M7 handling propose from M1
-"M7 Ignoring old proposal from M1
-M4 handling propose from M1
-"M4 Ignoring old proposal from M1
-M2 Handling promise from M8
-9M2 changed to propose new value from M8 : M3IsPresident
-M2 Handling promise from M4
-M2 Handling promise from M7
-M2 Handling promise from M9
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M6
-*M2 Received replies from 6 other members
-M7 handling propose from M2
-"M7 Ignoring old proposal from M2
-M8 handling propose from M2
-"M8 Ignoring old proposal from M2
-M4 handling propose from M2
-"M4 Ignoring old proposal from M2
-M6 handling propose from M2
-"M6 Ignoring old proposal from M2
-M9 handling propose from M2
-"M9 Ignoring old proposal from M2
-M5 handling propose from M2
-"M5 Ignoring old proposal from M2
-M3 has gone camping :(
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 36
-M4 handling prepare from M3
-M9 handling prepare from M3
-M5 handling prepare from M3
-M6 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 35
-M7 handling prepare from M3
-M8 handling prepare from M3
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 35
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M3 Handling promise from M4
-9M3 changed to propose new value from M4 : M3IsPresident
-M3 has gone camping :(
-*M3 Received replies from 2 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 37
-M5 handling prepare from M3
-M9 handling prepare from M3
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M6 handling prepare from M3
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M8 handling prepare from M3
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M3
-M7 handling prepare from M3
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 36
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 36
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 38
-M4 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-M9 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 37
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 37
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M4
-9M3 changed to propose new value from M4 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-M3 has gone camping :(
-*M3 Received replies from 2 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 39
-M6 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M5 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 38
-M8 handling prepare from M3
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M7 handling prepare from M3
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M4 handling prepare from M3
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 38
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M3 has gone camping :(
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 40
-M6 handling prepare from M3
-M6 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M5 handling prepare from M3
-M5 handling prepare from M3
-M5 handling prepare from M3
-M4 handling prepare from M3
-M4 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-M7 handling prepare from M3
-M7 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 39
-M9 handling prepare from M1
-M5 handling prepare from M1
-M6 handling prepare from M1
-!M9 Ignoring old prepare from M1
-!M6 Ignoring old prepare from M1
-!M5 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 39
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M5
-9M3 changed to propose new value from M5 : M3IsPresident
-M3 Handling promise from M5
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 41
-M7 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-M9 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 40
-M4 handling prepare from M3
-M8 handling prepare from M3
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 40
-M4 handling prepare from M2
-!M4 Ignoring old prepare from M2
-M8 handling prepare from M2
-!M8 Ignoring old prepare from M2
-M7 handling prepare from M2
-!M7 Ignoring old prepare from M2
-M5 handling prepare from M2
-!M5 Ignoring old prepare from M2
-M6 handling prepare from M2
-!M6 Ignoring old prepare from M2
-M9 handling prepare from M2
-!M9 Ignoring old prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M7
-9M3 changed to propose new value from M7 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M6
-M3 Handling promise from M9
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M8
-*M3 Received replies from 5 other members
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 41
-M5 handling propose from M3
-M5 handling prepare from M1
-M6 handling propose from M3
-M9 handling propose from M3
-M6 handling prepare from M1
-M9 handling prepare from M1
-M7 handling propose from M3
-M7 handling prepare from M1
-M8 handling propose from M3
-M8 handling prepare from M1
-M4 handling propose from M3
-M4 handling prepare from M1
-M4 handling prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 41
-M7 handling prepare from M2
-M7 handling prepare from M2
-M4 handling prepare from M2
-M4 handling prepare from M2
-M4 handling prepare from M2
-M8 handling prepare from M2
-M8 handling prepare from M2
-M9 handling prepare from M2
-M6 handling prepare from M2
-M5 handling prepare from M2
-M5 handling prepare from M2
-M5 handling prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling accept from M7
-M3 Handling accept from M8
-M3 Handling accept from M4
-M3 has gone camping :(
-*M3 Received replies from 4 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 42
-M5 handling prepare from M3
-M6 handling prepare from M3
-M9 handling prepare from M3
-M1 Handling promise from M5
-9M1 changed to propose new value from M5 : M3IsPresident
-M1 Handling promise from M6
-M1 Handling promise from M9
-M1 Handling promise from M7
-M1 Handling promise from M8
-M1 Handling promise from M4
-M1 Handling promise from M4
-*M1 Received replies from 7 other members
-M8 handling prepare from M3
-M8 handling propose from M1
-"M8 Ignoring old proposal from M1
-M7 handling prepare from M3
-M7 handling propose from M1
-"M7 Ignoring old proposal from M1
-M4 handling prepare from M3
-M4 handling propose from M1
-"M4 Ignoring old proposal from M1
-M5 handling propose from M1
-"M5 Ignoring old proposal from M1
-M6 handling propose from M1
-"M6 Ignoring old proposal from M1
-M9 handling propose from M1
-"M9 Ignoring old proposal from M1
-M2 Handling promise from M7
-9M2 changed to propose new value from M7 : M3IsPresident
-M2 Handling promise from M7
-M2 Handling promise from M4
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M6
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 42
-M8 handling prepare from M2
-M7 handling prepare from M2
-M4 handling prepare from M2
-M6 handling prepare from M2
-M9 handling prepare from M2
-M5 handling prepare from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M6
-9M3 changed to propose new value from M6 : M3IsPresident
-M3 Handling promise from M5
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M8
-M3 Handling promise from M7
-M3 Handling promise from M4
-M3 has gone camping :(
-*M3 Received replies from 6 other members
-M7 handling propose from M3
-"M7 Ignoring old proposal from M3
-M4 handling propose from M3
-"M4 Ignoring old proposal from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 42
-M5 handling propose from M3
-"M5 Ignoring old proposal from M3
-M5 handling propose from M3
-"M5 Ignoring old proposal from M3
-M5 handling prepare from M1
-M9 handling propose from M3
-M6 handling propose from M3
-"M6 Ignoring old proposal from M3
-"M9 Ignoring old proposal from M3
-M8 handling propose from M3
-"M8 Ignoring old proposal from M3
-M8 handling prepare from M1
-M7 handling prepare from M1
-M4 handling prepare from M1
-M9 handling prepare from M1
-M6 handling prepare from M1
-M2 Handling promise from M8
-9M2 changed to propose new value from M8 : M3IsPresident
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M5
-*M2 Received replies from 3 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 43
-M8 handling prepare from M2
-M7 handling prepare from M2
-M4 handling prepare from M2
-M4 handling prepare from M2
-M9 handling prepare from M2
-M5 handling prepare from M2
-M5 handling prepare from M2
-M6 handling prepare from M2
-M3 has gone camping :(
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 43
-M9 handling prepare from M3
-M5 handling prepare from M3
-M6 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-M4 handling prepare from M3
-M1 Handling promise from M5
-9M1 changed to propose new value from M5 : M3IsPresident
-M1 Handling promise from M7
-M1 Handling promise from M4
-M1 Handling promise from M8
-M1 Handling promise from M9
-M1 Handling promise from M6
-*M1 Received replies from 7 other members
-M9 handling propose from M1
-"M9 Ignoring old proposal from M1
-M6 handling propose from M1
-"M6 Ignoring old proposal from M1
-M5 handling propose from M1
-"M5 Ignoring old proposal from M1
-M4 handling propose from M1
-"M4 Ignoring old proposal from M1
-M7 handling propose from M1
-"M7 Ignoring old proposal from M1
-M8 handling propose from M1
-"M8 Ignoring old proposal from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M4
-9M2 changed to propose new value from M4 : M3IsPresident
-M2 Handling promise from M4
-M2 Handling promise from M9
-M2 Handling promise from M5
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 44
-M9 handling prepare from M2
-M5 handling prepare from M2
-M6 handling prepare from M2
-M8 handling prepare from M2
-M4 handling prepare from M2
-M7 handling prepare from M2
-M3 has gone camping :(
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 44
-M6 handling prepare from M3
-M5 handling prepare from M3
-M9 handling prepare from M3
-M8 handling prepare from M3
-M7 handling prepare from M3
-M4 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 43
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M6
-9M2 changed to propose new value from M6 : M3IsPresident
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M5
-M2 Handling promise from M8
-M2 Handling promise from M7
-M2 Handling promise from M4
-*M2 Received replies from 6 other members
-M5 handling propose from M2
-M5 handling propose from M2
-M5 handling propose from M2
-M9 handling propose from M2
-M4 handling propose from M2
-M4 handling propose from M2
-M4 handling propose from M2
-M7 handling propose from M2
-M7 handling propose from M2
-M7 handling propose from M2
-M8 handling propose from M2
-M6 handling propose from M2
-M3 Handling promise from M5
-9M3 changed to propose new value from M5 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M7
-M3 has gone camping :(
-M3 is back from camping :)
-M3 has gone camping :(
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 45
-M6 handling propose from M2
-M6 handling propose from M2
-M4 handling prepare from M3
-M9 handling prepare from M3
-M7 handling prepare from M3
-M8 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 44
-M4 handling prepare from M1
-!M4 Ignoring old prepare from M1
-M7 handling prepare from M1
-!M7 Ignoring old prepare from M1
-M8 handling prepare from M1
-!M8 Ignoring old prepare from M1
-M5 handling prepare from M1
-!M5 Ignoring old prepare from M1
-M6 handling prepare from M1
-!M6 Ignoring old prepare from M1
-M9 handling prepare from M1
-!M9 Ignoring old prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling accept from M5
-M2 Handling accept from M9
-M2 Handling accept from M4
-M2 has left the cafe :(
-*M2 Received replies from 1 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 45
-M6 handling prepare from M2
-M5 handling prepare from M2
-M7 handling prepare from M2
-M8 handling prepare from M2
-M3 Handling promise from M4
-9M3 changed to propose new value from M4 : M3IsPresident
-M3 Handling promise from M9
-M3 Handling promise from M8
-M3 Handling promise from M7
-M3 has gone camping :(
-M3 is back from camping :)
-*M3 Received replies from 5 other members
-M4 handling prepare from M2
-M9 handling prepare from M2
-M9 handling propose from M3
-"M9 Ignoring old proposal from M3
-M5 handling propose from M3
-"M5 Ignoring old proposal from M3
-M6 handling propose from M3
-"M6 Ignoring old proposal from M3
-M8 handling propose from M3
-"M8 Ignoring old proposal from M3
-M7 handling propose from M3
-"M7 Ignoring old proposal from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 45
-M4 handling propose from M3
-"M4 Ignoring old proposal from M3
-M8 handling prepare from M1
-M7 handling prepare from M1
-M5 handling prepare from M1
-M6 handling prepare from M1
-M9 handling prepare from M1
-M4 handling prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M8
-9M2 changed to propose new value from M8 : M3IsPresident
-M2 Handling promise from M7
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M4
-*M2 Received replies from 4 other members
-GM2 Failed prepare, will retry value M3IsPresident with higher ID - 46
-M4 handling prepare from M2
-M8 handling prepare from M2
-M7 handling prepare from M2
-M3 has gone camping :(
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 46
-M9 handling prepare from M2
-M9 handling prepare from M3
-M6 handling prepare from M2
-M5 handling prepare from M2
-M6 handling prepare from M3
-M5 handling prepare from M3
-M4 handling prepare from M3
-M7 handling prepare from M3
-M8 handling prepare from M3
-M1 Handling promise from M8
-9M1 changed to propose new value from M8 : M3IsPresident
-M1 Handling promise from M7
-M1 Handling promise from M6
-M1 Handling promise from M5
-M1 Handling promise from M9
-M1 Handling promise from M4
-*M1 Received replies from 7 other members
-M4 handling propose from M1
-"M4 Ignoring old proposal from M1
-M8 handling propose from M1
-"M8 Ignoring old proposal from M1
-M7 handling propose from M1
-"M7 Ignoring old proposal from M1
-M6 handling propose from M1
-"M6 Ignoring old proposal from M1
-M5 handling propose from M1
-"M5 Ignoring old proposal from M1
-M9 handling propose from M1
-"M9 Ignoring old proposal from M1
-M2 Handling promise from M4
-9M2 changed to propose new value from M4 : M3IsPresident
-M2 Handling promise from M8
-M2 Handling promise from M7
-M2 Handling promise from M9
-M2 Handling promise from M6
-M2 has left the cafe :(
-*M2 Received replies from 6 other members
-M7 handling propose from M2
-M8 handling propose from M2
-M4 handling propose from M2
-M3 Handling promise from M9
-9M3 changed to propose new value from M9 : M3IsPresident
-M3 Handling promise from M6
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M4
-M3 Handling promise from M7
-M3 Handling promise from M8
-M3 has gone camping :(
-*M3 Received replies from 6 other members
-M9 handling propose from M2
-M6 handling propose from M2
-M6 handling propose from M3
-"M6 Ignoring old proposal from M3
-M9 handling propose from M3
-"M9 Ignoring old proposal from M3
-M5 handling propose from M2
-M5 handling propose from M3
-"M5 Ignoring old proposal from M3
-M7 handling propose from M3
-"M7 Ignoring old proposal from M3
-M8 handling propose from M3
-"M8 Ignoring old proposal from M3
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 46
-M4 handling propose from M3
-"M4 Ignoring old proposal from M3
-M7 handling prepare from M1
-M8 handling prepare from M1
-M6 handling prepare from M1
-M9 handling prepare from M1
-M5 handling prepare from M1
-M4 handling prepare from M1
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling accept from M8
-M2 Handling accept from M6
-M2 Handling accept from M9
-M2 Handling accept from M5
-M2 Handling accept from M4
-M2 has left the cafe :(
-*M2 Received replies from 6 other members
-M3 has gone camping :(
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 47
-M8 handling prepare from M3
-M4 handling prepare from M3
-M7 handling prepare from M3
-M5 handling prepare from M3
-M9 handling prepare from M3
-M6 handling prepare from M3
-M1 Handling promise from M7
-9M1 changed to propose new value from M7 : M3IsPresident
-M1 Handling promise from M8
-M1 Handling promise from M5
-M1 Handling promise from M9
-M1 Handling promise from M6
-M1 Handling promise from M4
-*M1 Received replies from 7 other members
-M7 handling propose from M1
-"M7 Ignoring old proposal from M1
-M4 handling propose from M1
-"M4 Ignoring old proposal from M1
-M8 handling propose from M1
-"M8 Ignoring old proposal from M1
-M6 handling propose from M1
-"M6 Ignoring old proposal from M1
-M9 handling propose from M1
-"M9 Ignoring old proposal from M1
-M5 handling propose from M1
-"M5 Ignoring old proposal from M1
-*Client M7 committed value: M3IsPresident
-*Client M4 committed value: M3IsPresident
-*Client M8 committed value: M3IsPresident
-*Client M9 committed value: M3IsPresident
-*Client M6 committed value: M3IsPresident
-*Client M5 committed value: M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M8
-9M3 changed to propose new value from M8 : M3IsPresident
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M6
-M3 has gone camping :(
-M3 is back from camping :)
-M3 has gone camping :(
-*M3 Received replies from 1 other members
-GM3 Failed prepare, will retry value M3IsPresident with higher ID - 48
-*Client M3 committed value: M3IsPresident
-*M1 Received replies from 1 other members
-GM1 Failed prepare, will retry value M3IsPresident with higher ID - 47
-*Client M1 committed value: M3IsPresident
-*Client M2 committed value: M3IsPresident
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Using input port
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-"Server is listening on port 4434
-New client connected
-Setting up client with ID 3
-Acting as acceptor
-New client connected
-Setting up client with ID 9
-Acting as acceptor
-Connecting to server
-New client connected
-Setting up client with ID 7
-Acting as acceptor
-New client connected
-Setting up client with ID 5
-Acting as acceptor
-New client connected
-Setting up client with ID 8
-Acting as acceptor
-New client connected
-Setting up client with ID 1
-Acting as acceptor
-New client connected
-Setting up client with ID 6
-Acting as acceptor
-New client connected
-Setting up client with ID 4
-Acting as acceptor
-New client connected
-Setting up client with ID 2
-Starting up as M2
-Acting as proposer
-M3 handling prepare from M2
-M9 handling prepare from M2
-M7 handling prepare from M2
-M4 handling prepare from M2
-M8 handling prepare from M2
-M6 handling prepare from M2
-M1 handling prepare from M2
-M5 handling prepare from M2
-M2 Handling promise from M3
-M2 Handling promise from M9
-M2 Handling promise from M8
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling promise from M7
-M2 Handling promise from M6
-M2 Handling promise from M1
-M2 has left the cafe :(
-*M2 Received replies from 7 other members
-M4 handling propose from M2
-M8 handling propose from M2
-M3 handling propose from M2
-M7 handling propose from M2
-M9 handling propose from M2
-M6 handling propose from M2
-M1 handling propose from M2
-M5 handling propose from M2
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling accept from M7
-M2 Handling accept from M4
-M2 has left the cafe :(
-M2 is back at the cafe :)
-M2 Handling accept from M6
-M2 Handling accept from M1
-M2 Handling accept from M5
-*M2 Received replies from 6 other members
-*Client M4 committed value: M2IsPresident
-*Client M7 committed value: M2IsPresident
-*Client M3 committed value: M2IsPresident
-*Client M8 committed value: M2IsPresident
-*Client M5 committed value: M2IsPresident
-*Client M9 committed value: M2IsPresident
-*Client M6 committed value: M2IsPresident
-*Client M1 committed value: M2IsPresident
-*Client M2 committed value: M2IsPresident
-Using input port
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-"Server is listening on port 1234
-New client connected
-Setting up client with ID 8
-Acting as acceptor
-New client connected
-Setting up client with ID 5
-Acting as acceptor
-New client connected
-Setting up client with ID 6
-Acting as acceptor
-Connecting to server
-New client connected
-Setting up client with ID 7
-Acting as acceptor
-New client connected
-Setting up client with ID 9
-Acting as acceptor
-New client connected
-Setting up client with ID 4
-Acting as acceptor
-New client connected
-Setting up client with ID 3
-Acting as acceptor
-New client connected
-Setting up client with ID 2
-Acting as proposer
-M6 handling prepare from M2
-M6 handling prepare from M2
-M7 handling prepare from M2
-M3 handling prepare from M2
-M4 handling prepare from M2
-M8 handling prepare from M2
-M9 handling prepare from M2
-M5 handling prepare from M2
-Connecting to server
-New client connected
-Setting up client with ID 1
-Acting as proposer
-M2 Handling not connected
-M2 Handling promise from M6
-M2 Handling promise from M6
-M2 Handling promise from M7
-M2 Handling promise from M3
-M2 Handling promise from M4
-M2 Handling promise from M5
-M2 Handling promise from M9
-M2 Handling promise from M8
-*M2 Received replies from 8 other members
-!Client M2 committed value: STOP
-M8 handling propose from M2
-M5 handling propose from M2
-M9 handling propose from M2
-M4 handling propose from M2
-M3 handling propose from M2
-M6 handling propose from M2
-M7 handling propose from M2
-M4 handling prepare from M1
-M7 handling prepare from M1
-M6 handling prepare from M1
-M3 handling prepare from M1
-M9 handling prepare from M1
-M8 handling prepare from M1
-M5 handling prepare from M1
-M1 Handling promise from M4
-9M1 changed to propose new value from M4 : M2IsPresident
-M1 Handling promise from M6
-M1 Handling promise from M3
-M1 Handling promise from M8
-M1 Handling promise from M5
-M1 Handling promise from M7
-M1 Handling promise from M9
-*M1 Received replies from 8 other members
-M7 handling propose from M1
-M3 handling propose from M1
-M6 handling propose from M1
-M4 handling propose from M1
-M8 handling propose from M1
-M5 handling propose from M1
-M9 handling propose from M1
-M1 Handling accept from M3
-M1 Handling accept from M7
-M1 Handling accept from M6
-M1 Handling accept from M8
-M1 Handling accept from M5
-M1 Handling accept from M9
-M1 Handling accept from M4
-*M1 Received replies from 8 other members
-*Client M5 committed value: M2IsPresident
-*Client M4 committed value: M2IsPresident
-*Client M8 committed value: M2IsPresident
-*Client M3 committed value: M2IsPresident
-*Client M7 committed value: M2IsPresident
-*Client M6 committed value: M2IsPresident
-*Client M9 committed value: M2IsPresident
-*Client M1 committed value: M2IsPresident
-Connecting to server
-Connecting to server
-Using input port
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-"Server is listening on port 8432
-New client connected
-Setting up client with ID 1
-Acting as acceptor
-New client connected
-Setting up client with ID 6
-Acting as acceptor
-Connecting to server
-New client connected
-Setting up client with ID 8
-Acting as acceptor
-New client connected
-Setting up client with ID 5
-Acting as acceptor
-New client connected
-Setting up client with ID 9
-Acting as acceptor
-New client connected
-Setting up client with ID 4
-Acting as acceptor
-New client connected
-Setting up client with ID 2
-Acting as acceptor
-New client connected
-Setting up client with ID 7
-Acting as acceptor
-New client connected
-Setting up client with ID 3
-Starting up as M3
-Acting as proposer
-M6 handling prepare from M3
-M9 handling prepare from M3
-M1 handling prepare from M3
-M5 handling prepare from M3
-M7 handling prepare from M3
-M2 handling prepare from M3
-M4 handling prepare from M3
-M8 handling prepare from M3
-M8 handling prepare from M3
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M9
-M3 Handling promise from M5
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M7
-M3 Handling promise from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M8
-M3 Handling promise from M8
-*M3 Received replies from 6 other members
-M1 handling propose from M3
-M5 handling propose from M3
-M9 handling propose from M3
-M2 handling propose from M3
-M2 handling propose from M3
-M2 handling propose from M3
-M2 handling propose from M3
-M2 handling propose from M3
-M4 handling propose from M3
-M7 handling propose from M3
-M8 handling propose from M3
-M8 handling propose from M3
-M6 handling propose from M3
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling accept from M5
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling accept from M2
-M3 Handling accept from M2
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling accept from M4
-M3 has gone camping :(
-*M3 Received replies from 4 other members
-FM3 Failed prepare, will retry value M3IsPresident with higher ID - 2
-M6 handling prepare from M3
-M7 handling prepare from M3
-M4 handling prepare from M3
-M2 handling prepare from M3
-M8 handling prepare from M3
-M1 handling prepare from M3
-M5 handling prepare from M3
-M5 handling prepare from M3
-M9 handling prepare from M3
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M7
-9M3 changed to propose new value from M7 : M3IsPresident
-M3 has gone camping :(
-*M3 Received replies from 2 other members
-FM3 Failed prepare, will retry value M3IsPresident with higher ID - 3
-M7 handling prepare from M3
-M4 handling prepare from M3
-M4 handling prepare from M3
-M4 handling prepare from M3
-M4 handling prepare from M3
-M1 handling prepare from M3
-M5 handling prepare from M3
-M9 handling prepare from M3
-M2 handling prepare from M3
-M8 handling prepare from M3
-M6 handling prepare from M3
-M6 handling prepare from M3
-M6 handling prepare from M3
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M7
-9M3 changed to propose new value from M7 : M3IsPresident
-M3 Handling promise from M1
-*M3 Received replies from 1 other members
-FM3 Failed prepare, will retry value M3IsPresident with higher ID - 4
-M9 handling prepare from M3
-M1 handling prepare from M3
-M7 handling prepare from M3
-M4 handling prepare from M3
-M6 handling prepare from M3
-M5 handling prepare from M3
-M8 handling prepare from M3
-M2 handling prepare from M3
-M3 Handling promise from M9
-9M3 changed to propose new value from M9 : M3IsPresident
-M3 Handling promise from M1
-M3 Handling promise from M4
-M3 Handling promise from M7
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling promise from M8
-M3 Handling promise from M2
-*M3 Received replies from 7 other members
-M2 handling propose from M3
-M7 handling propose from M3
-M8 handling propose from M3
-M6 handling propose from M3
-M5 handling propose from M3
-M4 handling propose from M3
-M9 handling propose from M3
-M1 handling propose from M3
-M3 has gone camping :(
-M3 is back from camping :)
-M3 Handling accept from M5
-M3 Handling accept from M4
-M3 Handling accept from M9
-M3 Handling accept from M1
-*M3 Received replies from 5 other members
-*Client M1 committed value: M3IsPresident
-*Client M9 committed value: M3IsPresident
-*Client M6 committed value: M3IsPresident
-*Client M5 committed value: M3IsPresident
-*Client M7 committed value: M3IsPresident
-*Client M2 committed value: M3IsPresident
-*Client M8 committed value: M3IsPresident
-*Client M4 committed value: M3IsPresident
-*Client M3 committed value: M3IsPresident
-Using input port
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-"Server is listening on port 7354
-New client connected
-Setting up client with ID 8
-Acting as acceptor
-New client connected
-Setting up client with ID 5
-Acting as acceptor
-Connecting to server
-New client connected
-Setting up client with ID 7
-Acting as acceptor
-New client connected
-Setting up client with ID 9
-Acting as acceptor
-New client connected
-Setting up client with ID 3
-Acting as acceptor
-New client connected
-Setting up client with ID 6
-Acting as acceptor
-New client connected
-Setting up client with ID 2
-Acting as acceptor
-New client connected
-Setting up client with ID 4
-Acting as acceptor
-New client connected
-Setting up client with ID 1
-Acting as proposer
-M8 handling prepare from M1
-M9 handling prepare from M1
-M6 handling prepare from M1
-M2 handling prepare from M1
-M4 handling prepare from M1
-M3 handling prepare from M1
-M1 Handling promise from M8
-M1 Handling promise from M9
-M1 Handling promise from M6
-M1 Handling promise from M2
-M1 Handling promise from M4
-M1 Handling promise from M3
-*M1 Received replies from 7 other members
-*M1 Received replies from 1 other members
-FM1 Failed prepare, will retry value M1IsPresident with higher ID - 2
-M7 handling prepare from M1
-M2 handling prepare from M1
-M6 handling prepare from M1
-M9 handling prepare from M1
-M1 Handling promise from M7
-M1 Handling promise from M2
-M1 Handling promise from M6
-M1 Handling promise from M9
-*M1 Received replies from 5 other members
-M5 handling propose from M1
-M9 handling propose from M1
-M7 handling propose from M1
-M4 handling propose from M1
-M3 handling propose from M1
-M1 Handling accept from M9
-M1 Handling accept from M5
-M1 Handling accept from M4
-M1 Handling accept from M3
-M1 Handling accept from M7
-*M1 Received replies from 6 other members
-*Client M2 committed value: M1IsPresident
-*Client M6 committed value: M1IsPresident
-*Client M5 committed value: M1IsPresident
-*Client M4 committed value: M1IsPresident
-*Client M3 committed value: M1IsPresident
-*Client M8 committed value: M1IsPresident
-*Client M7 committed value: M1IsPresident
-*Client M9 committed value: M1IsPresident
-*Client M1 committed value: M1IsPresident
-Connecting to server
-Using input port
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-Connecting to server
-"Server is listening on port 1198
-New client connected
-Setting up client with ID 2
-Acting as acceptor
-Connecting to server
-New client connected
-Setting up client with ID 5
-Acting as acceptor
-New client connected
-Setting up client with ID 9
-Acting as acceptor
-New client connected
-Setting up client with ID 8
-Acting as acceptor
-New client connected
-Setting up client with ID 4
-Acting as acceptor
-New client connected
-Setting up client with ID 3
-Acting as acceptor
-New client connected
-Setting up client with ID 7
-Acting as acceptor
-New client connected
-Setting up client with ID 1
-Acting as proposer
-New client connected
-Setting up client with ID 6
-Acting as acceptor
-M9 handling prepare from M1
-M2 handling prepare from M1
-M5 handling prepare from M1
-M8 handling prepare from M1
-M8 handling prepare from M1
-M7 handling prepare from M1
-M4 handling prepare from M1
-M3 handling prepare from M1
-M6 handling prepare from M1
-M1 Handling promise from M5
-M1 Handling promise from M9
-M1 Handling promise from M2
-M1 Handling promise from M8
-M1 Handling promise from M8
-M1 Handling promise from M7
-M1 Handling promise from M4
-M1 Handling promise from M3
-M1 Handling promise from M6
-*M1 Received replies from 9 other members
-M6 handling propose from M1
-M9 handling propose from M1
-M2 handling propose from M1
-M5 handling propose from M1
-M2 handling propose from M1
-M2 handling propose from M1
-M2 handling propose from M1
-M2 handling propose from M1
-M2 handling propose from M1
-M2 handling propose from M1
-M3 handling propose from M1
-M3 handling propose from M1
-M3 handling propose from M1
-M3 handling propose from M1
-M3 handling propose from M1
-M3 handling propose from M1
-M3 handling propose from M1
-M4 handling propose from M1
-M8 handling propose from M1
-M7 handling propose from M1
-M1 Handling accept from M5
-M1 Handling accept from M9
-M1 Handling accept from M2
-M1 Handling accept from M2
-M1 Handling accept from M2
-M1 Handling accept from M2
-M1 Handling accept from M2
-M1 Handling accept from M2
-M1 Handling accept from M2
-M1 Handling accept from M6
-M1 Handling accept from M3
-M1 Handling accept from M3
-M1 Handling accept from M3
-*M1 Received replies from 1 other members
-FM1 Failed prepare, will retry value M1IsPresident with higher ID - 2
-M4 handling prepare from M1
-M3 handling prepare from M1
-M8 handling prepare from M1
-M7 handling prepare from M1
-M2 handling prepare from M1
-M6 handling prepare from M1
-M9 handling prepare from M1
-M5 handling prepare from M1
-M1 Handling promise from M3
-9M1 changed to propose new value from M3 : M1IsPresident
-M1 Handling promise from M8
-M1 Handling promise from M7
-M1 Handling promise from M2
-M1 Handling promise from M6
-M1 Handling promise from M9
-M1 Handling promise from M5
-M1 Handling promise from M4
-*M1 Received replies from 9 other members
-M6 handling propose from M1
-M2 handling propose from M1
-M9 handling propose from M1
-M5 handling propose from M1
-M8 handling propose from M1
-M4 handling propose from M1
-M3 handling propose from M1
-M7 handling propose from M1
-M1 Handling accept from M6
-M1 Handling accept from M5
-M1 Handling accept from M9
-M1 Handling accept from M2
-M1 Handling accept from M8
-M1 Handling accept from M3
-M1 Handling accept from M7
-M1 Handling accept from M4
-*M1 Received replies from 9 other members
-*Client M7 committed value: M1IsPresident
-*Client M4 committed value: M1IsPresident
-*Client M3 committed value: M1IsPresident
-*Client M8 committed value: M1IsPresident
-*Client M9 committed value: M1IsPresident
-*Client M5 committed value: M1IsPresident
-*Client M6 committed value: M1IsPresident
-*Client M2 committed value: M1IsPresident
-*Client M1 committed value: M1IsPresident
-Using input port
-"Server is listening on port 1254
-New client connected
-Setting up client with ID 1
-New client connected
-Setting up client with ID 2
- Using input port
- "Server is listening on port 1255
- New client connected
- Setting up client with ID 1
- New client connected
- 4Error in server thread: Duplicate client connected
- !1java.lang.Exception: Duplicate client connected
-!Using input port
- !2	at paxos.ServerThread.run(ServerThread.java:91)
- !+	at java.lang.Thread.run(Thread.java:750)
-!"Server is listening on port 1256
-!New client connected
-!Setting up client with ID 1
-"Using input port
-""Server is listening on port 1257
-"New client connected
-"Setting up client with ID 1
-"New client connected
- 4Error in server thread: Duplicate client connected
- #1java.lang.Exception: Duplicate client connected
- #2	at paxos.ServerThread.run(ServerThread.java:91)
- #+	at java.lang.Thread.run(Thread.java:750)
-#Using input port
-#"Server is listening on port 1258
-#New client connected
-#Setting up client with ID 1
-#New client connected
-#Setting up client with ID 2
